@@ -36,8 +36,6 @@ public class PersonController {
 
     @PostMapping("/addperson")
     public String postAddPerson(@ModelAttribute Person person, Model model) {
-        model.addAttribute("person", person);
-        System.out.println("Zapisuje!");
         personRepository.save(person);
         return "redirect:addperson";
     }

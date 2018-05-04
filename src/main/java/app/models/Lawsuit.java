@@ -21,6 +21,7 @@ import javax.persistence.OneToMany;
 @Table
 public class Lawsuit extends Model{
 
+    private String courtFileReference;
     private String description;
     
     @ManyToOne
@@ -88,6 +89,20 @@ public class Lawsuit extends Model{
      */
     public void setParty(List<Party> party) {
         this.party = party;
+    }
+
+    /**
+     * @return the courtFileReference
+     */
+    public String getCourtFileReference() {
+        return courtFileReference;
+    }
+
+    /**
+     * @param courtFileReference the courtFileReference to set
+     */
+    public void setCourtFileReference(String courtFileReference) {
+        this.courtFileReference = courtFileReference;
     }
     
     
