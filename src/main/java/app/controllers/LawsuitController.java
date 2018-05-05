@@ -13,6 +13,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import app.services.UserService;
+import app.models.Party;
 
 /**
  *
@@ -22,6 +24,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 public class LawsuitController {
     @Autowired
     LawsuitRepository lawsuitRepository;
+    @Autowired
+    UserService userService;
+    
     
     @GetMapping("/addlawsuit")
     public String getAddLawsuit(Model model){
@@ -32,7 +37,9 @@ public class LawsuitController {
     
     @PostMapping("/addlawsuit")
     public String postAddLawsuit(@ModelAttribute Lawsuit lawsuit){
+        lawsuit.setUser(userService.getLoggedInUser());
         lawsuitRepository.save(lawsuit);
-        return "redirect:addlawsuit";
+        return "addperson";
     }
+    
 }

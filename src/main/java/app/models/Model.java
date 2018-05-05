@@ -8,9 +8,12 @@ import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 import javax.persistence.PrePersist;
 import javax.persistence.Version;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 
 @MappedSuperclass
 public abstract class Model {
+    
     @GeneratedValue
     @Id
     private Long id;
@@ -24,7 +27,7 @@ public abstract class Model {
     void createdAt() {
         this.setDateCreated(new Date());
     }
-
+           
     public Long getId() {
         return id;
     }
@@ -32,7 +35,7 @@ public abstract class Model {
     public void setId(Long id) {
         this.id = id;
     }
-
+    
     public Date getDateCreated() {
         return dateCreated;
     }
@@ -48,4 +51,5 @@ public abstract class Model {
     public void setDateModified(Timestamp dateModified) {
         this.dateModified = dateModified;
     }
+
 }

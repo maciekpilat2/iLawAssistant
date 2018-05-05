@@ -20,6 +20,7 @@ import org.springframework.stereotype.Service;
 import app.Application;
 import app.models.User;
 import app.repositories.UserRepository;
+import org.springframework.security.core.Authentication;
 
 @Service
 public class UserService implements UserDetailsService {
@@ -36,6 +37,17 @@ public class UserService implements UserDetailsService {
     private HttpSession httpSession;
     
     public final String CURRENT_USER_KEY = "CURRENT_USER";
+    
+    @Autowired
+    UserRepository userRepository;
+
+    
+    // zwracam id zalogowanego usera
+    public Long loggedUserId() {
+
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        return userRepository.findOneByUserName(auth.getName()).getId();
+    }
     
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {

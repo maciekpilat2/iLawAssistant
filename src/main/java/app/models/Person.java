@@ -25,6 +25,13 @@ public class Person extends Model{
     @ManyToOne
     private Party party;
 
+    @Override
+    public String toString() {
+        return "Person{" + "personTitle=" + personTitle + ", personFirstName=" + personFirstName + ", personLastName=" + personLastName + ", personCompanyName=" + personCompanyName + ", party=" + party + '}';
+    }
+    
+    
+
     /**
      * @return the personTitle
      */

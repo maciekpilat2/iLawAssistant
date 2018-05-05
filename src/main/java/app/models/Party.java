@@ -19,27 +19,13 @@ import javax.persistence.Table;
 @Table
 public class Party extends Model {
 
-    private long partyType;
+    private Long partyType;
 
     @ManyToOne
     private Lawsuit lawsuit;
     
     @OneToMany(mappedBy = "party")
     private List<Person> person;
-    
-    /**
-     * @return the partyType
-     */
-    public long getPartyType() {
-        return partyType;
-    }
-
-    /**
-     * @param partyType the partyType to set
-     */
-    public void setPartyType(long partyType) {
-        this.partyType = partyType;
-    }
 
     /**
      * @return the lawsuit
@@ -67,6 +53,20 @@ public class Party extends Model {
      */
     public void setPerson(List<Person> person) {
         this.person = person;
+    }
+
+    /**
+     * @return the partyType
+     */
+    public Long getPartyType() {
+        return partyType;
+    }
+
+    /**
+     * @param partyType the partyType to set
+     */
+    public void setPartyType(Long partyType) {
+        this.partyType = partyType;
     }
 
       
