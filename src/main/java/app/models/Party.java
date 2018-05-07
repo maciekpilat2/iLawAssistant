@@ -6,6 +6,7 @@
 package app.models;
 
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
@@ -21,10 +22,10 @@ public class Party extends Model {
 
     private Long partyType;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     private Lawsuit lawsuit;
     
-    @OneToMany(mappedBy = "party")
+    @OneToMany(mappedBy = "party", cascade = CascadeType.ALL)
     private List<Person> person;
     
     /**

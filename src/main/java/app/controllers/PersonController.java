@@ -17,9 +17,11 @@ import app.formswrapper.PartyTypePersonWrap;
 import app.repositories.PartyTypeRepository;
 import app.models.Lawsuit;
 import app.models.Party;
+import app.repositories.LawsuitRepository;
 import app.repositories.PartyRepository;
 import java.util.ArrayList;
 import java.util.List;
+import app.services.UserService;
 
 /**
  *
@@ -34,6 +36,10 @@ public class PersonController {
     PartyTypeRepository partyTypeRepository;
     @Autowired
     PartyRepository partyRepository;
+    @Autowired
+    LawsuitRepository lawsuiteRepository;
+    @Autowired
+    UserService userService;
 
     @GetMapping("/addperson")
     public String getAddPerson(Model model) {
@@ -48,33 +54,35 @@ public class PersonController {
         return "redirect:addperson";
     }
 
-    @GetMapping("/addpersonasparty")
-    public String getAddPersonAsParty(Model model) {
-        PartyTypePersonWrap partyTypePersonWrap = new PartyTypePersonWrap();
-        model.addAttribute("partyTypePersonWrap", partyTypePersonWrap);
-        model.addAttribute("partyTypeList", partyTypeRepository.findAll());
-        return "addpersonasparty";
-    }
-
-    @PostMapping("/addpersonasparty")
-    public String postAddPersonAsParty(@ModelAttribute PartyTypePersonWrap partyTypePersonWrap) {
-        Party party = new Party();
-        
-        Person person = new Person();
-        person.setPersonFirstName(partyTypePersonWrap.getPerson().getPersonFirstName());
-        person.setPersonLastName(partyTypePersonWrap.getPerson().getPersonLastName());
-        person.setPersonTitle(partyTypePersonWrap.getPerson().getPersonTitle());
-        person.setPersonCompanyName(partyTypePersonWrap.getPerson().getPersonCompanyName());
-        //person.setParty(partyTypePersonWrap.get);
-        
-        List<Person> personList = new ArrayList<>();
-        personList.add(partyTypePersonWrap.getPerson());
-              
-        party.setPartyType(partyTypePersonWrap.getPartyType().getId());
-        party.setPerson(personList);
-        partyRepository.save(party);
-        personRepository.save(partyTypePersonWrap.getPerson());
-         return "redirect:addpersonasparty";
-    }
+    // dziala ale na razie bez potrzeby bo to robi Party
+//    @GetMapping("/addpersonasparty")
+//    public String getAddPersonAsParty(Model model) {
+//        PartyTypePersonWrap partyTypePersonWrap = new PartyTypePersonWrap();
+//        model.addAttribute("partyTypePersonWrap", partyTypePersonWrap);
+//        model.addAttribute("lawsuitList", lawsuiteRepository.findAllLawsuitsByUserId(userService.getLoggedInUser().getId()));
+//        model.addAttribute("partyTypeList", partyTypeRepository.findAll());
+//        return "addpersonasparty";
+//    }
+//
+//    @PostMapping("/addpersonasparty")
+//    public String postAddPersonAsParty(@ModelAttribute PartyTypePersonWrap partyTypePersonWrap) {
+//     Party party = new Party();
+//   
+//        Person person = new Person();
+//        person.setPersonFirstName(partyTypePersonWrap.getPerson().getPersonFirstName());
+//        person.setPersonLastName(partyTypePersonWrap.getPerson().getPersonLastName());
+//        person.setPersonTitle(partyTypePersonWrap.getPerson().getPersonTitle());
+//        person.setPersonCompanyName(partyTypePersonWrap.getPerson().getPersonCompanyName());
+//        //person.setParty(partyTypePersonWrap.get);
+//        
+//        List<Person> personList = new ArrayList<>();
+//        personList.add(partyTypePersonWrap.getPerson());
+//              
+//        party.setPartyType(partyTypePersonWrap.getPartyType().getId());
+//        party.setPerson(personList);
+//        partyRepository.save(party);
+//        personRepository.save(partyTypePersonWrap.getPerson());
+//         return "redirect:addpersonasparty";
+//    }
 
 }

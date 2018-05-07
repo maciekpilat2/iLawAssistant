@@ -15,11 +15,14 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import app.services.UserService;
 import app.models.Party;
+import org.springframework.web.bind.annotation.SessionAttribute;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
 /**
  *
  * @author Pilat
  */
+
 @Controller
 public class LawsuitController {
     @Autowired

@@ -10,6 +10,7 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 import app.models.User;
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
@@ -27,10 +28,10 @@ public class Lawsuit extends Model {
     @ManyToOne
     private User user;
 
-    @OneToMany(mappedBy = "lawsuit")
+    @OneToMany(mappedBy = "lawsuit", cascade = CascadeType.ALL)
     private List<Event> event;
 
-    @OneToMany(mappedBy = "lawsuit")
+    @OneToMany(mappedBy = "lawsuit", cascade = CascadeType.ALL)
     private List<Party> party;
 
     @Override
