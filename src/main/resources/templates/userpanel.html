@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>Panel uzytkownika</title>
+        <meta name="viewport" content="initial-scale=1.0, user-scalable=no"/>
+        <meta charset="utf-8"/>
+    </head>
+    <body>
+        <button type="button" class="btn btn-primary" onclick="location.href = '/addadress'">Dodaj adres</button>
+        <button type="button" class="btn btn-primary" onclick="location.href = '/addevent'">Dodaj wydarzenie</button>
+        <button type="button" class="btn btn-primary" onclick="location.href = '/addlawsuit'">Dodaj sprawę</button>
+        <button type="button" class="btn btn-primary" onclick="location.href = '/addscan';">Dodaj skan</button>
+        <button type="button" class="btn btn-primary" onclick="location.href = '/logout';">Wyloguj</button>
+        <table>
+            <tr th:each="u : ${userLawsuitList}">
+                <td th:text="${u.id}"></td>
+                <td th:text="${u.courtFileReference}"></td>
+                <td th:text="${u.description}"></td>
+                
+                <!--sprawdzić czy przekazuje się parametr-->
+
+                    <td> <button type="submit" name="lawsuitEventsButton" value="${u.id}" th:onclick="'location.href = \'' + @{/lawsuitpanel/(lawsuitId=${u.id})} + '\''">Szczególy</button></td>
+
+            </tr>
+        </table>
+    </body>
+</html>
+<!--<td> <button type="submit" name="lawsuitEventsButton" value="${u.id}" th:onclick="'location.href = \'' + @{/lawsuitpanel/(lawsuitId=${u.id})} + '\''">Szczególy</button></td>-->
+<!--th:onclick="'window.location.href = \'' + @{/deviceevent/list/{id}(id=${deviceEvent.id})} + '\''"-->

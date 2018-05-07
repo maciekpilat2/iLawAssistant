@@ -26,7 +26,7 @@ public class Party extends Model {
     
     @OneToMany(mappedBy = "party")
     private List<Person> person;
-
+    
     /**
      * @return the lawsuit
      */

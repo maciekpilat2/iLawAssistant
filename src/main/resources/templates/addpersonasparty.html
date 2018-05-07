@@ -12,8 +12,8 @@
     </head>
     <body>
         <div>Dodaj podmiot</div>
-        <form th:action="@{/addpersonasparty}" th:object="${partyTypePersonWrap}" method="post">
-            <select>
+        <form th:object="${partyTypePersonWrap}" th:action="@{/addpersonasparty}" method="post">
+            <select th:field="*{partyType.id}">
                 <table>
                     <tr th:each="t : ${partyTypeList}">
                         <option th:value="${t.id}" th:text="${t.name}" th:field="*{partyType.id}"></option>
@@ -25,7 +25,14 @@
             <input type="text" placeholder="Nazwisko" th:field="*{person.personLastName}"></input>
             <input type="text" placeholder="Firma" th:field="*{person.personCompanyName}"></input>
             <input type="submit" value="Zarwierdź"></input>
-            <p>Dla GIT</p>
         </form>
     </body>
 </html>
+
+<!--        <form th:object="${person}" th:action="@{/addperson}" method="post">
+            <input type="text" placeholder="Tytuł" th:field="*{personTitle}"/>
+            <input type="text" placeholder="Imię" th:field="*{personFirstName}"/>
+            <input type="text" placeholder="Nazwisko" th:field="*{personLastName}"/>
+            <input type="text" placeholder="Firma" th:field="*{personCompanyName}"/>
+            <input type="submit" value="Zarwierdź"/>
+        </form>-->

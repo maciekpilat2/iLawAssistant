@@ -5,19 +5,18 @@
  */
 package app.repositories;
 
+import app.models.Event;
 import java.io.Serializable;
-import org.springframework.data.repository.CrudRepository;
-import org.springframework.stereotype.Repository;
-import app.models.Lawsuit;
 import java.util.List;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.CrudRepository;
 /**
  *
  * @author Pilat
  */
-@Repository
-public interface LawsuitRepository extends CrudRepository<Lawsuit, Long>{
-
-@Query("select l from Lawsuit l where l.user.id =?1")
-    List<Lawsuit> findAllLawsuitsByUserId(Long userId);
+public interface EventRepository extends CrudRepository<Event, Long>{
+    
+    @Query("select e from Event e where e.id=?1")
+    List<Event> lawsuitEventsList(Long id);
+    
 }

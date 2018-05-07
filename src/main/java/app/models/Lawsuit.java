@@ -19,22 +19,25 @@ import javax.persistence.OneToMany;
  */
 @Entity
 @Table
-public class Lawsuit extends Model{
+public class Lawsuit extends Model {
 
     private String courtFileReference;
     private String description;
-    
+
     @ManyToOne
     private User user;
-    
+
     @OneToMany(mappedBy = "lawsuit")
     private List<Event> event;
-    
+
     @OneToMany(mappedBy = "lawsuit")
     private List<Party> party;
 
-    
-    
+    @Override
+    public String toString() {
+        return "Lawsuit{" + "courtFileReference=" + courtFileReference + ", description=" + description + ", user=" + user + ", event=" + event + ", party=" + party + '}';
+    }
+
     /**
      * @return the description
      */
@@ -104,6 +107,5 @@ public class Lawsuit extends Model{
     public void setCourtFileReference(String courtFileReference) {
         this.courtFileReference = courtFileReference;
     }
-    
-    
+
 }
