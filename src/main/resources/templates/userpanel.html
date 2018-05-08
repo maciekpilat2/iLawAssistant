@@ -17,14 +17,9 @@
                 <td th:text="${u.id}"></td>
                 <td th:text="${u.courtFileReference}"></td>
                 <td th:text="${u.description}"></td>
-                
-                <!--sprawdzić czy przekazuje się parametr-->
 
-                    <td> <button type="submit" name="lawsuitEventsButton" value="${u.id}" th:onclick="'location.href = \'' + @{/lawsuitpanel/(lawsuitId=${u.id})} + '\''">Szczególy</button></td>
-
+                <td> <button type="submit" name="lawsuitEventsButton" value="${u.id}" th:onclick="'location.href = \'' + @{/lawsuitpanel(lawsuitId=${u.id})} + '\''">Szczególy</button></td>
             </tr>
         </table>
     </body>
 </html>
-<!--<td> <button type="submit" name="lawsuitEventsButton" value="${u.id}" th:onclick="'location.href = \'' + @{/lawsuitpanel/(lawsuitId=${u.id})} + '\''">Szczególy</button></td>-->
-<!--th:onclick="'window.location.href = \'' + @{/deviceevent/list/{id}(id=${deviceEvent.id})} + '\''"-->

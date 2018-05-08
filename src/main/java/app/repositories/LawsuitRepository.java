@@ -20,4 +20,7 @@ public interface LawsuitRepository extends CrudRepository<Lawsuit, Long>{
 
 @Query("select l from Lawsuit l where l.user.id =?1")
     List<Lawsuit> findAllLawsuitsByUserId(Long userId);
+    
+@Query("select l from Lawsuit l where l.courtFileReference =?1")
+    Lawsuit findOneLawsuitsByCourtFileReference(String courtFileReference);    
 }

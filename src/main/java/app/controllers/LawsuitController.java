@@ -14,15 +14,16 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import app.services.UserService;
-import app.models.Party;
 import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import app.models.Party;
+
 
 /**
  *
  * @author Pilat
  */
-
+@SessionAttributes("lawsuit")
 @Controller
 public class LawsuitController {
     @Autowired
@@ -39,10 +40,10 @@ public class LawsuitController {
     }
     
     @PostMapping("/addlawsuit")
-    public String postAddLawsuit(@ModelAttribute Lawsuit lawsuit){
+    public String postAddLawsuit(@ModelAttribute("lawsuit") Lawsuit lawsuit){
         lawsuit.setUser(userService.getLoggedInUser());
         lawsuitRepository.save(lawsuit);
-        return "addperson";
+        return "redirect:addparty";
     }
     
 }

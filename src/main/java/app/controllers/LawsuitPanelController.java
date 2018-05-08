@@ -5,16 +5,13 @@
  */
 package app.controllers;
 
-import app.models.Params;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.ui.Model;
-import app.models.Params;
+import org.springframework.web.bind.annotation.RequestParam;
+import app.repositories.EventRepository;
 import app.repositories.LawsuitRepository;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.ui.Model;
 
 /**
  *
@@ -25,14 +22,13 @@ public class LawsuitPanelController {
 
     @Autowired
     LawsuitRepository lawsuitRepository;
+    @Autowired
+    EventRepository eventRepository;
 
-    @GetMapping("/lawsuitpanel/{lawsuitId}")
-    public String postLawsuitEvents(Model model, @PathVariable Long lawsuitId) {
-
-//        model.addAttribute("eventsList", lawsuitRepository.findOne(lawsuitId));
-        System.out.println("Wyswietlam przekazany parametr: " + lawsuitId);
-
-        return "lawsuitepanel";
-        }
+    @GetMapping("/lawsuitpanel")
+    public String postLawsuitEvents(@RequestParam("lawsuitId") Long lawsuitId, Model model) {
+        model.addAttribute("lawsuit", lawsuitRepository.findOne(lawsuitId));
+        return "lawsuitpanel";
+    }
 
 }

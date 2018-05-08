@@ -18,53 +18,53 @@ import javax.persistence.Table;
 @Table
 public class Event extends Model{
     
-    private String Note;
-    private Timestamp StartDate;
-    private Timestamp EndDate;
+    private String note;
+    private Timestamp startDate;
+    private Timestamp endDate;
     
     @ManyToOne
     private Lawsuit lawsuit;
 
     /**
-     * @return the Note
+     * @return the note
      */
     public String getNote() {
-        return Note;
+        return note;
     }
 
     /**
-     * @param Note the Note to set
+     * @param note the note to set
      */
-    public void setNote(String Note) {
-        this.Note = Note;
+    public void setNote(String note) {
+        this.note = note;
     }
 
     /**
-     * @return the StartDate
+     * @return the startDate
      */
     public Timestamp getStartDate() {
-        return StartDate;
+        return startDate;
     }
 
     /**
-     * @param StartDate the StartDate to set
+     * @param startDate the startDate to set
      */
-    public void setStartDate(Timestamp StartDate) {
-        this.StartDate = StartDate;
+    public void setStartDate(Timestamp startDate) {
+        this.startDate = startDate;
     }
 
     /**
-     * @return the EndDate
+     * @return the endDate
      */
     public Timestamp getEndDate() {
-        return EndDate;
+        return endDate;
     }
 
     /**
-     * @param EndDate the EndDate to set
+     * @param endDate the endDate to set
      */
-    public void setEndDate(Timestamp EndDate) {
-        this.EndDate = EndDate;
+    public void setEndDate(Timestamp endDate) {
+        this.endDate = endDate;
     }
 
     /**
@@ -80,6 +80,8 @@ public class Event extends Model{
     public void setLawsuit(Lawsuit lawsuit) {
         this.lawsuit = lawsuit;
     }
+
+   
     
     
 }
