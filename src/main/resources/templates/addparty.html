@@ -1,9 +1,5 @@
 <!DOCTYPE html>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
+
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
     <head>
         <title>TODO supply a title</title>
@@ -13,13 +9,13 @@ and open the template in the editor.
     <body>
         <div>Dodaj podmiot do postepowania:</div>
         <form th:object="${party}" th:action="@{/addparty}" method="post">
-            <select th:field="*{lawsuit.id}">
+<!--            <select th:field="*{lawsuit.id}">
                 <table>
                     <tr th:each="l : ${lawsuitList}">
                         <option th:value="${l.id}" th:text="${l.courtFileReference}" th:field="*{lawsuit.id}"></option>
                     </tr>
                 </table>
-            </select>
+            </select>-->
             <select th:field="*{partyType}">
                 <table>
                     <tr th:each="t : ${partyTypeList}">
@@ -33,5 +29,6 @@ and open the template in the editor.
             <input type="text" placeholder="Firma" th:field="*{person[0].personCompanyName}"></input>
             <input type="submit" value="Zarwierdź"></input>
         </form>
+        <button type="button" class="btn btn-primary" onclick="location.href = '/userpanel';">Powrót</button>
     </body>
 </html>

@@ -34,10 +34,6 @@ public class Lawsuit extends Model {
     @OneToMany(mappedBy = "lawsuit", cascade = CascadeType.ALL)
     private List<Party> party;
 
-    @Override
-    public String toString() {
-        return "Lawsuit{" + "courtFileReference=" + courtFileReference + ", description=" + description + ", user=" + user + ", event=" + event + ", party=" + party + '}';
-    }
 
     /**
      * @return the description

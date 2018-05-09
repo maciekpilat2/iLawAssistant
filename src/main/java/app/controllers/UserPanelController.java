@@ -6,7 +6,6 @@
 package app.controllers;
 
 import app.repositories.LawsuitRepository;
-import app.repositories.UserRepository;
 import app.services.UserService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,12 +27,8 @@ UserService userService;
         
     @GetMapping("/userpanel")
     public String getUserPanel(Model model) {
-        // pobieram listę spraw danego Usera
         List<Lawsuit> userLawsuitList = lawsuitRepository.findAllLawsuitsByUserId(userService.loggedUserId());
-        // by wyświetlić przekazuję pobraną listę do Widoku
-        model.addAttribute("userLawsuitList", userLawsuitList);
-        System.out.println("Wyswietlam sprawy usera: " + userLawsuitList.toString());
-        // Wyświetlam stronę o nazwie: "userpanel"        
+        model.addAttribute("userLawsuitList", userLawsuitList);      
         return "userpanel";
     }
 

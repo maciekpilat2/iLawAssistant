@@ -17,7 +17,6 @@
                 <td th:text="${u.id}"></td>
                 <td th:text="${u.courtFileReference}"></td>
                 <td th:text="${u.description}"></td>
-
                 <td> <button type="submit" name="lawsuitEventsButton" value="${u.id}" th:onclick="'location.href = \'' + @{/lawsuitpanel(lawsuitId=${u.id})} + '\''">Szczególy</button></td>
             </tr>
         </table>

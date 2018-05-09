@@ -14,9 +14,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import app.services.UserService;
-import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.bind.annotation.SessionAttributes;
-import app.models.Party;
 
 
 /**
@@ -41,8 +39,9 @@ public class LawsuitController {
     
     @PostMapping("/addlawsuit")
     public String postAddLawsuit(@ModelAttribute("lawsuit") Lawsuit lawsuit){
+        // dodaje userId
         lawsuit.setUser(userService.getLoggedInUser());
-        lawsuitRepository.save(lawsuit);
+        //nie spisuje bo zapisze się przy zapiesie Party inaczej będzie konflikt istnienia rekordu
         return "redirect:addparty";
     }
     

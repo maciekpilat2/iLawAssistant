@@ -25,6 +25,13 @@ public class Event extends Model{
     @ManyToOne
     private Lawsuit lawsuit;
 
+    @Override
+    public String toString() {
+        return "Event{" + "note=" + note + ", startDate=" + startDate + ", endDate=" + endDate + ", lawsuit=" + lawsuit + '}';
+    }
+
+    
+    
     /**
      * @return the note
      */

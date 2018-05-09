@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package app.controllers;
 
 import app.models.Lawsuit;
@@ -15,16 +11,19 @@ import app.repositories.PartyTypeRepository;
 import app.repositories.LawsuitRepository;
 import app.services.UserService;
 import app.repositories.PartyRepository;
+import app.repositories.PersonRepository;
+import java.util.ArrayList;
+import java.util.List;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.annotation.SessionAttribute;
+import app.models.Person;
 
 /**
  *
  * @author Pilat
  */
 @Controller
-@SessionAttributes("lawsuit")
 public class PartyController {
 
     @Autowired
@@ -35,21 +34,30 @@ public class PartyController {
     UserService userService;
     @Autowired
     PartyRepository partyRepository;
+    @Autowired
+    PersonRepository personRepository;
 
     @GetMapping("/addparty")
-    public String getAddParty(Model model, @ModelAttribute("lawsuit") Lawsuit lawsuit) {
+     public String getAddParty(Model model) {
         Party party = new Party();
         model.addAttribute("party", party);
         model.addAttribute("partyTypeList", partyTypeRepository.findAll());
-        model.addAttribute("lawsuitList", lawsuitRepository.findAllLawsuitsByUserId(userService.getLoggedInUser().getId()));
         return "addparty";
     }
 
     @PostMapping("/addparty")
-    public String postAddParty(@ModelAttribute Party party, @ModelAttribute("lawsuit") Lawsuit lawsuit){
-        party.setLawsuit(lawsuitRepository.findOneLawsuitsByCourtFileReference(lawsuit.getCourtFileReference()));
-        System.out.println("Zawartosc lawsuit2: " + lawsuit.toString());
+      public String postAddParty(@ModelAttribute Party party, @SessionAttribute("lawsuit")Lawsuit lawsuit){
+        List<Party> partyList = new ArrayList<>();
+        partyList.add(party);
+        lawsuit.setParty(partyList);
+        party.setLawsuit(lawsuit);
+
         partyRepository.save(party);
+        
+        
+
+        
+        
         return "redirect:addparty";
     }
 }

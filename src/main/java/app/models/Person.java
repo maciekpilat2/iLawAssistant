@@ -5,7 +5,10 @@
  */
 package app.models;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
@@ -22,7 +25,7 @@ public class Person extends Model{
     private String personLastName;
     private String personCompanyName;
     
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     private Party party;
 
     @Override

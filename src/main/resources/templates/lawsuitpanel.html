@@ -7,14 +7,34 @@
     </head>
     <body>
         <div>TODO write content</div>
+        <!--postepowania-->
         <table>
             <tr th:each="l : ${lawsuit.event}">
                 <td th:text="${l.id}"></td>
                 <td th:text="${l.note}"></td>
             </tr>
-        </table>                
-        <!--<button type="submit" name="addEventButton" value="${lawsuit.id}" th:onclick="'location.href = \'' + @{/addevent(lawsuitId=${lawsuit.id})} + '\''">Dodaj zdarzenie</button>-->
-<button type="submit" name="lawsuitEventsButton" value="${lawsuit.id}" th:onclick="'location.href = \'' + @{/addevent(lawsuitId=${lawsuit.id})} + '\''">Szczególy</button>
+        </table>       
+        <button type="submit" name="lawsuitEventsButton" value="${lawsuit.id}" th:onclick="'location.href = \'' + @{/addevent(lawsuitId=${lawsuit.id})} + '\''">Dodaj wydarzenie</button>
+        <!--strony-->
+<!--        <table>
+            <tr th:each="p : ${lawsuit.party}">
+                <td th:text="${p.id}"></td>
+            </tr>
+        </table>-->
+<table>
+    <tr th:each="p : ${lawsuit.party}">
+        <td>
+            <tr th:each="per: ${party.person}">
+                <p th:text="${per.personLastName}"></p>
+            </tr>
+        </td>
+    </tr>
+</table>
+        <!--powrót-->
+        <button type="button" onclick="location.href = '/userpanel';">Powrót</button>
 
     </body>
 </html>
+
+
+

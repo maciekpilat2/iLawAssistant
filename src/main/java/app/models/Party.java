@@ -27,7 +27,12 @@ public class Party extends Model {
     
     @OneToMany(mappedBy = "party", cascade = CascadeType.ALL)
     private List<Person> person;
-    
+
+    @Override
+    public String toString() {
+        return "Party{" + "partyType=" + partyType + ", lawsuit=" + lawsuit + ", person=" + person + '}';
+    }
+
     /**
      * @return the lawsuit
      */

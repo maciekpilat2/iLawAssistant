@@ -4,45 +4,53 @@
         <title>Doda postępowanie</title>
         <meta charset="UTF-8"/>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-        
-            <!--  jQuery -->
-    <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
 
-    <!-- Isolated Version of Bootstrap, not needed if your site already uses Bootstrap -->
-    <link rel="stylesheet" href="https://formden.com/static/cdn/bootstrap-iso.css" />
+        <!--  jQuery -->
+        <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
 
-    <!-- Bootstrap Date-Picker Plugin -->
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css"/>
-        
+        <!-- Isolated Version of Bootstrap, not needed if your site already uses Bootstrap -->
+        <link rel="stylesheet" href="https://formden.com/static/cdn/bootstrap-iso.css" />
+
+        <!-- Bootstrap Date-Picker Plugin -->
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css"/>
+
     </head>
     <body>
         <div>Doda wydarzenie do postępowania</div>
-        
+
         <form th:action="@{/addevent}" th:object="${event}" method="post">
             <input type="text" placeholder="Opis" th:field="*{note}"></input>
-                <!--bootstrap datetime picker START-->      
-                <div class='col-lg-2'>
-                    <div class="form-group"> <!-- Date input -->
-                        <input class="form-control" id="date" name="startDate" placeholder="MM/DD/YYY" type="text" path="eventStartDate"></input>
-                    </div>
+            <!--bootstrap datetime picker START-->      
+            <div class='col-lg-2'>
+                <div class="form-group"> <!-- Date input -->
+                    <input class="form-control" id="date" name="startDate" placeholder="MM/DD/YYY" type="text" th:field="*{startDate}"></input>
                 </div>
-                <div class='col-lg-2'>
-                    <div class="form-group"> <!-- Date input -->
-                        <input class="form-control" id="date" name="endDate" placeholder="MM/DD/YYY" type="text" path="eventEndDate"/></input>
-                    </div>
+            </div>
+            <div class='col-lg-2'>
+                <div class="form-group"> <!-- Date input -->
+                    <input class="form-control" id="date" name="endDate" placeholder="MM/DD/YYY" type="text" th:field="*{endDate}"></input>
                 </div>
             </div>
             <div class="row">
                 <div class="col-lg-2">
-                    <input type="submit"/>
-            <input type="submit" value="Zapisz"></input>
+                    <input type="submit" value="Zapisz"></input>
+                </div>
+            </div>
         </form>
     </body>
+    <!--KOD DATEPICKER-->
+    <script>
+        $(document).ready(function () {
+            var date_input = $('input[id="date"]'); //our date input has the name "date"
+            var container = $('.bootstrap-iso form').length > 0 ? $('.bootstrap-iso form').parent() : "body";
+            var options = {
+                format: 'yyyy-mm-dd 00:00:00',
+                container: container,
+                todayHighlight: true,
+                autoclose: true,
+            };
+            date_input.datepicker(options);
+        })
+    </script>
 </html>
-<!--    private String note;
-    private Timestamp startDate;
-    private Timestamp endDate;
-    
-    @ManyToOne
-    private Lawsuit lawsuit;-->
