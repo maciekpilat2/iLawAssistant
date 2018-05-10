@@ -12,17 +12,10 @@ import app.repositories.LawsuitRepository;
 import app.services.UserService;
 import app.repositories.PartyRepository;
 import app.repositories.PersonRepository;
-import java.util.ArrayList;
-import java.util.List;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.SessionAttribute;
-import app.models.Person;
 
-/**
- *
- * @author Pilat
- */
 @Controller
 public class PartyController {
 
@@ -46,18 +39,9 @@ public class PartyController {
     }
 
     @PostMapping("/addparty")
-      public String postAddParty(@ModelAttribute Party party, @SessionAttribute("lawsuit")Lawsuit lawsuit){
-        List<Party> partyList = new ArrayList<>();
-        partyList.add(party);
-        lawsuit.setParty(partyList);
+      public String postAddParty(@ModelAttribute Party party, @SessionAttribute("lawsuit")Lawsuit lawsuit){        
         party.setLawsuit(lawsuit);
-
         partyRepository.save(party);
-        
-        
-
-        
-        
         return "redirect:addparty";
     }
 }

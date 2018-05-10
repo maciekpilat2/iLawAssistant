@@ -7,8 +7,6 @@ package app.models;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
@@ -18,13 +16,13 @@ import javax.persistence.Table;
  */
 @Entity
 @Table
-public class Person extends Model{
+public class Person extends Model {
 
     private String personTitle;
     private String personFirstName;
     private String personLastName;
     private String personCompanyName;
-    
+
     @ManyToOne(cascade = CascadeType.ALL)
     private Party party;
 
@@ -32,8 +30,6 @@ public class Person extends Model{
     public String toString() {
         return "Person{" + "personTitle=" + personTitle + ", personFirstName=" + personFirstName + ", personLastName=" + personLastName + ", personCompanyName=" + personCompanyName + ", party=" + party + '}';
     }
-    
-    
 
     /**
      * @return the personTitle
@@ -104,7 +100,5 @@ public class Person extends Model{
     public void setParty(Party party) {
         this.party = party;
     }
-    
-    
-    
+
 }

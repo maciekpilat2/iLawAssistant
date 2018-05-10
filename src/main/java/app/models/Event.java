@@ -7,6 +7,7 @@ package app.models;
 
 import java.sql.Timestamp;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
@@ -16,13 +17,13 @@ import javax.persistence.Table;
  */
 @Entity
 @Table
-public class Event extends Model{
-    
+public class Event extends Model {
+
     private String note;
     private Timestamp startDate;
     private Timestamp endDate;
-    
-    @ManyToOne
+
+    @ManyToOne(fetch = FetchType.EAGER)
     private Lawsuit lawsuit;
 
     @Override
@@ -30,8 +31,6 @@ public class Event extends Model{
         return "Event{" + "note=" + note + ", startDate=" + startDate + ", endDate=" + endDate + ", lawsuit=" + lawsuit + '}';
     }
 
-    
-    
     /**
      * @return the note
      */
@@ -88,7 +87,4 @@ public class Event extends Model{
         this.lawsuit = lawsuit;
     }
 
-   
-    
-    
 }

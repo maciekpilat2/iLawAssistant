@@ -7,11 +7,12 @@
     </head>
     <body>
         <div>Doda postępowanie</div>
-        
+
         <form th:action="@{/addlawsuit}" th:object="${lawsuit}" method="post">
             <input type="text" placeholder="Sygnatura" th:field="*{courtFileReference}"></input>
             <input type="text" placeholder="Opis" th:field="*{description}"></input>
             <input type="submit" value="Zapisz"></input>
         </form>
+        <button type="button" onclick="location.href = '/userpanel';">Powrót</button>
     </body>
 </html>

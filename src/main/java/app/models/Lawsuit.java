@@ -34,6 +34,9 @@ public class Lawsuit extends Model {
     @OneToMany(mappedBy = "lawsuit", cascade = CascadeType.ALL)
     private List<Party> party;
 
+ 
+
+    
 
     /**
      * @return the description

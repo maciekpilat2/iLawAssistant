@@ -12,6 +12,7 @@ import app.repositories.EventRepository;
 import app.repositories.LawsuitRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
  *
@@ -25,7 +26,7 @@ public class LawsuitPanelController {
     @Autowired
     EventRepository eventRepository;
 
-    @GetMapping("/lawsuitpanel")
+    @RequestMapping("/lawsuitpanel")
     public String postLawsuitEvents(@RequestParam("lawsuitId") Long lawsuitId, Model model) {
         model.addAttribute("lawsuit", lawsuitRepository.findOne(lawsuitId));
         return "lawsuitpanel";
