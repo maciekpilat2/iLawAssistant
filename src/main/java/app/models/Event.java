@@ -25,6 +25,7 @@ public class Event extends Model {
     private String note;
     private Timestamp startDate;
     private Timestamp endDate;
+    private Long eventType;
 
     @ManyToOne(fetch = FetchType.EAGER)
     private Lawsuit lawsuit;
@@ -34,8 +35,10 @@ public class Event extends Model {
 
     @Override
     public String toString() {
-        return "Event{" + "note=" + note + ", startDate=" + startDate + ", endDate=" + endDate + ", lawsuit=" + lawsuit + '}';
+        return "Event{" + "note=" + note + ", startDate=" + startDate + ", endDate=" + endDate + ", eventType=" + eventType + ", lawsuit=" + lawsuit + ", scan=" + scan + '}';
     }
+
+
 
     /**
      * @return the note
@@ -105,6 +108,20 @@ public class Event extends Model {
      */
     public void setScan(List<Scan> scan) {
         this.scan = scan;
+    }
+
+    /**
+     * @return the eventType
+     */
+    public Long getEventType() {
+        return eventType;
+    }
+
+    /**
+     * @param eventType the eventType to set
+     */
+    public void setEventType(Long eventType) {
+        this.eventType = eventType;
     }
 
 }

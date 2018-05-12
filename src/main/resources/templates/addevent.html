@@ -20,6 +20,15 @@
         <div>Doda wydarzenie do postępowania</div>
 
         <form th:action="@{/addevent}" th:object="${event}" method="post">
+            
+            <select th:field="*{eventType}">
+                <table>
+                    <tr th:each="et : ${eventType}">
+                        <option th:value="${et.id}" th:text="${et.eventTypeName}" th:field="*{id}"></option>
+                    </tr>
+                </table>
+            </select>
+            
             <input type="text" placeholder="Opis" th:field="*{note}"></input>
             <!--bootstrap datetime picker START-->      
             <div class='col-lg-2'>
@@ -42,5 +51,5 @@
     </body>
     <!--KOD DATEPICKER-->
 
-        <script src="/js/datePicker.js"></script>
+    <script src="/js/datePicker.js"></script>
 </html>

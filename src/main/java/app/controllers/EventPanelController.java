@@ -37,6 +37,8 @@ public class EventPanelController {
         Scan scan = new Scan();
         model.addAttribute("scan", scan);
         model.addAttribute("event", eventRepository.findOne(eventId));
+        model.addAttribute("scanList", scanRepository.findAllScanToEvent(eventId));
+        System.out.println("To lista skanów: " + scanRepository.findAllScanToEvent(eventId).contains(scan));
         return "eventpanel";
     }
     @PostMapping("/eventpanel")
@@ -68,7 +70,7 @@ public class EventPanelController {
 // zapisuje dane i url dla MySQL zenbox
         scan.setScanUrl("http://maciekpilat.pl/iLawAssistantScans/" + scan.getScanName());
         scan.setEvent(eventRepository.findOne(eventId));
-// wysylam zapytanie do api o OCR, zwrotne dane zamieniam w liste obiektow WORD i umieszczam w obiekcie SCAN do zpisania w MySQL        
+// wysylam zapytanie do api o OCR,  i umieszczam w obiekcie SCAN do zpisania w MySQL        
         scan.setScanJSON(scanService.sendOCRRequest(scan.getScanUrl()));
         scanRepository.save(scan);
         return "redirect:/eventpanel";

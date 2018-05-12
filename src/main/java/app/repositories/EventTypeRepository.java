@@ -5,15 +5,13 @@
  */
 package app.repositories;
 
+import java.io.Serializable;
 import org.springframework.data.jpa.repository.JpaRepository;
-import app.models.Scan;
-import java.util.List;
-import org.springframework.data.jpa.repository.Query;
+import app.models.EventType;
 /**
  *
  * @author Pilat
  */
-public interface ScanRepository extends JpaRepository<Scan, Long>{
-    @Query("select s from Scan s where s.event.id=?1")
-    public List<Scan> findAllScanToEvent(Long eventId);
+public interface EventTypeRepository extends JpaRepository<EventType, Long>{
+    
 }

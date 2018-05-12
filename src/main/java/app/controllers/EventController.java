@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import app.models.Event;
 import app.models.Lawsuit;
 import app.repositories.EventRepository;
+import app.repositories.EventTypeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -20,6 +21,7 @@ import java.sql.Timestamp;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 /**
  *
@@ -33,32 +35,36 @@ public class EventController {
     LawsuitRepository lawsuitRepository;
     @Autowired
     EventRepository eventRepository;
+    @Autowired
+    EventTypeRepository eventTypeRepository;
 
     @GetMapping("/addevent")
     public String getAddEvent(@RequestParam("lawsuitId") Long lawsuitId, Model model) {
         Event event = new Event();
         model.addAttribute("event", event);
+        model.addAttribute("eventType", eventTypeRepository.findAll());
         Lawsuit lawsuit = new Lawsuit();
         lawsuit.setId(lawsuitId);
         model.addAttribute("lawsuit", lawsuit);
         return "addevent";
     }
 
-    @PostMapping("/addevent")
+        @PostMapping("/addevent")
     public String postAddEvent(
             @ModelAttribute Event event,
             @SessionAttribute("lawsuit") Lawsuit lawsuit,
             @RequestParam("startDate") Timestamp startDate,
-            @RequestParam("endDate") Timestamp endDate
+            @RequestParam("endDate") Timestamp endDate,
+            RedirectAttributes redirectAttributes 
     ) {
-
-        System.out.println("Z lawsuit po drugiej stronie: " + lawsuit.getId().toString());
+        redirectAttributes.addAttribute("lawsuitId", lawsuit.getId());
         event.setStartDate(startDate);
         event.setEndDate(endDate);
         event.setLawsuit(lawsuitRepository.findOne(lawsuit.getId()));
         eventRepository.save(event);
-        return "addevent";
+        return "redirect:addevent";
     }
+    
 
     @GetMapping("/editevent")
     public String getEditEvent(@RequestParam("eventId") Long eventId, Model model) {

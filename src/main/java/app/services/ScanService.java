@@ -5,7 +5,6 @@
  */
 package app.services;
 
-
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -16,13 +15,14 @@ import org.json.JSONObject;
 import java.io.IOException;
 import app.models.Word;
 import org.springframework.web.client.RestTemplate;
+
 /**
  *
  * @author Pilat
  */
 @Service
 public class ScanService {
-    
+
     public void uploadFileToFtp(byte[] scanByte, String scanName) throws IOException {
         System.out.println("To jest nazwa pliku: " + scanName);
         FTPClient client = new FTPClient();
@@ -52,9 +52,7 @@ public class ScanService {
             }
         }
     }
-    
-    
-    
+
     public String sendOCRRequest(String scanUrl) {
 
         RestTemplate rest = new RestTemplate();
@@ -64,24 +62,18 @@ public class ScanService {
         String language = "pol";
         String fileType = "JPG";
         String link = scanUrl;
-        
+
 // sklejony link do API OCR
         String url = "https://api.ocr.space/parse/imageurl?apikey=" + ocrApiKey + "&url=" + link + "&language=" + language + "&isOverlayRequired=true";
 
 // wysłanie url GETem z doklejonymi parametrami i odebranie danych        
         String res = rest.getForObject(url, String.class);
         System.out.println(res);
-        
+
         return res;
-        
+
     }
-    
-    
-    
-    
-    
-    
-    
+
     // zmienia JSON w liste slow
     public List jsonToList(String string) throws IOException {
 
