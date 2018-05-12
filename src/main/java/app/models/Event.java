@@ -10,6 +10,9 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import java.util.List;
+import javax.persistence.CascadeType;
+import javax.persistence.OneToMany;
 
 /**
  *
@@ -25,6 +28,9 @@ public class Event extends Model {
 
     @ManyToOne(fetch = FetchType.EAGER)
     private Lawsuit lawsuit;
+    
+    @OneToMany(mappedBy = "event", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    private List<Scan> scan;
 
     @Override
     public String toString() {
@@ -85,6 +91,20 @@ public class Event extends Model {
      */
     public void setLawsuit(Lawsuit lawsuit) {
         this.lawsuit = lawsuit;
+    }
+
+    /**
+     * @return the scan
+     */
+    public List<Scan> getScan() {
+        return scan;
+    }
+
+    /**
+     * @param scan the scan to set
+     */
+    public void setScan(List<Scan> scan) {
+        this.scan = scan;
     }
 
 }

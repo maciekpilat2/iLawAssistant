@@ -15,7 +15,7 @@
                 <!--MOŻNA USUNAĆ GDYBY BŁĄD-->
                 <td><button type="submit" th:onclick="'location.href = \'' + @{/editevent(eventId=${l.id})} + '\''">Edytuj</button></td>
                 <td><button type="submit" th:onclick="'location.href = \'' + @{/delete/event(eventId=${l.id})} + '\''">Kasuj</button></td>
-                <td><button type="submit" th:onclick="'location.href = \'' + @{/eventpanel(eventId=${l.id})} + '\''">Kasuj</button></td>
+                <td><button type="submit" th:onclick="'location.href = \'' + @{/eventpanel(eventId=${l.id})} + '\''">Panel wydarzenia</button></td>
             </tr>
         </table>       
         <button type="submit" name="lawsuitEventsButton" value="${lawsuit.id}" th:onclick="'location.href = \'' + @{/addevent(lawsuitId=${lawsuit.id})} + '\''">Dodaj wydarzenie</button>
@@ -40,7 +40,8 @@
             </tr>
         </table>-->
         <!--powrót-->
-        <button type="button" th:onclick="location.href = '/userpanel';">Powrót</button>
+        <button type="button" onclick="location.href = '/userpanel';">Powrót</button>
+
 
     </body>
 </html>
