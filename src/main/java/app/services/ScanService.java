@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import org.json.JSONObject;
 import java.io.IOException;
 import app.models.Word;
+import java.util.stream.Stream;
 import org.springframework.web.client.RestTemplate;
 
 /**
@@ -109,4 +110,12 @@ public class ScanService {
         //System.out.println("To jest lista, która powstaje z JSON: " + wordsList);
         return wordsList;
     }
+    
+    public void courtNameFinder(List wordList){
+        
+        // tworze strumien slow ze skanu
+//        Stream<Word> courtNameStream = wordList.stream();
+//        courtNameStream.filter(g -> g.Word = "Sąd"))
+    }
+    
 }

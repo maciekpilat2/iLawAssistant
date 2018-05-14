@@ -18,8 +18,38 @@ import javax.persistence.Table;
 @Table
 public class Court extends Model{
 
-    String courtName;
+    private String courtName;
     
     @OneToMany(mappedBy = "court")
-    List<CourtDepartment> courtDepartment;
+    private List<CourtDepartment> courtDepartment;
+
+    /**
+     * @return the courtName
+     */
+    public String getCourtName() {
+        return courtName;
+    }
+
+    /**
+     * @param courtName the courtName to set
+     */
+    public void setCourtName(String courtName) {
+        this.courtName = courtName;
+    }
+
+    /**
+     * @return the courtDepartment
+     */
+    public List<CourtDepartment> getCourtDepartment() {
+        return courtDepartment;
+    }
+
+    /**
+     * @param courtDepartment the courtDepartment to set
+     */
+    public void setCourtDepartment(List<CourtDepartment> courtDepartment) {
+        this.courtDepartment = courtDepartment;
+    }
+    
+    
 }
