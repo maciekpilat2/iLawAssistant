@@ -1,26 +1,162 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout" layout:decorator="layout">
 <head>
-<title>LOGIN</title>
+<title>Logowanie</title>
+    <style>
+        .page-header .page-header-image {
+            -webkit-filter: blur(5px);
+            filter: blur(5px);
+            z-index: 0;
+        }
+
+        .login-page .card-login.card-plain .form-group.form-group-no-border .form-control, .login-page .card-login.card-plain .input-group.form-group-no-border .form-control {
+            background-color: rgba(255, 255, 255, 0.7);
+            color: #000000;
+        }
+
+        .login-page .card-login.card-plain .form-group.form-group-no-border .form-control:focus, .login-page .card-login.card-plain .form-group.form-group-no-border .form-control:active, .login-page .card-login.card-plain .form-group.form-group-no-border .form-control:active, .login-page .card-login.card-plain .input-group.form-group-no-border .form-control:focus, .login-page .card-login.card-plain .input-group.form-group-no-border .form-control:active, .login-page .card-login.card-plain .input-group.form-group-no-border .form-control:active {
+            background-color: rgba(255, 255, 255, 0.2);
+            color: #000000;
+        }
+
+
+
+        .login-page .card-login.card-plain .form-group.form-group-no-border .input-group-text, .login-page .card-login.card-plain .input-group.form-group-no-border .input-group-text {
+            background-color: rgba(255, 255, 255, 0.7);
+            border: none;
+            color:#000000;
+        }
+
+        .login-page .card-login.card-plain .form-group.form-group-no-border .form-control, .login-page .card-login.card-plain .input-group.form-group-no-border .form-control {
+
+            color: #494949;
+        }
+
+        .login-page .card-login.card-plain .form-control::-moz-placeholder {
+            color: #494949;
+            opacity: 1;
+            filter: alpha(opacity=100);
+        }
+
+        .login-page .card-login.card-plain .form-control:-moz-placeholder {
+            color: #494949;
+            opacity: 1;
+            filter: alpha(opacity=100);
+        }
+
+        .login-page .card-login.card-plain .form-control::-webkit-input-placeholder {
+            color: #494949;
+            opacity: 1;
+            filter: alpha(opacity=100);
+        }
+
+        .login-page .card-login.card-plain .form-control:-ms-input-placeholder {
+            color: #494949;
+            opacity: 1;
+            filter: alpha(opacity=100);
+        }
+
+        .card.card-login.card-plain{
+            background-color: #00000021;
+            border-radius: 5px;
+        }
+
+
+    </style>
 </head>
-<body>
+<body class="login-page">
     <div layout:fragment="content">
 
-        <form class="form-signin" th:action="@{/login}" th:object="${user}" action="/login" method="post">
-            <h2 class="form-signin-heading">Please sign in</h2>
-            
-            <div class="alert alert-danger" th:if="${param.error}">
-                Email and password is incorrect or your account is not activated, please try again.
+        <div class="page-header" >
+            <div class="page-header-image" style="background-image:url(/assets/img/loginbg.jpg)"></div>
+            <div class="content">
+                <div class="container">
+                    <div class="col-md-5 ml-auto mr-auto">
+                        <div class="card card-login card-plain">
+                            <form class="form form-signin" th:action="@{/login}" th:object="${user}" action="/login" method="post">
+                                <div class="card-header text-center">
+                                    <div class="logo-container">
+                                        <img src="/assets/img/now-logo.png" alt=""/>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <div class="alert alert-danger" th:if="${param.error}">
+                                        Niewłaściwe dane logowania lub konto nie zostało aktywowane.
+                                    </div>
+                                    <div class="input-group form-group-no-border input-lg">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text"><i class="now-ui-icons users_circle-08"></i></span>
+                                        </div>
+                                        <input type="text" id="inputEmail" name="username" class="form-control" placeholder="Email..."/>
+                                    </div>
+                                    <div class="input-group form-group-no-border input-lg">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text"><i class="now-ui-icons text_caps-small"></i></span>
+                                        </div>
+                                        <input type="password" id="inputPassword" name="password" class="form-control" placeholder="Hasło..."/>
+                                    </div>
+                                </div>
+                                <div class="card-footer text-center">
+                                    <input type="submit" class="btn btn-info btn-round btn-lg btn-block" value="Zaloguj"/>
+
+                                </div>
+                                <div class="pull-left">
+                                    <h6>
+                                        <a href="/user/register" class="link footer-link">Utwórz konto</a>
+                                    </h6>
+                                </div>
+                                <div class="pull-right">
+                                    <h6>
+                                        <a href="javascript:void(0)" data-toggle="modal" data-target="#passwordResetModal" class="link footer-link">Zapomniałeś hasła?</a>
+                                    </h6>
+                                </div>
+
+                            </form>
+
+
+                        </div>
+                    </div>
+                </div>
             </div>
-            <input type="text" id="inputEmail" name="username" class="form-control top" placeholder="Username or Email" required="required" autofocus="autofocus"/>
-            <input type="password" id="inputPassword" name="password" class="form-control bottom" placeholder="Password" required="required"/>
-            <div class="checkbox">
-                <label>
-                    <input type="checkbox" name="remember-me"/> Remember me
-                </label>
-            </div>
-            <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
-        </form>
+        </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        <!--<form class="form-signin" th:action="@{/login}" th:object="${user}" action="/login" method="post">-->
+            <!--<h2 class="form-signin-heading">Please sign in</h2>-->
+            <!---->
+            <!--<div class="alert alert-danger" th:if="${param.error}">-->
+                <!--Email and password is incorrect or your account is not activated, please try again.-->
+            <!--</div>-->
+            <!--<input type="text" id="inputEmail" name="username" class="form-control top" placeholder="Username or Email" required="required" autofocus="autofocus"/>-->
+            <!--<input type="password" id="inputPassword" name="password" class="form-control bottom" placeholder="Password" required="required"/>-->
+            <!--<div class="checkbox">-->
+                <!--<label>-->
+                    <!--<input type="checkbox" name="remember-me"/> Remember me-->
+                <!--</label>-->
+            <!--</div>-->
+            <!--<button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>-->
+        <!--</form>-->
 
 
     </div>

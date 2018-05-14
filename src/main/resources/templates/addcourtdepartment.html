@@ -66,15 +66,15 @@
 
                     <form>
                         <!--<option value="series-1" data-chained="bmw">1 series</option>-->
-                        <select>
+                        <select id="court">
                             <tr th:each="c : ${courtList}">
-                                <option id="court" th:value="${c.id}" th:text="${c.courtName}" ></option>
+                                <option  th:value="${c.id}" th:text="${c.courtName}" ></option>
                             </tr>
                         </select>
 
-                        <select>
+                        <select id="courtDepartment">
                             <tr th:each="cd : ${courtDepartmentList}">
-                                <option id="courtDepartment" th:value="${cd.id}" data-chained="${cd.court.id}" th:text="${cd.courtDepartmentName}"></option>
+                                <option  th:value="${cd.id}" th:attr="data-chained=${cd.court.id}"   th:text="${cd.courtDepartmentName}"></option>
                             </tr>
                         </select>
 
@@ -87,7 +87,7 @@
             <div id="footer">
             </div>
 
-            <script type="application/javascript">("#courtDepartment").chained("#court");</script>
+
             
             <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js" type="text/javascript" charset="utf-8"></script>
             <script src="/js/jquery.chained.js"></script>
@@ -97,5 +97,11 @@
             <script src="/js/chainCourttoCourtDepartments.js"></script>
             <script type="text/javascript" charset="utf-8"></script>
         </div>
+        <script type="application/javascript">
+            $(function() {
+                console.log( "ready!" );
+                $("#courtDepartment").chained("#court");
+            });
+        </script>
     </body>
 </html>

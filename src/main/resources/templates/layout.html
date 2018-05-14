@@ -4,68 +4,102 @@
     <title>Layout</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
-    
-    <link href="/css/bootstrap.min.css" rel="stylesheet" />
-    <link href="/css/styles.css" rel="stylesheet" />
-    
-    <script src="/js/jquery.min.js"></script>
-    <script src="/js/bootstrap.min.js"></script>
+
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" />
+    <!-- CSS Files -->
+    <link href="/assets/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="/assets/css/now-ui-kit.css?v=1.2.0" rel="stylesheet" />
     <script src="/js/app.js"></script>
+    <link href="/css/styles.css" rel="stylesheet" />
+    <style>
+        .content-fragment{
+            margin-top: -50px;
+        }
+
+    </style>
 </head>
 <body>
-    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-        <div class="container-fluid">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="sr-only">Toggle navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="#">Spring-starter</a>
-            </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav navbar-right">
-                    <li><a th:href="@{/user/reset-password}" href="reset">Reset Password</a></li>
-                    <li><a th:href="@{/user/register}" href="register">Register</a></li>
-                    <li><a th:href="@{/login}" href="login">Login</a></li>
-                    <li><a th:href="@{/logout}" href="logout"><i class="icon-chevron-left"></i>Logout</a></li>
-                </ul>
-            </div>
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg bg-white fixed-top">
+    <div class="container">
+
+        <div class="navbar-translate">
+
+            <a class="navbar-brand" href="/" th:text="#{appname}">
+                Nazwa naszej zacnej apki
+                <!--<img src="../../resources/img/MK_standalone.png" height="65px"/>-->
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-bar bar1"></span>
+                <span class="navbar-toggler-bar bar2"></span>
+                <span class="navbar-toggler-bar bar3"></span>
+            </button>
         </div>
-    </nav>
+        <div class="collapse navbar-collapse" data-nav-image="../assets/img/blurred-image-1.jpg" data-color="orange">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="/jobOffer/alloffers">
+                        <i class="now-ui-icons design_app"></i>
+                        <p>Oferty</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/employers.html">
+                        <i class="now-ui-icons business_bank"></i>
+                        <p>Dla pracodawców</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/about.html">
+                        <i class="now-ui-icons clothes_tie-bow"></i>
+                        <p>O nas</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/kontakt">
+                        <i class="now-ui-icons ui-1_send"></i>
+                        <p>Kontakt</p>
+                    </a>
+                </li>
+                <li class="nav-item">
 
-    <div class="container-fluid">
+                    <a class="nav-link" href="/profile">
+                        <i class="now-ui-icons users_single-02"></i>
+                        <p>Profil
 
-        <div class="row row-offcanvas row-offcanvas-left">
+                            <!--<sec:authorize access="isAuthenticated()">-->
+                                <!--<sec:authentication var="principal" property="principal.username" />-->
+                                <!--<c:set var="atindex" value="${fn:indexOf(principal, \"@\")}"/>-->
+                                <!--<c:set var = "usernameShort" value = "${fn:substring(principal, 0, atindex)}" />-->
+                                <!--<span style="font-size: 90%;">(${usernameShort})</span>-->
 
-            <div class="col-sm-3 col-md-2 sidebar-offcanvas" id="sidebar" role="navigation">
+                                <!--<%&#45;&#45;input.substring(0, input.indexOf("-"));&#45;&#45;%>-->
+                            <!--</sec:authorize>-->
 
-                <ul class="nav nav-sidebar">
-                    <li th:class="${#httpServletRequest.requestURI=='/'}? active"><a th:href="@{/}" href="/">Home</a></li>
-                    <li th:class="${#httpServletRequest.requestURI=='/user/list'}? active"><a th:href="@{/user/list}" href="user/list">User List</a></li>
-                    <li th:class="${#strings.startsWith(#httpServletRequest.requestURI,'/user/edit')}  ? active"><a th:href="@{/user/edit/0}" href="user/list">Edit user</a></li>
-                </ul>
+                        </p>
+                    </a>
+                </li>
+                <li><a th:href="@{/user/reset-password}" href="reset">Reset Password</a></li>
+                <li><a th:href="@{/user/register}" href="register">Register</a></li>
+                <li><a th:href="@{/login}" href="login">Login</a></li>
+                <li><a th:href="@{/logout}" href="logout"><i class="icon-chevron-left"></i>Logout</a></li>
+                <li th:class="${#httpServletRequest.requestURI=='/'}? active"><a th:href="@{/}" href="/">Home</a></li>
+                <li th:class="${#httpServletRequest.requestURI=='/user/list'}? active"><a th:href="@{/user/list}" href="user/list">User List</a></li>
+                <li th:class="${#strings.startsWith(#httpServletRequest.requestURI,'/user/edit')}  ? active"><a th:href="@{/user/edit/0}" href="user/list">Edit user</a></li>
 
-            </div>
-            <!--/span-->
 
-            <div class="col-sm-9 col-md-10 main">
-
-                <!--toggle sidebar button-->
-                <p class="visible-xs">
-                    <button type="button" class="btn btn-primary btn-xs" data-toggle="offcanvas">
-                        <i class="glyphicon glyphicon-chevron-left"></i>
-                    </button>
-                </p>
-
-                <div layout:fragment="content" class="content-fragment">
-                    <!-- CONTENT GOES HERE -->
-                </div>
-
-            </div>
-            <!--/row-->
+            </ul>
         </div>
     </div>
-    <!--/.container-->
+</nav>
+<!-- End Navbar -->
 
+
+
+        <div layout:fragment="content" class="content-fragment">
+                    <!-- CONTENT GOES HERE -->
+        </div>
 
 
     <footer>
@@ -73,5 +107,27 @@
             Logged in as: <span th:text="${g_user.email}">my email</span>
         </p>
     </footer>
+<!--   Core JS Files   -->
+<script src="/assets/js/core/jquery.3.2.1.min.js" type="text/javascript"></script>
+<script src="/assets/js/core/popper.min.js" type="text/javascript"></script>
+<script src="/assets/js/core/bootstrap.min.js" type="text/javascript"></script>
+<script src="/assets/js/plugins/moment.min.js"></script>
+<!--  Plugin for Switches, full documentation here: http://www.jque.re/plugins/version3/bootstrap.switch/ -->
+<script src="/assets/js/plugins/bootstrap-switch.js"></script>
+<!--	Plugin for Tags, full documentation here: https://github.com/bootstrap-tagsinput/bootstrap-tagsinputs  -->
+<script src="/assets/js/plugins/bootstrap-tagsinput.js"></script>
+<!--	Plugin for Select, full documentation here: http://silviomoreto.github.io/bootstrap-select -->
+<script src="/assets/js/plugins/bootstrap-selectpicker.js" type="text/javascript"></script>
+<!--  Google Maps Plugin    -->
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script>
+<!--	Plugin for Fileupload, full documentation here: http://www.jasny.net/bootstrap/javascript/#fileinput -->
+<script src="/assets/js/plugins/jasny-bootstrap.min.js"></script>
+<!--  Plugin for the Sliders, full documentation here: http://refreshless.com/nouislider/ -->
+<script src="/assets/js/plugins/nouislider.min.js" type="text/javascript"></script>
+<!--  Plugin for the DatePicker, full documentation here: https://github.com/uxsolutions/bootstrap-datepicker -->
+<script src="/assets/js/plugins/bootstrap-datetimepicker.min.js" type="text/javascript"></script>
+<!-- Control Center for Now Ui Kit: parallax effects, scripts for the example pages etc -->
+<script src="/assets/js/now-ui-kit.js?v=1.2.0" type="text/javascript"></script>
+
 </body>
 </html>
