@@ -23,7 +23,7 @@ public class Party extends Model {
 
     private Long partyType;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.MERGE)
     private Lawsuit lawsuit;
     
     @OneToMany(mappedBy = "party", cascade = CascadeType.ALL, fetch = FetchType.EAGER)

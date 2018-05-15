@@ -13,6 +13,7 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import app.models.CourtDepartment;
 
 /**
  *
@@ -28,12 +29,16 @@ public class Lawsuit extends Model {
     @ManyToOne
     private User user;
 
-    @OneToMany(mappedBy = "lawsuit", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "lawsuit"//, cascade = CascadeType.MERGE
+    )
     private List<Event> event;
 
-    @OneToMany(mappedBy = "lawsuit", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "lawsuit"//, cascade = CascadeType.MERGE
+    )
     private List<Party> party;
 
+    @ManyToOne(cascade = CascadeType.MERGE)
+    private CourtDepartment courtDepartment;
  
 
     
@@ -106,6 +111,20 @@ public class Lawsuit extends Model {
      */
     public void setCourtFileReference(String courtFileReference) {
         this.courtFileReference = courtFileReference;
+    }
+
+    /**
+     * @return the courtDepartment
+     */
+    public CourtDepartment getCourtDepartment() {
+        return courtDepartment;
+    }
+
+    /**
+     * @param courtDepartment the courtDepartment to set
+     */
+    public void setCourtDepartment(CourtDepartment courtDepartment) {
+        this.courtDepartment = courtDepartment;
     }
 
 }

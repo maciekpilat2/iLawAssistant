@@ -23,7 +23,7 @@ public class Person extends Model {
     private String personLastName;
     private String personCompanyName;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.MERGE)
     private Party party;
 
     @Override

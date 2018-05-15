@@ -8,7 +8,7 @@
     </head>
     <body>
         <div>Dodaj podmiot do postepowania:</div>
-        <form th:object="${party}" th:action="@{/addparty}" method="post">
+        <form th:object="${addLawsuitWrapper}" th:action="@{/addparty}" method="post">
 <!--            <select th:field="*{lawsuit.id}">
                 <table>
                     <tr th:each="l : ${lawsuitList}">
@@ -16,17 +16,23 @@
                     </tr>
                 </table>
             </select>-->
-            <select th:field="*{partyType}">
+            <select th:field="*{party.partyType}">
                 <table>
                     <tr th:each="t : ${partyTypeList}">
-                        <option th:value="${t.id}" th:text="${t.name}" th:field="*{id}"></option>
+                        <option th:value="${t.id}" th:text="${t.name}" th:field="*{party.id}"></option>
                     </tr>
                 </table>
             </select>
-            <input type="text" placeholder="Tytuł" th:field="*{person[0].personTitle}"></input>
+            <input type="text" placeholder="Tytuł" th:field="*{person.personTitle}"></input>
+            <input type="text" placeholder="Imię" th:field="*{person.personFirstName}"></input>
+            <input type="text" placeholder="Nazwisko" th:field="*{person.personLastName}"></input>
+            <input type="text" placeholder="Firma" th:field="*{person.personCompanyName}"></input>
+
+
+<!--        <input type="text" placeholder="Tytuł" th:field="*{person[0].personTitle}"></input>
             <input type="text" placeholder="Imię" th:field="*{person[0].personFirstName}"></input>
             <input type="text" placeholder="Nazwisko" th:field="*{person[0].personLastName}"></input>
-            <input type="text" placeholder="Firma" th:field="*{person[0].personCompanyName}"></input>
+            <input type="text" placeholder="Firma" th:field="*{person[0].personCompanyName}"></input>-->
             <input type="submit" value="Zarwierdź"></input>
         </form>
         <button type="button" class="btn btn-primary" onclick="location.href = '/userpanel';">Powrót</button>

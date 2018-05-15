@@ -19,6 +19,7 @@
             </tr>
         </table>       
         <button type="submit" name="lawsuitEventsButton" value="${lawsuit.id}" th:onclick="'location.href = \'' + @{/addevent(lawsuitId=${lawsuit.id})} + '\''">Dodaj wydarzenie</button>
+        <button type="submit" name="lawsuitEventsButton" value="${lawsuit.id}" th:onclick="'location.href = \'' + @{/addparty(lawsuitId=${lawsuit.id})} + '\''">Dodaj strone</button>
         <!--strony-->
         <table>
             <th:block th:each="p : ${lawsuit.party}">

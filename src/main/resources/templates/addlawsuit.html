@@ -16,7 +16,7 @@
             </select>
             <select id="courtDepartment" th:field="*{courtDepartment.id}">
                 <tr th:each="cd : ${courtDepartmentList}">
-                    <option  th:value="${cd.id}" th:attr="data-chained=${cd.court.id}" th:text="${cd.courtDepartmentName}" th:field="*{courtDepartment.id}"></option>
+                    <option  th:value="${cd.id}" th:attr="data-chained=${cd.id}" th:text="${cd.courtDepartmentName}" th:field="*{courtDepartment.id}"></option>
                 </tr>
             </select>
             <input type="text" placeholder="Sygnatura" th:field="*{lawsuit.courtFileReference}"></input>

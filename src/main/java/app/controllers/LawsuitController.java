@@ -19,12 +19,6 @@ import app.services.UserService;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import app.formswrapper.AddLawsuitWrapper;
 
-/**
- *
- * @author Pilat
- */
-//@SessionAttributes("lawsuit")
-@SessionAttributes("addLawsuitWrapper")
 @Controller
 public class LawsuitController {
 
@@ -42,20 +36,19 @@ public class LawsuitController {
 
         AddLawsuitWrapper addLawsuitWrapper = new AddLawsuitWrapper();
         model.addAttribute("addLawsuitWrapper", addLawsuitWrapper);
-
         model.addAttribute("courtList", courtRepository.findAll());
         model.addAttribute("courtDepartmentList", courtDepartmentRepository.findAll());
         return "addlawsuit";
     }
 
     @PostMapping("/addlawsuit")
-    public String postAddLawsuit(@ModelAttribute AddLawsuitWrapper addLawsuitWrapper) {        
+    public String postAddLawsuit(@ModelAttribute AddLawsuitWrapper addLawsuitWrapper) {
+
         addLawsuitWrapper.getLawsuit().setUser(userService.getLoggedInUser());
-        addLawsuitWrapper.setCourtDepartment(courtDepartmentRepository.findOne(addLawsuitWrapper.getCourtDepartment().getId()));
-        addLawsuitWrapper.setCourt(courtRepository.findOne(addLawsuitWrapper.getCourt().getId()));
-        
-//nie spisuje bo zapisze się przy zapiesie Party inaczej będzie konflikt istnienia rekordu
-        return "redirect:addparty";
+        addLawsuitWrapper.getLawsuit().setCourtDepartment(courtDepartmentRepository.findOne(addLawsuitWrapper.getCourtDepartment().getId()));
+        lawsuitRepository.save(addLawsuitWrapper.getLawsuit());
+
+        return "redirect:userpanel";
     }
 
 }

@@ -6,6 +6,7 @@
 package app.repositories;
 import app.models.Party;
 import java.io.Serializable;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
@@ -14,6 +15,6 @@ import org.springframework.stereotype.Repository;
  * @author Pilat
  */
 @Repository
-public interface PartyRepository extends CrudRepository<Party, Long>{
+public interface PartyRepository extends JpaRepository<Party, Long>{
     
 }

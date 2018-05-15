@@ -6,7 +6,9 @@
 package app.formswrapper;
 import app.models.Lawsuit;
 import app.models.Court;
-        import app.models.CourtDepartment;
+import app.models.CourtDepartment;
+import app.models.Person;
+import app.models.Party;
 /**
  *
  * @author Pilat
@@ -15,7 +17,12 @@ public class AddLawsuitWrapper {
     private Lawsuit lawsuit;
     private Court court;
     private CourtDepartment courtDepartment;
+    private Person person;
+    private Party party;
 
+    
+    
+    
     /**
      * @return the lawsuit
      */
@@ -56,6 +63,34 @@ public class AddLawsuitWrapper {
      */
     public void setCourtDepartment(CourtDepartment courtDepartment) {
         this.courtDepartment = courtDepartment;
+    }
+
+    /**
+     * @return the person
+     */
+    public Person getPerson() {
+        return person;
+    }
+
+    /**
+     * @param person the person to set
+     */
+    public void setPerson(Person person) {
+        this.person = person;
+    }
+
+    /**
+     * @return the party
+     */
+    public Party getParty() {
+        return party;
+    }
+
+    /**
+     * @param party the party to set
+     */
+    public void setParty(Party party) {
+        this.party = party;
     }
     
     

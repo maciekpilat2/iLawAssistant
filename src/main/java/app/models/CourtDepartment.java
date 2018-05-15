@@ -29,6 +29,9 @@ public class CourtDepartment extends Model{
     
     @ManyToOne(cascade = CascadeType.ALL)
     private Court court;
+    
+    @OneToMany(mappedBy = "courtDepartment")
+    private List<Lawsuit> lawsuit;
 
     
     
@@ -72,6 +75,20 @@ public class CourtDepartment extends Model{
      */
     public void setCourt(Court court) {
         this.court = court;
+    }
+
+    /**
+     * @return the lawsuit
+     */
+    public List<Lawsuit> getLawsuit() {
+        return lawsuit;
+    }
+
+    /**
+     * @param lawsuit the lawsuit to set
+     */
+    public void setLawsuit(List<Lawsuit> lawsuit) {
+        this.lawsuit = lawsuit;
     }
     
 }

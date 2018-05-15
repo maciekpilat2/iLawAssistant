@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import app.repositories.EventRepository;
 import app.repositories.LawsuitRepository;
+import app.repositories.PersonRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,10 +26,13 @@ public class LawsuitPanelController {
     LawsuitRepository lawsuitRepository;
     @Autowired
     EventRepository eventRepository;
+    @Autowired
+    PersonRepository personRepository; 
 
     @RequestMapping("/lawsuitpanel")
     public String postLawsuitEvents(@RequestParam("lawsuitId") Long lawsuitId, Model model) {
         model.addAttribute("lawsuit", lawsuitRepository.findOne(lawsuitId));
+        model.addAttribute("partyList", personRepository.findAll()); // zrobic metode tylko dla z danej sprawy
         return "lawsuitpanel";
     }
 
