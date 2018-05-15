@@ -12,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import app.formswrapper.AddLawsuitWrapper;
 
 /**
  *
@@ -29,6 +30,7 @@ public class courtDepartmentController {
     public String getAddCourtDepartment(Model model){
         model.addAttribute("courtDepartmentList", courtDepartmentRepository.findAll());
         model.addAttribute("courtList", courtRepository.findAll());
+        
         return "addcourtdepartment";
     }
     

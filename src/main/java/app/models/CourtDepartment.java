@@ -10,6 +10,7 @@ import javax.persistence.Table;
 import app.models.Model;
 import app.models.Address;
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
@@ -26,7 +27,7 @@ public class CourtDepartment extends Model{
     @OneToMany(mappedBy = "courtDepartment")
     private List<Address> address;
     
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     private Court court;
 
     

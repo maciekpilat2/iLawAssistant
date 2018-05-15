@@ -1,11 +1,13 @@
 
 package app.controllers;
 
+import app.formswrapper.AddLawsuitWrapper;
 import app.models.Lawsuit;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import app.models.Party;
+import app.repositories.CourtDepartmentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import app.repositories.PartyTypeRepository;
 import app.repositories.LawsuitRepository;
@@ -29,6 +31,8 @@ public class PartyController {
     PartyRepository partyRepository;
     @Autowired
     PersonRepository personRepository;
+    @Autowired
+    CourtDepartmentRepository courtDepartmentRepository;
 
     @GetMapping("/addparty")
      public String getAddParty(Model model) {
@@ -39,9 +43,11 @@ public class PartyController {
     }
 
     @PostMapping("/addparty")
-      public String postAddParty(@ModelAttribute Party party, @SessionAttribute("lawsuit")Lawsuit lawsuit){        
-        party.setLawsuit(lawsuit);
+      public String postAddParty(@ModelAttribute Party party, @SessionAttribute("addLawsuitWrapper") AddLawsuitWrapper addLawsuitWrapper){        
+        party.setLawsuit(addLawsuitWrapper.getLawsuit());
+        addLawsuitWrapper.getCourtDepartment().setCourt(addLawsuitWrapper.getCourt());
         partyRepository.save(party);
+        courtDepartmentRepository.save(addLawsuitWrapper.getCourtDepartment());
         return "redirect:addparty";
     }
 }

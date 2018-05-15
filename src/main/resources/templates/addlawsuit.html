@@ -8,6 +8,57 @@
     <body>
         <div>Doda postępowanie</div>
 
+        <form th:action="@{/addlawsuit}" th:object="${addLawsuitWrapper}" method="post">
+            <select id="court" th:field="*{court.id}">
+                <tr th:each="c : ${courtList}">
+                    <option  th:value="${c.id}" th:text="${c.courtName}" th:field="*{court.id}"></option>
+                </tr>
+            </select>
+            <select id="courtDepartment" th:field="*{courtDepartment.id}">
+                <tr th:each="cd : ${courtDepartmentList}">
+                    <option  th:value="${cd.id}" th:attr="data-chained=${cd.court.id}" th:text="${cd.courtDepartmentName}" th:field="*{courtDepartment.id}"></option>
+                </tr>
+            </select>
+            <input type="text" placeholder="Sygnatura" th:field="*{lawsuit.courtFileReference}"></input>
+            <input type="text" placeholder="Opis" th:field="*{lawsuit.description}"></input>
+            <input type="submit" value="Zapisz"></input>
+        </form>
+        <button type="button" onclick="location.href = '/userpanel';">Powrót</button>
+
+
+
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="/js/jquery.chained.js"></script>
+        <script src="/js/jquery.chained.min.js"></script>
+        <script src="/js/jquery.chained.remote.js"></script>
+        <script src="/js/jquery.chained.remote.min.js"></script>
+        <script src="/js/chainCourttoCourtDepartments.js"></script>
+        <script type="text/javascript" charset="utf-8"></script>
+        <script type="application/javascript">
+            $(function() {
+            console.log( "ready!" );
+            $("#courtDepartment").chained("#court");
+            });
+        </script>
+    </body>
+</html>
+
+
+
+
+
+
+
+<!--<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>Doda postępowanie</title>
+        <meta charset="UTF-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    </head>
+    <body>
+        <div>Doda postępowanie</div>
+
         <form th:action="@{/addlawsuit}" th:object="${lawsuit}" method="post">
             <input type="text" placeholder="Sygnatura" th:field="*{courtFileReference}"></input>
             <input type="text" placeholder="Opis" th:field="*{description}"></input>
@@ -15,4 +66,4 @@
         </form>
         <button type="button" onclick="location.href = '/userpanel';">Powrót</button>
     </body>
-</html>
+</html>-->
