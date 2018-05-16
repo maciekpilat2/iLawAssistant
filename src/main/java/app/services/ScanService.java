@@ -9,16 +9,20 @@ import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
+
 import org.apache.commons.net.ftp.FTPClient;
 import org.springframework.stereotype.Service;
 import org.json.JSONObject;
+
 import java.io.IOException;
+
 import app.models.Word;
+
 import java.util.stream.Stream;
+
 import org.springframework.web.client.RestTemplate;
 
 /**
- *
  * @author Pilat
  */
 @Service
@@ -110,12 +114,34 @@ public class ScanService {
         //System.out.println("To jest lista, która powstaje z JSON: " + wordsList);
         return wordsList;
     }
-    
-    public void courtNameFinder(List wordList){
-        
+
+    public String getParsedText(String json){
+
+        //1. zamieniam string na Object
+        JSONObject jo1 = new JSONObject(json);
+//2. Object zamieniam na JSONArray
+        org.json.JSONArray ja1 = jo1.getJSONArray("ParsedResults");
+//3. Zeby czesc ktora chce wziac pakuje jako kolejny obiekt
+        JSONObject jo2 = ja1.getJSONObject(0);
+      //  JSONObject parsedText = jo2.getJSONObject("ParsedText");
+       String parsedText = jo2.getString("ParsedText");
+        System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+        System.out.println("Parsed document text: " + parsedText);
+
+
+        return parsedText;
+    }
+
+
+
+
+
+    public void courtNameFinder(List wordList) {
+
         // tworze strumien slow ze skanu
 //        Stream<Word> courtNameStream = wordList.stream();
 //        courtNameStream.filter(g -> g.Word = "Sąd"))
     }
-    
+
+
 }

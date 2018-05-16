@@ -2,6 +2,7 @@ package app.controllers;
 
 import app.models.Event;
 import app.repositories.EventRepository;
+import app.services.DocumentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -29,6 +30,8 @@ public class EventPanelController {
     ScanService scanService;
     @Autowired
     ScanRepository scanRepository;
+    @Autowired
+    DocumentService documentService;
 
     private static String UPLOADED_FOLDER = "E://iLawAssistant//";
 
@@ -58,20 +61,24 @@ public class EventPanelController {
         }
         try {
 
-// Tworzy plik i zapisuje tam gdzie wskazuje stala
+        // Tworzy plik i zapisuje tam gdzie wskazuje stala
             byte[] bytes = scanMultipart.getBytes();
             redirectAttributes.addFlashAttribute("message", "Zapisałeś plik: '" + scanMultipart.getOriginalFilename() + "'");
         } catch (IOException e) {
             e.printStackTrace();
         }
-// zapisuje na FTP
+        // zapisuje na FTP
         scanService.uploadFileToFtp(scanMultipart.getBytes(), scan.getScanName() + ".jpg");
         redirectAttributes.addAttribute("eventId", eventId);
-// zapisuje dane i url dla MySQL zenbox
-        scan.setScanUrl("http://maciekpilat.pl/iLawAssistantScans/" + scan.getScanName());
+        // zapisuje dane i url dla MySQL zenbox
+        scan.setScanUrl("http://maciekpilat.pl/iLawAssistantScans/" + scan.getScanName()+".jpg");
         scan.setEvent(eventRepository.findOne(eventId));
-// wysylam zapytanie do api o OCR,  i umieszczam w obiekcie SCAN do zpisania w MySQL        
+        // wysylam zapytanie do api o OCR,  i umieszczam w obiekcie SCAN do zpisania w MySQL
         scan.setScanJSON(scanService.sendOCRRequest(scan.getScanUrl()));
+
+
+        scan.setSignature(documentService.findSignature(scanService.getParsedText(scan.getScanJSON())));
+
         scanRepository.save(scan);
         return "redirect:/eventpanel";
     }

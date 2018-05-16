@@ -1,13 +1,11 @@
 
 package app.models;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
+
 import app.models.Event;
 import java.util.List;
-import javax.persistence.CascadeType;
-import javax.persistence.FetchType;
-import javax.persistence.ManyToOne;
+
 /**
  *
  * @author Pilat
@@ -18,13 +16,26 @@ public class Scan extends Model{
     
     private String scanName;
     private String scanUrl;
+    @Column(columnDefinition = "TEXT")
     private String scanJSON;
     @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Event event;
+    private String signature;
+    @Column(columnDefinition = "TEXT")
+    private String parsedText;
+
 
     @Override
     public String toString() {
         return "Scan{" + "scanName=" + scanName + ", scanUrl=" + scanUrl + ", scanJSON=" + scanJSON + ", event=" + event + '}';
+    }
+
+    public String getSignature() {
+        return signature;
+    }
+
+    public void setSignature(String signature) {
+        this.signature = signature;
     }
 
     /**
