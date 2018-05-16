@@ -1,23 +1,35 @@
-
-
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-    
 
-
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
     <head>
         <title>TODO supply a title</title>
         <meta charset="UTF-8"/>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     </head>
     <body>
-        <div>Dodaj podmiot</div>
+        <div>Dodaj podmiot do postepowania:</div>
         <form th:object="${person}" th:action="@{/addperson}" method="post">
-            <input type="text" placeholder="Tytuł" th:field="*{personTitle}"/>
-            <input type="text" placeholder="Imię" th:field="*{personFirstName}"/>
-            <input type="text" placeholder="Nazwisko" th:field="*{personLastName}"/>
-            <input type="text" placeholder="Firma" th:field="*{personCompanyName}"/>
-            <input type="submit" value="Zarwierdź"/>
+<!--            <select th:field="*{lawsuit.id}">
+                <table>
+                    <tr th:each="l : ${lawsuitList}">
+                        <option th:value="${l.id}" th:text="${l.courtFileReference}" th:field="*{lawsuit.id}"></option>
+                    </tr>
+                </table>
+            </select>-->
+            <select th:field="*{partyType}">
+                <table>
+                    <tr th:each="t : ${partyTypeList}">
+                        <option th:value="${t.id}" th:text="${t.name}" th:field="*{partyType}"></option>
+                    </tr>
+                </table>
+            </select>
+            <input type="text" placeholder="Tytuł" th:field="*{personTitle}"></input>
+            <input type="text" placeholder="Imię" th:field="*{personFirstName}"></input>
+            <input type="text" placeholder="Nazwisko" th:field="*{personLastName}"></input>
+            <input type="text" placeholder="Firma" th:field="*{personCompanyName}"></input>
+
+            <input type="submit" value="Zarwierdź"></input>
         </form>
+        <button type="button" class="btn btn-primary" onclick="location.href = '/userpanel';">Powrót</button>
     </body>
 </html>

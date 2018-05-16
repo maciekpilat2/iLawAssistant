@@ -27,12 +27,13 @@ public class LawsuitPanelController {
     @Autowired
     EventRepository eventRepository;
     @Autowired
-    PersonRepository personRepository; 
+    PersonRepository personRepository;
 
     @RequestMapping("/lawsuitpanel")
     public String postLawsuitEvents(@RequestParam("lawsuitId") Long lawsuitId, Model model) {
         model.addAttribute("lawsuit", lawsuitRepository.findOne(lawsuitId));
-        model.addAttribute("partyList", personRepository.findAll()); // zrobic metode tylko dla z danej sprawy
+        model.addAttribute("personList", personRepository.allPersonToLawsuit(lawsuitId));
+
         return "lawsuitpanel";
     }
 

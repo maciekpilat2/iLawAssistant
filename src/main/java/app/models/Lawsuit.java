@@ -14,6 +14,7 @@ import javax.persistence.CascadeType;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import app.models.CourtDepartment;
+import javax.persistence.FetchType;
 
 /**
  *
@@ -29,18 +30,14 @@ public class Lawsuit extends Model {
     @ManyToOne
     private User user;
 
-    @OneToMany(mappedBy = "lawsuit"//, cascade = CascadeType.MERGE
-    )
+    @OneToMany(mappedBy = "lawsuit", cascade = CascadeType.MERGE)
     private List<Event> event;
-
-    @OneToMany(mappedBy = "lawsuit"//, cascade = CascadeType.MERGE
-    )
-    private List<Party> party;
 
     @ManyToOne(cascade = CascadeType.MERGE)
     private CourtDepartment courtDepartment;
  
-
+    @OneToMany(mappedBy = "lawsuit", cascade = CascadeType.MERGE)
+    private List<Person> person;
     
 
     /**
@@ -50,6 +47,8 @@ public class Lawsuit extends Model {
         return description;
     }
 
+    
+    
     /**
      * @param description the description to set
      */
@@ -86,20 +85,6 @@ public class Lawsuit extends Model {
     }
 
     /**
-     * @return the party
-     */
-    public List<Party> getParty() {
-        return party;
-    }
-
-    /**
-     * @param party the party to set
-     */
-    public void setParty(List<Party> party) {
-        this.party = party;
-    }
-
-    /**
      * @return the courtFileReference
      */
     public String getCourtFileReference() {
@@ -125,6 +110,20 @@ public class Lawsuit extends Model {
      */
     public void setCourtDepartment(CourtDepartment courtDepartment) {
         this.courtDepartment = courtDepartment;
+    }
+
+    /**
+     * @return the person
+     */
+    public List<Person> getPerson() {
+        return person;
+    }
+
+    /**
+     * @param person the person to set
+     */
+    public void setPerson(List<Person> person) {
+        this.person = person;
     }
 
 }

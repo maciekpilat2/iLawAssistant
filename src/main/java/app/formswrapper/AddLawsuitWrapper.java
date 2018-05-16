@@ -8,7 +8,6 @@ import app.models.Lawsuit;
 import app.models.Court;
 import app.models.CourtDepartment;
 import app.models.Person;
-import app.models.Party;
 /**
  *
  * @author Pilat
@@ -18,7 +17,6 @@ public class AddLawsuitWrapper {
     private Court court;
     private CourtDepartment courtDepartment;
     private Person person;
-    private Party party;
 
     
     
@@ -79,19 +77,6 @@ public class AddLawsuitWrapper {
         this.person = person;
     }
 
-    /**
-     * @return the party
-     */
-    public Party getParty() {
-        return party;
-    }
-
-    /**
-     * @param party the party to set
-     */
-    public void setParty(Party party) {
-        this.party = party;
-    }
     
     
 }

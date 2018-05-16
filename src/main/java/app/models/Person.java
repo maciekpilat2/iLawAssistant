@@ -22,15 +22,20 @@ public class Person extends Model {
     private String personFirstName;
     private String personLastName;
     private String personCompanyName;
+    private Long partyType;
 
-    @ManyToOne(cascade = CascadeType.MERGE)
-    private Party party;
+    @ManyToOne()
+    private Lawsuit lawsuit;
 
     @Override
     public String toString() {
-        return "Person{" + "personTitle=" + personTitle + ", personFirstName=" + personFirstName + ", personLastName=" + personLastName + ", personCompanyName=" + personCompanyName + ", party=" + party + '}';
+        return "Person{" + "personTitle=" + personTitle + ", personFirstName=" + personFirstName + ", personLastName=" + personLastName + ", personCompanyName=" + personCompanyName + ", partyType=" + partyType + ", lawsuit=" + lawsuit + '}';
     }
 
+
+
+    
+    
     /**
      * @return the personTitle
      */
@@ -88,17 +93,32 @@ public class Person extends Model {
     }
 
     /**
-     * @return the party
+     * @return the lawsuit
      */
-    public Party getParty() {
-        return party;
+    public Lawsuit getLawsuit() {
+        return lawsuit;
     }
 
     /**
-     * @param party the party to set
+     * @param lawsuit the lawsuit to set
      */
-    public void setParty(Party party) {
-        this.party = party;
+    public void setLawsuit(Lawsuit lawsuit) {
+        this.lawsuit = lawsuit;
     }
+
+    /**
+     * @return the partyType
+     */
+    public Long getPartyType() {
+        return partyType;
+    }
+
+    /**
+     * @param partyType the partyType to set
+     */
+    public void setPartyType(Long partyType) {
+        this.partyType = partyType;
+    }
+
 
 }

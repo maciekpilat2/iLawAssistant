@@ -16,18 +16,21 @@ import org.springframework.ui.Model;
 import app.formswrapper.PartyTypePersonWrap;
 import app.repositories.PartyTypeRepository;
 import app.models.Lawsuit;
-import app.models.Party;
 import app.repositories.LawsuitRepository;
-import app.repositories.PartyRepository;
 import java.util.ArrayList;
 import java.util.List;
 import app.services.UserService;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttribute;
+import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 /**
  *
  * @author Pilat
  */
 @Controller
+@SessionAttributes("lawsuit")
 public class PersonController {
 
     @Autowired
@@ -35,54 +38,30 @@ public class PersonController {
     @Autowired
     PartyTypeRepository partyTypeRepository;
     @Autowired
-    PartyRepository partyRepository;
-    @Autowired
     LawsuitRepository lawsuiteRepository;
     @Autowired
     UserService userService;
 
     @GetMapping("/addperson")
-    public String getAddPerson(Model model) {
+    public String getAddPerson(Model model, @RequestParam("lawsuitId") Long lawsuitId) {
+        System.out.println("get lawsuitId: " + lawsuitId);
+        
         Person person = new Person();
         model.addAttribute("person", person);
+        model.addAttribute("partyTypeList", partyTypeRepository.findAll());
+        Lawsuit lawsuit = new Lawsuit();
+        lawsuit.setId(lawsuitId);
+        model.addAttribute("lawsuit", lawsuit);
         return "addperson";
     }
 
     @PostMapping("/addperson")
-    public String postAddPerson(@ModelAttribute Person person) {
+    public String postAddPerson(@ModelAttribute Person person, @SessionAttribute("lawsuit") Lawsuit lawsuit, RedirectAttributes redirectAttributes) {
+        System.out.println("LawsuitId: " + lawsuit.getId());
+        person.setLawsuit(lawsuiteRepository.findOne(lawsuit.getId()));
         personRepository.save(person);
-        return "redirect:addperson";
+        redirectAttributes.addAttribute("lawsuitId", lawsuit.getId());
+        return "redirect:lawsuitpanel";
     }
-
-    // dziala ale na razie bez potrzeby bo to robi Party
-//    @GetMapping("/addpersonasparty")
-//    public String getAddPersonAsParty(Model model) {
-//        PartyTypePersonWrap partyTypePersonWrap = new PartyTypePersonWrap();
-//        model.addAttribute("partyTypePersonWrap", partyTypePersonWrap);
-//        model.addAttribute("lawsuitList", lawsuiteRepository.findAllLawsuitsByUserId(userService.getLoggedInUser().getId()));
-//        model.addAttribute("partyTypeList", partyTypeRepository.findAll());
-//        return "addpersonasparty";
-//    }
-//
-//    @PostMapping("/addpersonasparty")
-//    public String postAddPersonAsParty(@ModelAttribute PartyTypePersonWrap partyTypePersonWrap) {
-//     Party party = new Party();
-//   
-//        Person person = new Person();
-//        person.setPersonFirstName(partyTypePersonWrap.getPerson().getPersonFirstName());
-//        person.setPersonLastName(partyTypePersonWrap.getPerson().getPersonLastName());
-//        person.setPersonTitle(partyTypePersonWrap.getPerson().getPersonTitle());
-//        person.setPersonCompanyName(partyTypePersonWrap.getPerson().getPersonCompanyName());
-//        //person.setParty(partyTypePersonWrap.get);
-//        
-//        List<Person> personList = new ArrayList<>();
-//        personList.add(partyTypePersonWrap.getPerson());
-//              
-//        party.setPartyType(partyTypePersonWrap.getPartyType().getId());
-//        party.setPerson(personList);
-//        partyRepository.save(party);
-//        personRepository.save(partyTypePersonWrap.getPerson());
-//         return "redirect:addpersonasparty";
-//    }
 
 }

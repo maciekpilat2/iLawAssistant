@@ -62,7 +62,7 @@ public class EventController {
         event.setEndDate(endDate);
         event.setLawsuit(lawsuitRepository.findOne(lawsuit.getId()));
         eventRepository.save(event);
-        return "redirect:addevent";
+        return "redirect:lawsuitpanel";
     }
     
 
