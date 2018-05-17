@@ -33,14 +33,10 @@
             <!--bootstrap datetime picker START-->      
             <div class='col-lg-2'>
                 <div class="form-group"> <!-- Date input -->
-                    <input class="form-control" id="date" name="startDate" placeholder="MM/DD/YYY" type="text" th:field="*{startDate}"></input>
+                    <input class="form-control" id="date" name="eventDate" placeholder="MM/DD/YYY" type="text" th:field="*{eventDate}"></input>
                 </div>
             </div>
-            <div class='col-lg-2'>
-                <div class="form-group"> <!-- Date input -->
-                    <input class="form-control" id="date" name="endDate" placeholder="MM/DD/YYY" type="text" th:field="*{endDate}"></input>
-                </div>
-            </div>
+            <input type="checkbox" name="reminder" th:field="*{reminder}">Przypomnienie</input>
             <div class="row">
                 <div class="col-lg-2">
                     <input type="submit" value="Zapisz"></input>

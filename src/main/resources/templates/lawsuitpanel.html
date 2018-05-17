@@ -19,13 +19,30 @@
             </tr>
         </table>       
         <button type="submit" name="lawsuitEventsButton" value="${lawsuit.id}" th:onclick="'location.href = \'' + @{/addevent(lawsuitId=${lawsuit.id})} + '\''">Dodaj wydarzenie</button>
-        <button type="submit" name="lawsuitEventsButton" value="${lawsuit.id}" th:onclick="'location.href = \'' + @{/addperson(lawsuitId=${lawsuit.id})} + '\''">Dodaj strone</button>
 
- 
+        <p>Powodowie:</p>
         <table>
-            <tr th:each="p : ${personList}">
+            <tr th:each="p : ${personPlaintiffList}">
                 <td th:text="${p.personFirstName}"/>
                 <td th:text="${p.personLastName}"/>
+                <td><button type="submit" name="lawsuitEventsButton" value="${lawsuit.id}" th:onclick="'location.href = \'' + @{/personpanel(personId=${p.id})} + '\''">Panel osoby</button></td>
+            </tr>
+        </table>
+        <p>Pozwani:</p>
+        <table>
+            <tr th:each="p : ${personDefendantList}">
+                <td th:text="${p.personFirstName}"/>
+                <td th:text="${p.personLastName}"/>
+                <button type="submit" name="lawsuitEventsButton" value="${lawsuit.id}" th:onclick="'location.href = \'' + @{/personpanel(personId=${p.id})} + '\''">Panel osoby</button>
+            </tr>
+        </table>
+        <button type="submit" name="lawsuitEventsButton" value="${lawsuit.id}" th:onclick="'location.href = \'' + @{/addperson(lawsuitId=${lawsuit.id})} + '\''">Dodaj strone</button>
+        <p>Nadchodzace wydarzenia</p>
+        <table>
+            <tr th:each="e : ${eventToRemindList}">
+                <td th:text="${e.eventDate}"/>
+                <td th:text="${e.eventType}"/>
+                <td th:text="${e.note}"/>
             </tr>
         </table>
         <!--powrót-->

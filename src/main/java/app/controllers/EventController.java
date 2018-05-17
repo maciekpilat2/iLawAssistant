@@ -49,22 +49,19 @@ public class EventController {
         return "addevent";
     }
 
-        @PostMapping("/addevent")
+    @PostMapping("/addevent")
     public String postAddEvent(
             @ModelAttribute Event event,
             @SessionAttribute("lawsuit") Lawsuit lawsuit,
-            @RequestParam("startDate") Timestamp startDate,
-            @RequestParam("endDate") Timestamp endDate,
-            RedirectAttributes redirectAttributes 
+            @RequestParam("eventDate") Timestamp eventDate,
+            RedirectAttributes redirectAttributes
     ) {
         redirectAttributes.addAttribute("lawsuitId", lawsuit.getId());
-        event.setStartDate(startDate);
-        event.setEndDate(endDate);
+        event.setEventDate(eventDate);
         event.setLawsuit(lawsuitRepository.findOne(lawsuit.getId()));
         eventRepository.save(event);
         return "redirect:lawsuitpanel";
     }
-    
 
     @GetMapping("/editevent")
     public String getEditEvent(@RequestParam("eventId") Long eventId, Model model) {
@@ -77,11 +74,9 @@ public class EventController {
     public String postEditEvent(
             @SessionAttribute("editEvent") Event sessionEditEvent,
             @ModelAttribute Event editEvent,
-            @RequestParam("startDate") Timestamp startDate,
-            @RequestParam("endDate") Timestamp endDate
+            @RequestParam("eventDate") Timestamp eventDate
     ) {
-        editEvent.setStartDate(startDate);
-        editEvent.setEndDate(endDate);
+        editEvent.setEventDate(eventDate);
         editEvent.setLawsuit(sessionEditEvent.getLawsuit());
         editEvent.setId(sessionEditEvent.getId());
         eventRepository.save(editEvent);
@@ -95,4 +90,11 @@ public class EventController {
         eventRepository.delete(eventId);
         return "forward:/lawsuitpanel?lawsuitId=" + lawsuitId;
     }
+
+//    @RequestMapping("/test")
+//    public void listOfEventsToRemind() {
+//        System.out.println("!!!!!!!!!!!!!!!!!!!!!!Wydarzenia: " + eventRepository.userEventToRemind(1L, true).toString());
+//
+//    }
+
 }

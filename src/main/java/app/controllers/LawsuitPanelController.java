@@ -11,9 +11,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import app.repositories.EventRepository;
 import app.repositories.LawsuitRepository;
 import app.repositories.PersonRepository;
+import app.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import app.services.UserService;
 
 /**
  *
@@ -28,11 +30,15 @@ public class LawsuitPanelController {
     EventRepository eventRepository;
     @Autowired
     PersonRepository personRepository;
+    @Autowired
+    UserService userService; 
 
     @RequestMapping("/lawsuitpanel")
     public String postLawsuitEvents(@RequestParam("lawsuitId") Long lawsuitId, Model model) {
         model.addAttribute("lawsuit", lawsuitRepository.findOne(lawsuitId));
-        model.addAttribute("personList", personRepository.allPersonToLawsuit(lawsuitId));
+        model.addAttribute("personPlaintiffList", personRepository.allPlaintiffToLawsuit(lawsuitId));
+        model.addAttribute("personDefendantList", personRepository.allDefendantToLawsuit(lawsuitId));
+        model.addAttribute("eventToRemindList", eventRepository.userEventToRemind(userService.loggedUserId(), true, lawsuitId));
 
         return "lawsuitpanel";
     }

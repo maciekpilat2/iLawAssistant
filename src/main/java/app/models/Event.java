@@ -23,9 +23,9 @@ import javax.persistence.OneToMany;
 public class Event extends Model {
 
     private String note;
-    private Timestamp startDate;
-    private Timestamp endDate;
+    private Timestamp eventDate;
     private Long eventType;
+    private boolean reminder;
 
     @ManyToOne(fetch = FetchType.EAGER)
     private Lawsuit lawsuit;
@@ -35,10 +35,8 @@ public class Event extends Model {
 
     @Override
     public String toString() {
-        return "Event{" + "note=" + note + ", startDate=" + startDate + ", endDate=" + endDate + ", eventType=" + eventType + ", lawsuit=" + lawsuit + ", scan=" + scan + '}';
+        return "Event{" + "note=" + note + ", eventDate=" + eventDate + ", eventType=" + eventType + ", reminder=" + reminder + ", lawsuit=" + lawsuit + ", scan=" + scan + '}';
     }
-
-
 
     /**
      * @return the note
@@ -55,31 +53,17 @@ public class Event extends Model {
     }
 
     /**
-     * @return the startDate
+     * @return the eventDate
      */
-    public Timestamp getStartDate() {
-        return startDate;
+    public Timestamp getEventDate() {
+        return eventDate;
     }
 
     /**
-     * @param startDate the startDate to set
+     * @param eventDate the eventDate to set
      */
-    public void setStartDate(Timestamp startDate) {
-        this.startDate = startDate;
-    }
-
-    /**
-     * @return the endDate
-     */
-    public Timestamp getEndDate() {
-        return endDate;
-    }
-
-    /**
-     * @param endDate the endDate to set
-     */
-    public void setEndDate(Timestamp endDate) {
-        this.endDate = endDate;
+    public void setEventDate(Timestamp eventDate) {
+        this.eventDate = eventDate;
     }
 
     /**
@@ -122,6 +106,20 @@ public class Event extends Model {
      */
     public void setEventType(Long eventType) {
         this.eventType = eventType;
+    }
+
+    /**
+     * @return the reminder
+     */
+    public boolean isReminder() {
+        return reminder;
+    }
+
+    /**
+     * @param reminder the reminder to set
+     */
+    public void setReminder(boolean reminder) {
+        this.reminder = reminder;
     }
 
 }
