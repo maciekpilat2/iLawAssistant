@@ -5,9 +5,12 @@
  */
 package app.models;
 
+import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
@@ -23,7 +26,10 @@ public class Person extends Model {
     private String personLastName;
     private String personCompanyName;
     private Long partyType;
-
+    
+    @OneToMany(mappedBy = "person", cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
+    private List<Address> address;
+    
     @ManyToOne()
     private Lawsuit lawsuit;
 
@@ -120,5 +126,18 @@ public class Person extends Model {
         this.partyType = partyType;
     }
 
+    /**
+     * @return the address
+     */
+    public List<Address> getAddress() {
+        return address;
+    }
+
+    /**
+     * @param address the address to set
+     */
+    public void setAddress(List<Address> address) {
+        this.address = address;
+    }
 
 }

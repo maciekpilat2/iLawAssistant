@@ -5,6 +5,11 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     </head>
     <body>
+        
+        <h1 th:text = "*{person.personFirstName} + ' ' + *{person.personLastName}"></h1>
+        <p>Adres</p>
+        <button type="button" th:onclick="'location.href = \'' + @{/addaddress(personId=${person.id})} + '\''">Dodaj adres</button>
+        
 <!--        Wydarzenie w sprawie: <a th:text="${event.lawsuit.courtFileReference}"></a>
         <p>Opis wydarzenia: <a th:text="${event.note}"></a></p>
         <div>

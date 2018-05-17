@@ -27,6 +27,7 @@ public class Address extends Model{
     private String administrativeArea;
     private String postalCode;
     private String country;
+    private String addressType;
 
     @ManyToOne(fetch = FetchType.EAGER)
     private User user;
@@ -34,6 +35,9 @@ public class Address extends Model{
     @ManyToOne
     private CourtDepartment courtDepartment;
 
+    @ManyToOne
+    private Person person;
+    
     /**
      * @return the streetNumber
      */
@@ -144,6 +148,34 @@ public class Address extends Model{
      */
     public void setCourtDepartment(CourtDepartment courtDepartment) {
         this.courtDepartment = courtDepartment;
+    }
+
+    /**
+     * @return the person
+     */
+    public Person getPerson() {
+        return person;
+    }
+
+    /**
+     * @param person the person to set
+     */
+    public void setPerson(Person person) {
+        this.person = person;
+    }
+
+    /**
+     * @return the addressType
+     */
+    public String getAddressType() {
+        return addressType;
+    }
+
+    /**
+     * @param addressType the addressType to set
+     */
+    public void setAddressType(String addressType) {
+        this.addressType = addressType;
     }
 
 

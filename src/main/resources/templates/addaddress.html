@@ -32,6 +32,9 @@
                     <td class="wideField" colspan="3"><input class="field" placeholder="Country" id="country" disabled="true" th:field="*{country}"></input></td>
                 </tr>
             </table>
+            <select th:field="*{addressType}">
+                <option th:Each = "e : ${addressTypeList}"  th:value="${e}" th:text="${e}" th:field="*{addressType}"></option>
+            </select>
             <input type="submit" value="Zatwierdź"></input>
         </form>
         <button type="button" onclick="location.href = '/userpanel';">Powrót</button>
