@@ -21,5 +21,9 @@ public interface EventRepository extends JpaRepository<Event, Long> {
 
     @Query("select e from Event e JOIN FETCH e.lawsuit where e.lawsuit.user.id=?1 and e.reminder=?2 and e.eventDate>=SYSDATE() and e.lawsuit.id=?3")
     List<Event> userEventToRemind(Long userId, boolean remind, Long lawsuitId);
+
+    @Query("select e from Event e JOIN FETCH e.lawsuit where e.reminder=true and e.eventDate>=SYSDATE()")
+    List<Event> getAllEventsToRemind();
+
 }
 // and e.eventDate<=SYSDATE()

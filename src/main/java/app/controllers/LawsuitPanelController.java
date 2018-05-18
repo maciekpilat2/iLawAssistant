@@ -5,6 +5,8 @@
  */
 package app.controllers;
 
+import app.services.EventService;
+import app.services.RemainderMailService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -31,7 +33,9 @@ public class LawsuitPanelController {
     @Autowired
     PersonRepository personRepository;
     @Autowired
-    UserService userService; 
+    UserService userService;
+    @Autowired
+    RemainderMailService remainderMailService;
 
     @RequestMapping("/lawsuitpanel")
     public String postLawsuitEvents(@RequestParam("lawsuitId") Long lawsuitId, Model model) {
@@ -39,6 +43,7 @@ public class LawsuitPanelController {
         model.addAttribute("personPlaintiffList", personRepository.allPlaintiffToLawsuit(lawsuitId));
         model.addAttribute("personDefendantList", personRepository.allDefendantToLawsuit(lawsuitId));
         model.addAttribute("eventToRemindList", eventRepository.userEventToRemind(userService.loggedUserId(), true, lawsuitId));
+       // remainderMailService.sendEventReminders();
 
         return "lawsuitpanel";
     }
