@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import app.models.Address;
 
 /**
  *
@@ -18,12 +19,19 @@ import org.springframework.web.bind.annotation.RequestParam;
  */
 @Controller
 public class PersonPanelController {
+
     @Autowired
     PersonRepository personRepository;
 
     @GetMapping("/personpanel")
-public String getPersonPalnel(Model model, @RequestParam("personId") Long personId){
-    model.addAttribute("person", personRepository.findOne(personId));
-    return "personpanel";
-}    
+    public String getPersonPalnel(Model model, @RequestParam("personId") Long personId) {
+        model.addAttribute("person", personRepository.findOne(personId));
+
+        for(Address a : personRepository.findOne(personId).getAddress()){
+        System.out.println("Dane adresowe: " + a.getStreetName());
+         System.out.println("Dane adresowe: " + a.getAddressType());
+        }
+
+        return "personpanel";
+    }
 }

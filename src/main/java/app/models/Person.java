@@ -12,6 +12,8 @@ import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import app.models.Contact;
+import javax.persistence.OneToOne;
 
 /**
  *
@@ -32,16 +34,15 @@ public class Person extends Model {
     
     @ManyToOne()
     private Lawsuit lawsuit;
+    
+    @OneToOne(mappedBy = "person", fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
+    private Contact contact;
 
     @Override
     public String toString() {
         return "Person{" + "personTitle=" + personTitle + ", personFirstName=" + personFirstName + ", personLastName=" + personLastName + ", personCompanyName=" + personCompanyName + ", partyType=" + partyType + ", lawsuit=" + lawsuit + '}';
     }
 
-
-
-    
-    
     /**
      * @return the personTitle
      */
@@ -138,6 +139,20 @@ public class Person extends Model {
      */
     public void setAddress(List<Address> address) {
         this.address = address;
+    }
+
+    /**
+     * @return the contact
+     */
+    public Contact getContact() {
+        return contact;
+    }
+
+    /**
+     * @param contact the contact to set
+     */
+    public void setContact(Contact contact) {
+        this.contact = contact;
     }
 
 }

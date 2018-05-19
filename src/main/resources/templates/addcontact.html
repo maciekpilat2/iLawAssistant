@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>Doda postępowanie</title>
+        <meta charset="UTF-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+        <!--  jQuery -->
+        <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+
+        <!-- Isolated Version of Bootstrap, not needed if your site already uses Bootstrap -->
+        <link rel="stylesheet" href="https://formden.com/static/cdn/bootstrap-iso.css" />
+
+        <!-- Bootstrap Date-Picker Plugin -->
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css"/>
+
+    </head>
+    <body>
+        <div>Dodaj dane kontaktowe</div>
+
+        <form th:action="@{/addcontact}" th:object="${contact}" method="post">
+            <input type="tel" placeholder="Telefon stacjonarny" th:field="*{phone}"></input>
+            <input type="tel" placeholder="Komórka" th:field="*{mobilePhone}"></input>
+            <input type="tel" placeholder="Mail" th:field="*{mail}"></input>
+            <input type="submit" value="Zapisz"></input>
+        </form>
+        <button type="button" onclick="location.href = '/userpanel';">Powrót</button>
+    </body>
+</html>

@@ -17,6 +17,7 @@ import app.enums.AddressTypeEnum;
 import org.springframework.web.bind.annotation.RequestParam;
 import app.models.Person;
 import app.repositories.PersonRepository;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -51,6 +52,12 @@ public class AddressController {
         redirectAttributes.addAttribute("personId", person.getId());
         address.setPerson(personRepository.findOne(person.getId()));
         addressRepository.save(address);
+        return "redirect:personpanel";
+    }
+    @RequestMapping("/deleteadress")
+    public String deleteAddress(@RequestParam("addressId") Long addressId, RedirectAttributes redirectAttributes){
+        redirectAttributes.addAttribute("personId", addressRepository.findOne(addressId).getPerson().getId());
+        addressRepository.delete(addressId);
         return "redirect:personpanel";
     }
     

@@ -5,39 +5,54 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     </head>
     <body>
-        
+
         <h1 th:text = "*{person.personFirstName} + ' ' + *{person.personLastName}"></h1>
-        <p>Adres</p>
-        <button type="button" th:onclick="'location.href = \'' + @{/addaddress(personId=${person.id})} + '\''">Dodaj adres</button>
+
+        <p>Dane kontaktowe</p>
+        <table>
+            <tr>
+                <td>Tel stacjonarny</td>
+                <td>Komórka</td>
+                <td>Mail:</td>
+            </tr>
+            <tr th:each="c : ${person.contact}">
+                <td th:text="${c.phone}"/>
+                <td th:text="${c.mobilePhone}"/>
+                <td th:text="${c.mail}"/>
+                <!--<td><button type="button" th:onclick="'location.href = \'' + @{/deleteadress(addressId=${a.id})} + '\''">Kasuj</button></td>-->
+            </tr>  
+        </table>        
         
-<!--        Wydarzenie w sprawie: <a th:text="${event.lawsuit.courtFileReference}"></a>
-        <p>Opis wydarzenia: <a th:text="${event.note}"></a></p>
-        <div>
-            <div>
-                <div>Dodaj skan</div>
-                <form th:object="${scan}" method="post" enctype="multipart/form-data">       
-                    <input type="file" name="scanMultipart" accept="image/*"></input>
-                    <input type="text" th:field="*{scanName}" placeholder="Nazwa skanu"></input>        
-                    <button type="submit">Dodaj</button>
-                </form>
-            </div>
-            <div>
-                <p>SKANY PRZYPISANE</p>
-                <tr>
-                    <td>Nazwa skanu</td>
-                    <td>Opis wydarzenia</td>
-                </tr>                  
-                <tr>
-                    <th:block th:each:= "s : ${scanList}">
-                        <td th:text="${s.id}"></td>
-                        <td th:text="${s.scanName}"></td>
-                        <td th:text="${s.event.note}"></td>
-                    </th:block>
-                </tr>
-            </div>
-        </div>
-        <button type="submit" th:onclick="'location.href = \'' + @{/editevent(eventId=${event.id})} + '\''">Edytuj</button>
-        <button type="submit" th:onclick="'location.href = \'' + @{/delete/event(eventId=${event.id})} + '\''">Kasuj</button>-->
+        <button type="button" th:onclick="'location.href = \'' + @{/addcontact(personId=${person.id})} + '\''">Dodaj kontakt</button>
+        <p>Adres</p>
+
+        <table>
+            <tr>
+                <td>Nr</td>
+                <td>Ulica</td>
+                <td>Miasto</td>
+                <td>Województwo</td>
+                <td>Kod pocztowy</td>
+                <td>Kraj</td>
+                <td>Rodzaj adresu</td>
+            </tr>
+            <tr th:each="a : ${person.address}">
+                <td th:text="${a.streetNumber}"/>
+                <td th:text="${a.streetName}"/>
+                <td th:text="${a.city}"/>
+                <td th:text="${a.administrativeArea}"/>
+                <td th:text="${a.postalCode}"/>
+                <td th:text="${a.country}"/>
+                <td th:text="${a.addressType}"/>
+                <td><button type="button" class="btn btn-danger btn-icon btn-sm " th:onclick="'location.href = \'' + @{/deleteadress(addressId=${a.id})} + '\''">Kasuj</button></td>
+            </tr>  
+        </table>
+
+
+
+
+
+        <button type="button" th:onclick="'location.href = \'' + @{/addaddress(personId=${person.id})} + '\''">Dodaj adres</button>
         <button type="button" onclick="location.href = '/userpanel';">Powrót</button>
     </body>
 </html>
