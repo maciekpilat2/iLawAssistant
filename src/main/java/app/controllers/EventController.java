@@ -5,6 +5,7 @@
  */
 package app.controllers;
 
+import app.enums.EventTypeEnum;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -40,6 +41,7 @@ public class EventController {
 
     @GetMapping("/addevent")
     public String getAddEvent(@RequestParam("lawsuitId") Long lawsuitId, Model model) {
+        model.addAttribute("eventTypeEnum", EventTypeEnum.values());
         Event event = new Event();
         model.addAttribute("event", event);
         model.addAttribute("eventType", eventTypeRepository.findAll());

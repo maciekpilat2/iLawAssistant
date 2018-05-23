@@ -5,6 +5,7 @@
  */
 package app.models;
 
+import app.enums.EventTypeEnum;
 import java.sql.Timestamp;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -12,6 +13,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import java.util.List;
 import javax.persistence.CascadeType;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.OneToMany;
 
 /**
@@ -26,6 +29,9 @@ public class Event extends Model {
     private Timestamp eventDate;
     private Long eventType;
     private boolean reminder;
+    
+    @Enumerated(EnumType.STRING)
+    private EventTypeEnum eventTypeEnum;
 
     @ManyToOne(fetch = FetchType.EAGER)
     private Lawsuit lawsuit;
@@ -38,6 +44,8 @@ public class Event extends Model {
         return "Event{" + "note=" + note + ", eventDate=" + eventDate + ", eventType=" + eventType + ", reminder=" + reminder + ", lawsuit=" + lawsuit + ", scan=" + scan + '}';
     }
 
+    
+    
     /**
      * @return the note
      */
@@ -120,6 +128,20 @@ public class Event extends Model {
      */
     public void setReminder(boolean reminder) {
         this.reminder = reminder;
+    }
+
+    /**
+     * @return the eventTypeEnum
+     */
+    public EventTypeEnum getEventTypeEnum() {
+        return eventTypeEnum;
+    }
+
+    /**
+     * @param eventTypeEnum the eventTypeEnum to set
+     */
+    public void setEventTypeEnum(EventTypeEnum eventTypeEnum) {
+        this.eventTypeEnum = eventTypeEnum;
     }
 
 }

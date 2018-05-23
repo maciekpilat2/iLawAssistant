@@ -20,15 +20,11 @@
         <div>Doda wydarzenie do postępowania</div>
 
         <form th:action="@{/addevent}" th:object="${event}" method="post">
-            
-            <select th:field="*{eventType}">
-                <table>
-                    <tr th:each="et : ${eventType}">
-                        <option th:value="${et.id}" th:text="${et.eventTypeName}" th:field="*{id}"></option>
-                    </tr>
-                </table>
+            <!--enum rodzaju eventu-->
+            <select th:field="*{eventTypeEnum}">
+                <option th:Each = "e : ${eventTypeEnum}"  th:value="${e}" th:text="${e.name}" th:field="*{eventTypeEnum}"></option>
             </select>
-            
+
             <input type="text" placeholder="Opis" th:field="*{note}"></input>
             <!--bootstrap datetime picker START-->      
             <div class='col-lg-2'>

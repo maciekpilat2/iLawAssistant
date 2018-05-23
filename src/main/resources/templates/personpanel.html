@@ -3,56 +3,90 @@
         <title>TODO supply a title</title>
         <meta charset="UTF-8"/>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+
+        <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" />
+        <!-- CSS Files -->
+        <link href="/assets/css/bootstrap.min.css" rel="stylesheet" />
+        <link href="/assets/css/now-ui-kit.css?v=1.2.0" rel="stylesheet" />
+        <script src="/js/app.js"></script>
+        <link href="/css/styles.css" rel="stylesheet" />
     </head>
     <body>
+        <div class="container">
 
-        <h1 th:text = "*{person.personFirstName} + ' ' + *{person.personLastName}"></h1>
+            <div class="row">
+                <p>Panel osoby:</p>
+            </div>            
+            <div class="row">
+                <h1 th:text = "*{person.personFirstName} + ' ' + *{person.personLastName}"></h1>
+            </div>
+            <div class="row">
+                <div class="col-5">
+                    <div class="card">
+                        <div class="card-header">
+                            <ul class="nav nav-tabs" role="tablist" data-background-color="orange">
+                                <p>Dane kontaktowe</p>
+                            </ul>
+                            <table class="table">
+                                <tr>
+                                    <td>Tel stacjonarny</td>
+                                    <td>Komórka</td>
+                                    <td>Mail:</td>
+                                </tr>
+                                <tr th:each="c : ${person.contact}">
+                                    <td th:text="${c.phone}"/>
+                                    <td th:text="${c.mobilePhone}"/>
+                                    <td th:text="${c.mail}"/>
+                                    <!--<td><button type="button" class="btn btn-danger btn-icon btn-sm " th:onclick="'location.href = \'' + @{/deleteadress(addressId=${a.id})} + '\''">x</button></td>-->
+                                </tr>  
+                            </table>
+                            <div class="card-footer text-center">
+                                <button type="button" class="btn btn-success btn-sm " th:onclick="'location.href = \'' + @{/addcontact(personId=${person.id})} + '\''">Dodaj kontakt</button>    
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-7">
+                    <div class="card">
+                        <div class="card-header">
+                            <ul class="nav nav-tabs" role="tablist" data-background-color="orange">
+                                <p>Adres</p>
+                            </ul>
+                            <table class="table">
+                                <tr>
+                                    <td>Nr</td>
+                                    <td>Ulica</td>
+                                    <td>Miasto</td>
+                                    <!--<td>Województwo</td>-->
+                                    <td>Kod pocztowy</td>
+                                    <!--<td>Kraj</td>-->
+                                    <td>Rodzaj adresu</td>
+                                </tr>
+                                <tr th:each="a : ${person.address}">
+                                    <td th:text="${a.streetNumber}"/>
+                                    <td th:text="${a.streetName}"/>
+                                    <td th:text="${a.city}"/>
+                                    <!--<td th:text="${a.administrativeArea}"/>-->
+                                    <td th:text="${a.postalCode}"/>
+                                    <!--<td th:text="${a.country}"/>-->
+                                    <td th:text="${a.addressType}"/>
+                                    <td><button type="button" class="btn btn-danger btn-icon btn-sm" th:onclick="'location.href = \'' + @{/deleteadress(addressId=${a.id})} + '\''">x</button></td>
+                                </tr>  
+                            </table>
+                            <div class="card-footer text-center">
+                                <button type="button" class="btn btn-success btn-sm" th:onclick="'location.href = \'' + @{/addaddress(personId=${person.id})} + '\''">Dodaj adres</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-        <p>Dane kontaktowe</p>
-        <table>
-            <tr>
-                <td>Tel stacjonarny</td>
-                <td>Komórka</td>
-                <td>Mail:</td>
-            </tr>
-            <tr th:each="c : ${person.contact}">
-                <td th:text="${c.phone}"/>
-                <td th:text="${c.mobilePhone}"/>
-                <td th:text="${c.mail}"/>
-                <!--<td><button type="button" th:onclick="'location.href = \'' + @{/deleteadress(addressId=${a.id})} + '\''">Kasuj</button></td>-->
-            </tr>  
-        </table>        
-        
-        <button type="button" th:onclick="'location.href = \'' + @{/addcontact(personId=${person.id})} + '\''">Dodaj kontakt</button>
-        <p>Adres</p>
-
-        <table>
-            <tr>
-                <td>Nr</td>
-                <td>Ulica</td>
-                <td>Miasto</td>
-                <td>Województwo</td>
-                <td>Kod pocztowy</td>
-                <td>Kraj</td>
-                <td>Rodzaj adresu</td>
-            </tr>
-            <tr th:each="a : ${person.address}">
-                <td th:text="${a.streetNumber}"/>
-                <td th:text="${a.streetName}"/>
-                <td th:text="${a.city}"/>
-                <td th:text="${a.administrativeArea}"/>
-                <td th:text="${a.postalCode}"/>
-                <td th:text="${a.country}"/>
-                <td th:text="${a.addressType}"/>
-                <td><button type="button" class="btn btn-danger btn-icon btn-sm " th:onclick="'location.href = \'' + @{/deleteadress(addressId=${a.id})} + '\''">Kasuj</button></td>
-            </tr>  
-        </table>
-
-
-
-
-
-        <button type="button" th:onclick="'location.href = \'' + @{/addaddress(personId=${person.id})} + '\''">Dodaj adres</button>
-        <button type="button" onclick="location.href = '/userpanel';">Powrót</button>
+            <div class="row">
+                <button type="button" class="btn btn-primary btn-sm"  onclick="location.href = '/userpanel';">Powrót</button>
+            </div>
+        </div>
     </body>
 </html>

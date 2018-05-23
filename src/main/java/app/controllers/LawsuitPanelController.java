@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import app.repositories.EventRepository;
 import app.repositories.LawsuitRepository;
 import app.repositories.PersonRepository;
+import app.services.ListService;
 import app.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
@@ -36,6 +37,8 @@ public class LawsuitPanelController {
     UserService userService;
     @Autowired
     RemainderMailService remainderMailService;
+    @Autowired
+    ListService listService;
 
     @RequestMapping("/lawsuitpanel")
     public String postLawsuitEvents(@RequestParam("lawsuitId") Long lawsuitId, Model model) {
@@ -45,6 +48,7 @@ public class LawsuitPanelController {
         model.addAttribute("eventToRemindList", eventRepository.userEventToRemind(userService.loggedUserId(), true, lawsuitId));
        // remainderMailService.sendEventReminders();
 
+       
         return "lawsuitpanel";
     }
 

@@ -4,23 +4,70 @@
         <title>TODO supply a title</title>
         <meta name="viewport" content="initial-scale=1.0, user-scalable=no"/>
         <meta charset="utf-8"/>
+        
+        <!--timeline-->
+        <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css"/>
+        <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+        <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+        <link href="/css/timeline.css" rel="stylesheet"/>
+        
+        
+        <!--<link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />-->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" />
+        <!-- CSS Files -->
+        <!--<link href="/assets/css/bootstrap.min.css" rel="stylesheet" />-->
+        <!--<link href="/assets/css/now-ui-kit.css?v=1.2.0" rel="stylesheet" />-->
+        <!--<script src="/js/app.js"></script>-->
+        <!--<link href="/css/styles.css" rel="stylesheet" />-->
+        
+        
+        
     </head>
     <body>
         <div>TODO write content</div>
+        <div class="container">
+                    <div class="col-lg-6">
+                <div class="container-fluid">
+            <div class="row">
+                <ul class="timeline">
+                    <li th:each="l : ${lawsuit.event}">
+                        <div class="timeline-badge">
+                            <a><i class="fa fa-circle" id=""></i></a>
+                        </div>
+                        <div class="timeline-panel">
+                            <div class="timeline-heading">
+                                <h4 th:text="${l.eventTypeEnum}"></h4>
+                            </div>
+                            <div class="timeline-body">
+                                <p th:text="${l.note}"></p>
+                            </div>
+                            <div class="timeline-footer">
+                                <p class="text-right" th:text="${l.eventDate}"></p>
+                            </div>
+                <button type="submit" th:onclick="'location.href = \'' + @{/editevent(eventId=${l.id})} + '\''">Edytuj</button>
+                <button type="submit" th:onclick="'location.href = \'' + @{/delete/event(eventId=${l.id})} + '\''">Kasuj</button>
+                <button type="submit" th:onclick="'location.href = \'' + @{/eventpanel(eventId=${l.id})} + '\''">Panel wydarzenia</button>
+                        </div>
+                    </li>
+                    <li class="clearfix no-float"></li>
+                </ul>
+            </div>
+        </div>
         <!--postepowania-->
-        <table>
+<!--        <table>
             <tr th:each="l : ${lawsuit.event}">
                 <td th:text="${l.id}"></td>
                 <td th:text="${l.note}"></td>
-                <!--MOŻNA USUNAĆ GDYBY BŁĄD-->
+                MOŻNA USUNAĆ GDYBY BŁĄD
                 <td><button type="submit" th:onclick="'location.href = \'' + @{/editevent(eventId=${l.id})} + '\''">Edytuj</button></td>
                 <td><button type="submit" th:onclick="'location.href = \'' + @{/delete/event(eventId=${l.id})} + '\''">Kasuj</button></td>
                 <td><button type="submit" th:onclick="'location.href = \'' + @{/eventpanel(eventId=${l.id})} + '\''">Panel wydarzenia</button></td>
             </tr>
-        </table>       
+        </table>       -->
         <button type="submit" name="lawsuitEventsButton" value="${lawsuit.id}" th:onclick="'location.href = \'' + @{/addevent(lawsuitId=${lawsuit.id})} + '\''">Dodaj wydarzenie</button>
-
-        <p>Powodowie:</p>
+        </div>
+        <div class="col-lg-6">
+        <h2>Powodowie:</h2>
         <table>
             <tr th:each="p : ${personPlaintiffList}">
                 <td th:text="${p.personFirstName}"/>
@@ -28,7 +75,7 @@
                 <td><button type="submit" name="lawsuitEventsButton" value="${lawsuit.id}" th:onclick="'location.href = \'' + @{/personpanel(personId=${p.id})} + '\''">Panel osoby</button></td>
             </tr>
         </table>
-        <p>Pozwani:</p>
+        <h2>Pozwani:</h2>
         <table>
             <tr th:each="p : ${personDefendantList}">
                 <td th:text="${p.personFirstName}"/>
@@ -45,6 +92,8 @@
                 <td th:text="${e.note}"/>
             </tr>
         </table>
+        </div>
+        </div>
         <!--powrót-->
         <button type="button" onclick="location.href = '/userpanel';">Powrót</button>
 
