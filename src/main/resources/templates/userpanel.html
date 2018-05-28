@@ -23,7 +23,28 @@
                 </div>
                 <div class="col-md-6 ml-auto mr-auto">
                     <div class="table-responsive">
+                        
                         <h3 class="text-center">Wykaz spraw</h3>
+                        <table class="table">
+                            <tr th:each="s : ${subjectList}">
+                                <td th:text="${s.title}"></td>
+                                <td th:text="${s.shortNote}"></td>
+                                <td th:text="${s.startDate}"></td> 
+                            </tr>
+                        </table>
+
+                        <h3 class="text-center">Klienci</h3>
+                        <table class="table">
+                            <tr th:each="c : ${clientList}">
+                                <td th:text="${c.nickname}"></td>
+                                <td th:text="${c.personLastName}"></td>
+                                <td th:text="${c.personFirstName}"></td>
+                                <td th:text="${c.personCompanyName}"></td>
+                                <td><button type="button" class="btn btn-primary btn-block" th:onclick="'location.href = \'' + @{/clientpanel(clientId=${c.id})} + '\''">Panel klienta</button></td>
+                            </tr>
+                        </table>
+                        
+                        <h3 class="text-center">Wykaz postępowan</h3>
                         <table class="table">
                             <tr th:each="u : ${userLawsuitList}">
                                 <!--<td th:text="${u.id}"></td>-->

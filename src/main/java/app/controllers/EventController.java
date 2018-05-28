@@ -18,17 +18,19 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import app.repositories.LawsuitRepository;
+import app.repositories.SubjectRepository;
 import java.sql.Timestamp;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import app.models.Subject;
 
 /**
  *
  * @author Pilat
  */
-@SessionAttributes({"lawsuit", "editEvent"})
+@SessionAttributes({"lawsuit", "editEvent", "subject"})
 @Controller
 public class EventController {
 
@@ -38,6 +40,8 @@ public class EventController {
     EventRepository eventRepository;
     @Autowired
     EventTypeRepository eventTypeRepository;
+    @Autowired
+    SubjectRepository subjectRepository;
 
     @GetMapping("/addevent")
     public String getAddEvent(@RequestParam("lawsuitId") Long lawsuitId, Model model) {
@@ -66,37 +70,52 @@ public class EventController {
     }
 
     @GetMapping("/editevent")
-    public String getEditEvent(@RequestParam("eventId") Long eventId, Model model) {
+    public String getEditEvent(@RequestParam("eventId") Long eventId, @RequestParam("subjectId") Long subjectId, Model model) {
         Event editEvent = eventRepository.findOne(eventId);
         model.addAttribute("editEvent", editEvent);
+        model.addAttribute("subject", subjectRepository.findOne(subjectId));
         return "editevent";
     }
 
     @PostMapping("/editevent")
     public String postEditEvent(
             @SessionAttribute("editEvent") Event sessionEditEvent,
+            @SessionAttribute("subject") Subject subject,
             @ModelAttribute Event editEvent,
-            @RequestParam("eventDate") Timestamp eventDate
+            @RequestParam("eventDate") Timestamp eventDate,
+            RedirectAttributes redirectAttributes
     ) {
         editEvent.setEventDate(eventDate);
         editEvent.setLawsuit(sessionEditEvent.getLawsuit());
         editEvent.setId(sessionEditEvent.getId());
+        editEvent.setSubject(subject);
         eventRepository.save(editEvent);
-
-        return "forward:/lawsuitpanel?lawsuitId=" + editEvent.getLawsuit().getId().toString();
+        redirectAttributes.addAttribute("subjectId", subject.getId());
+        return "redirect:subjectpanel";
     }
 
     @RequestMapping("/delete/event")
-    public String deleteEvent(@RequestParam("eventId") Long eventId) {
-        Long lawsuitId = lawsuitRepository.findOne(eventRepository.findOne(eventId).getLawsuit().getId()).getId();
+    public String deleteEvent(@RequestParam("eventId") Long eventId, @RequestParam("subjectId") Long subjectId, RedirectAttributes redirectAttributes) {
+        //Long lawsuitId = lawsuitRepository.findOne(eventRepository.findOne(eventId).getLawsuit().getId()).getId();
         eventRepository.delete(eventId);
-        return "forward:/lawsuitpanel?lawsuitId=" + lawsuitId;
+        redirectAttributes.addAttribute("subjectId", subjectId);
+        return "redirect:/subjectpanel";
     }
 
-//    @RequestMapping("/test")
-//    public void listOfEventsToRemind() {
-//        System.out.println("!!!!!!!!!!!!!!!!!!!!!!Wydarzenia: " + eventRepository.userEventToRemind(1L, true).toString());
-//
-//    }
+    @GetMapping("/addnonlawsuitevent")
+    public String getAddNonLawsuitEvent(Model model, @RequestParam("subjectId") Long subjectId) {
+        Event event = new Event();
+        model.addAttribute("event", event);
+        model.addAttribute("subject", subjectRepository.findOne(subjectId));
+        return "addnonlawsuitevent";
+    }
+
+    @PostMapping("/addnonlawsuitevent")
+    public String postAddNonLawsuitEvent(@ModelAttribute Event event, RedirectAttributes redirectAttributes, @SessionAttribute("subject") Subject subject) {
+        event.setSubject(subject);
+        eventRepository.save(event);
+        redirectAttributes.addAttribute("subjectId", subject.getId());
+        return "redirect:subjectpanel";
+    }
 
 }

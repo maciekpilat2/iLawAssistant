@@ -25,27 +25,29 @@ import javax.persistence.OneToMany;
 @Table
 public class Event extends Model {
 
+    private String eventTitle;
     private String note;
     private Timestamp eventDate;
     private Long eventType;
     private boolean reminder;
-    
+
     @Enumerated(EnumType.STRING)
     private EventTypeEnum eventTypeEnum;
 
     @ManyToOne(fetch = FetchType.EAGER)
     private Lawsuit lawsuit;
-    
+
     @OneToMany(mappedBy = "event", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private List<Scan> scan;
 
+    @ManyToOne(fetch = FetchType.EAGER)
+    private Subject subject;
+    
     @Override
     public String toString() {
         return "Event{" + "note=" + note + ", eventDate=" + eventDate + ", eventType=" + eventType + ", reminder=" + reminder + ", lawsuit=" + lawsuit + ", scan=" + scan + '}';
     }
 
-    
-    
     /**
      * @return the note
      */
@@ -142,6 +144,34 @@ public class Event extends Model {
      */
     public void setEventTypeEnum(EventTypeEnum eventTypeEnum) {
         this.eventTypeEnum = eventTypeEnum;
+    }
+
+    /**
+     * @return the eventTitle
+     */
+    public String getEventTitle() {
+        return eventTitle;
+    }
+
+    /**
+     * @param eventTitle the eventTitle to set
+     */
+    public void setEventTitle(String eventTitle) {
+        this.eventTitle = eventTitle;
+    }
+
+    /**
+     * @return the subject
+     */
+    public Subject getSubject() {
+        return subject;
+    }
+
+    /**
+     * @param subject the subject to set
+     */
+    public void setSubject(Subject subject) {
+        this.subject = subject;
     }
 
 }

@@ -8,21 +8,7 @@
     </head>
     <body>
         <div>Dodaj podmiot do postepowania:</div>
-        <form th:object="${person}" th:action="@{/addperson}" method="post">
-<!--            <select th:field="*{lawsuit.id}">
-                <table>
-                    <tr th:each="l : ${lawsuitList}">
-                        <option th:value="${l.id}" th:text="${l.courtFileReference}" th:field="*{lawsuit.id}"></option>
-                    </tr>
-                </table>
-            </select>-->
-            <select th:field="*{partyType}">
-                <table>
-                    <tr th:each="t : ${partyTypeList}">
-                        <option th:value="${t.id}" th:text="${t.name}" th:field="*{partyType}"></option>
-                    </tr>
-                </table>
-            </select>
+        <form th:object="${person}" th:action="@{/addclient}" method="post">
             <input type="text" placeholder="Tytuł" th:field="*{personTitle}"></input>
             <input type="text" placeholder="Imię" th:field="*{personFirstName}"></input>
             <input type="text" placeholder="Nazwisko" th:field="*{personLastName}"></input>

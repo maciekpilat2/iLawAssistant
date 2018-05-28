@@ -18,8 +18,14 @@ import org.springframework.web.bind.annotation.PostMapping;
 import app.services.UserService;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import app.formswrapper.AddLawsuitWrapper;
+import app.repositories.SubjectRepository;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttribute;
+import app.models.Subject;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
+@SessionAttributes("subject")
 public class LawsuitController {
 
     @Autowired
@@ -30,25 +36,29 @@ public class LawsuitController {
     CourtRepository courtRepository;
     @Autowired
     CourtDepartmentRepository courtDepartmentRepository;
+    @Autowired
+    SubjectRepository subjectRepository;
 
     @GetMapping("/addlawsuit")
-    public String getAddLawsuit(Model model) {
+    public String getAddLawsuit(Model model, @RequestParam("subjectId") Long subjectId) {
 
         AddLawsuitWrapper addLawsuitWrapper = new AddLawsuitWrapper();
         model.addAttribute("addLawsuitWrapper", addLawsuitWrapper);
         model.addAttribute("courtList", courtRepository.findAll());
         model.addAttribute("courtDepartmentList", courtDepartmentRepository.findAll());
+        model.addAttribute("subject", subjectRepository.findOne(subjectId));
         return "addlawsuit";
     }
 
     @PostMapping("/addlawsuit")
-    public String postAddLawsuit(@ModelAttribute AddLawsuitWrapper addLawsuitWrapper) {
+    public String postAddLawsuit(@ModelAttribute AddLawsuitWrapper addLawsuitWrapper, @SessionAttribute("subject") Subject subject, RedirectAttributes redirectAttributes) {
 
         addLawsuitWrapper.getLawsuit().setUser(userService.getLoggedInUser());
         addLawsuitWrapper.getLawsuit().setCourtDepartment(courtDepartmentRepository.findOne(addLawsuitWrapper.getCourtDepartment().getId()));
+        addLawsuitWrapper.getLawsuit().setSubject(subject);
         lawsuitRepository.save(addLawsuitWrapper.getLawsuit());
-
-        return "redirect:userpanel";
+        redirectAttributes.addAttribute("subjectId", subject.getId());
+        return "redirect:subjectpanel";
     }
 
 }

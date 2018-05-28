@@ -4,39 +4,40 @@
         <title>Doda postępowanie</title>
         <meta charset="UTF-8"/>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-
         <!--  jQuery -->
         <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
-
         <!-- Isolated Version of Bootstrap, not needed if your site already uses Bootstrap -->
         <link rel="stylesheet" href="https://formden.com/static/cdn/bootstrap-iso.css" />
-
         <!-- Bootstrap Date-Picker Plugin -->
         <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css"/>
 
     </head>
     <body>
-        <div>Doda wydarzenie do postępowania</div>
+        <div>Dodaj zagadnienie</div>
 
-        <form th:action="@{/editevent}" th:object="${editEvent}" method="post">
-            <input type="text" placeholder="Opis" th:field="*{note}"></input>
+        <form th:action="@{/addsubject}" th:object="${subject}" method="post">
+            <input type="text" placeholder="Tytul" th:field="*{title}"></input>
+            <input type="text" placeholder="Skrót" th:field="*{shortNote}"></input>
+            <input type="text" placeholder="Pelny opis" th:field="*{longNote}"></input>            
             <!--bootstrap datetime picker START-->      
             <div class='col-lg-2'>
                 <div class="form-group"> <!-- Date input -->
-                    <input class="form-control" id="date" name="eventDate" placeholder="MM/DD/YYY" type="text" th:field="*{eventDate}"></input>
+                    <input class="form-control" id="date" name="startDate" placeholder="MM/DD/YYY" type="text" th:field="*{startDate}"></input>
                 </div>
             </div>
-            <input type="checkbox" name="reminder" th:field="*{reminder}">Przypomnienie</input> 
             <div class="row">
                 <div class="col-lg-2">
                     <input type="submit" value="Zapisz"></input>
-                    <!--<button type="submit" class="btn btn-primary btn-block" th:onclick="'location.href = \'' + @{/subjectpanel(subjectId=${subject.id})} + '\''">ZAPISZ2</button>-->
                 </div>
             </div>
         </form>
-       <button type="submit" class="btn btn-primary btn-block" th:onclick="'location.href = \'' + @{/subjectpanel(subjectId=${subject.id})} + '\''">Powrót</button>
+        <button type="button" onclick="location.href = '/userpanel';">Powrót</button>
     </body>
     <!--KOD DATEPICKER-->
     <script src="/js/datePicker.js"></script>
 </html>
+<!--private String title;
+private String shortNote;
+private String longNote;
+private Timestamp startDate;-->

@@ -23,6 +23,8 @@ public class Scan extends Model{
     private String signature;
     @Column(columnDefinition = "TEXT")
     private String parsedText;
+    @ManyToOne
+    private SubEvent subEvent;
 
 
     @Override
@@ -92,6 +94,34 @@ public class Scan extends Model{
      */
     public void setEvent(Event event) {
         this.event = event;
+    }
+
+    /**
+     * @return the parsedText
+     */
+    public String getParsedText() {
+        return parsedText;
+    }
+
+    /**
+     * @param parsedText the parsedText to set
+     */
+    public void setParsedText(String parsedText) {
+        this.parsedText = parsedText;
+    }
+
+    /**
+     * @return the subEvent
+     */
+    public SubEvent getSubEvent() {
+        return subEvent;
+    }
+
+    /**
+     * @param subEvent the subEvent to set
+     */
+    public void setSubEvent(SubEvent subEvent) {
+        this.subEvent = subEvent;
     }
     
 }

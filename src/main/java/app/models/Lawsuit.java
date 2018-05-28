@@ -15,6 +15,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import app.models.CourtDepartment;
 import javax.persistence.FetchType;
+import javax.persistence.OneToOne;
 
 /**
  *
@@ -38,6 +39,9 @@ public class Lawsuit extends Model {
  
     @OneToMany(mappedBy = "lawsuit", cascade = CascadeType.MERGE)
     private List<Person> person;
+    
+    @ManyToOne
+    private Subject subject;
     
 
     /**
@@ -124,6 +128,20 @@ public class Lawsuit extends Model {
      */
     public void setPerson(List<Person> person) {
         this.person = person;
+    }
+
+    /**
+     * @return the subject
+     */
+    public Subject getSubject() {
+        return subject;
+    }
+
+    /**
+     * @param subject the subject to set
+     */
+    public void setSubject(Subject subject) {
+        this.subject = subject;
     }
 
 }

@@ -17,6 +17,8 @@ import app.formswrapper.PartyTypePersonWrap;
 import app.repositories.PartyTypeRepository;
 import app.models.Lawsuit;
 import app.repositories.LawsuitRepository;
+import app.repositories.SubjectRepository;
+import app.repositories.UserRepository;
 import java.util.ArrayList;
 import java.util.List;
 import app.services.UserService;
@@ -41,11 +43,13 @@ public class PersonController {
     LawsuitRepository lawsuiteRepository;
     @Autowired
     UserService userService;
+    @Autowired
+    SubjectRepository subjectRepository;
 
     @GetMapping("/addperson")
     public String getAddPerson(Model model, @RequestParam("lawsuitId") Long lawsuitId) {
         System.out.println("get lawsuitId: " + lawsuitId);
-        
+
         Person person = new Person();
         model.addAttribute("person", person);
         model.addAttribute("partyTypeList", partyTypeRepository.findAll());
@@ -64,4 +68,24 @@ public class PersonController {
         return "redirect:lawsuitpanel";
     }
 
+    @GetMapping("/addclient")
+    public String getAddClient(Model model) {
+        Person person = new Person();
+        model.addAttribute("person", person);
+        return "addclient";
+    }
+
+    @PostMapping("/addclient")
+    public String postAddClient(@ModelAttribute Person person, RedirectAttributes redirectAttributes) {
+        person.setUser(userService.getLoggedInUser());
+        redirectAttributes.addAttribute("userId", userService.loggedUserId());
+        personRepository.save(person);
+        return "redirect:userpanel";
+    }
+
+    @GetMapping("/clientpanel")
+    public String getClientPanel(Model model, @RequestParam("clientId") Long clientId){
+        model.addAttribute("person", personRepository.findOne(clientId));
+    return "clientpanel";
+    }
 }

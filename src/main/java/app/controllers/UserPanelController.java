@@ -14,6 +14,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import app.models.Lawsuit;
 import app.repositories.EventRepository;
+import app.repositories.PersonRepository;
+import app.repositories.SubjectRepository;
 import app.services.EventService;
 
 /**
@@ -28,12 +30,18 @@ LawsuitRepository lawsuitRepository;
 UserService userService;
 @Autowired
 EventRepository eventRepository;
+@Autowired
+SubjectRepository subjectRepository;
+@Autowired
+PersonRepository personRepository;
         
     @GetMapping("/userpanel")
     public String getUserPanel(Model model) {
         List<Lawsuit> userLawsuitList = lawsuitRepository.findAllLawsuitsByUserId(userService.loggedUserId());
         model.addAttribute("userLawsuitList", userLawsuitList);
         model.addAttribute("listAllUserEventToRemind", eventRepository.getAllUserEventToRemind(userService.loggedUserId(), true));
+        model.addAttribute("subjectList", subjectRepository.allUserSubjects(userService.loggedUserId()));
+        model.addAttribute("clientList", personRepository.allUserClient(userService.loggedUserId()));
         return "userpanel";
     }
 

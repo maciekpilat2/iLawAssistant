@@ -12,8 +12,9 @@ import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import app.models.Contact;
 import javax.persistence.OneToOne;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 
 /**
  *
@@ -27,22 +28,32 @@ public class Person extends Model {
     private String personFirstName;
     private String personLastName;
     private String personCompanyName;
+    private String nickname;
     private Long partyType;
     
-    @OneToMany(mappedBy = "person", cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "person", cascade = CascadeType.MERGE)
     private List<Address> address;
     
     @ManyToOne()
     private Lawsuit lawsuit;
     
-    @OneToOne(mappedBy = "person", fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
+    @OneToOne(mappedBy = "person", cascade = CascadeType.MERGE)
     private Contact contact;
+    
+    @OneToMany(mappedBy = "person", cascade = CascadeType.MERGE)
+    @LazyCollection(LazyCollectionOption.FALSE)
+    private List<Subject> subject;
+    
+    @ManyToOne
+    private User user;
 
     @Override
     public String toString() {
         return "Person{" + "personTitle=" + personTitle + ", personFirstName=" + personFirstName + ", personLastName=" + personLastName + ", personCompanyName=" + personCompanyName + ", partyType=" + partyType + ", lawsuit=" + lawsuit + '}';
     }
 
+    
+    
     /**
      * @return the personTitle
      */
@@ -153,6 +164,49 @@ public class Person extends Model {
      */
     public void setContact(Contact contact) {
         this.contact = contact;
+    }
+
+
+    /**
+     * @return the nickname
+     */
+    public String getNickname() {
+        return nickname;
+    }
+
+    /**
+     * @param nickname the nickname to set
+     */
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
+    }
+
+    /**
+     * @return the user
+     */
+    public User getUser() {
+        return user;
+    }
+
+    /**
+     * @param user the user to set
+     */
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    /**
+     * @return the subject
+     */
+    public List<Subject> getSubject() {
+        return subject;
+    }
+
+    /**
+     * @param subject the subject to set
+     */
+    public void setSubject(List<Subject> subject) {
+        this.subject = subject;
     }
 
 }

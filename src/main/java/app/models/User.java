@@ -52,6 +52,9 @@ public class User {
     @OneToMany(mappedBy = "user")
     private List<Lawsuit> lawsuit;
     
+    @OneToMany(mappedBy = "user")
+    private List<Person> person;
+    
     
     
     public Long getId() {
@@ -184,6 +187,20 @@ public class User {
      */
     public void setAddress(List<Address> address) {
         this.address = address;
+    }
+
+    /**
+     * @return the person
+     */
+    public List<Person> getPerson() {
+        return person;
+    }
+
+    /**
+     * @param person the person to set
+     */
+    public void setPerson(List<Person> person) {
+        this.person = person;
     }
 
 

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>TODO supply a title</title>
+        <meta name="viewport" content="initial-scale=1.0, user-scalable=no"/>
+        <meta charset="utf-8"/>
+
+        <!--timeline-->
+        <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css"/>
+        <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+        <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+        <link href="/css/timeline.css" rel="stylesheet"/>
+
+
+        <!--<link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />-->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" />
+        <!-- CSS Files -->
+        <!--<link href="/assets/css/bootstrap.min.css" rel="stylesheet" />-->
+        <!--<link href="/assets/css/now-ui-kit.css?v=1.2.0" rel="stylesheet" />-->
+        <!--<script src="/js/app.js"></script>-->
+        <!--<link href="/css/styles.css" rel="stylesheet" />-->
+    </head>
+    <body>
+        <div class="container">
+            <div class="row">
+                <h1>Sprawa: <a th:text="${subject.title}"></a></h1>
+            </div>
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="row">
+                            <h2>WYDARZENIA</h2>
+                        </div>
+                        <div class="row">
+                            <button type="submit" class="btn btn-primary btn-block" th:onclick="'location.href = \'' + @{/addnonlawsuitevent(subjectId=${subject.id})} + '\''">Dodaj wydarzenie</button>
+                        </div>
+                        <ul class="timeline">
+                            <li th:each="e : ${subject.event}">
+                                <div class="timeline-badge">
+                                    <a><i class="fa fa-circle" id=""></i></a>
+                                </div>
+                                <div class="timeline-panel">
+                                    <div class="timeline-heading">
+                                        <h4 th:text="${e.eventTitle}"></h4>
+                                    </div>
+                                    <div class="timeline-body">
+                                        <p th:text="${e.note}"></p>
+                                    </div>
+                                    <div class="timeline-footer">
+                                        <p class="text-right" th:text="${e.eventDate}"></p>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary btn-block" th:onclick="'location.href = \'' + @{/editevent(eventId=${e.id}, subjectId=${e.subject.id})} + '\''">Edytuj</button>
+                                    <button type="submit" class="btn btn-primary btn-block" th:onclick="'location.href = \'' + @{/delete/event(eventId=${e.id},subjectId=${e.subject.id})} + '\''">Kasuj</button>
+                                    <button type="submit" class="btn btn-primary btn-block" th:onclick="'location.href = \'' + @{/eventpanel(eventId=${e.id})} + '\''">Panel wydarzenia</button>
+                                </div>
+                            </li>
+                            <li class="clearfix no-float"></li>
+                        </ul>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="row">
+                            <h2>POSTĘPOWANIA</h2>
+                        </div>
+                        <div class="row">
+                            <button type="submit" class="btn btn-primary btn-block" th:onclick="'location.href = \'' + @{/addlawsuit(subjectId=${subject.id})} + '\''">Dodaj postepowanie</button>
+                        </div>
+                        <table class="table">
+                            <tr>
+                                <td th:text="Sygnatura"></td>
+                                <td th:text="Opis"></td>
+                                <td th:text="Szczególy"></td>
+                            </tr>
+                            <tr th:each="l : ${subject.lawsuit}">
+                                <td th:text="${l.courtFileReference}"></td>
+                                <td th:text="${l.description}"></td>
+                                <td><button type="submit" class="btn btn-primary btn-block" th:onclick="'location.href = \'' + @{/lawsuitpanel(lawsuitId=${l.id})} + '\''">Panel postępowania</button></td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <button type="button" class="btn btn-primary btn-block" onclick="location.href = '/userpanel';">Powrót</button>
+    </body>
+</html>
+

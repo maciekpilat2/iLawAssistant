@@ -18,7 +18,9 @@ public enum EventTypeEnum {
     RECEIVING_LAWSUIT("Otrzymanie pozwu"),
     STATEMENT_OF_DEFENCE("Odpowiedź na pozew"),
     RECEIVING_STATEMENT_OF_DEFENCE("Otrzymanie odpowiedzi na pozew"),
-    SUMMON_TO_HEARING("Wezwanie na rozprawę"),;
+    SUMMON_TO_HEARING("Wezwanie na rozprawę"),
+    NEUTRAL("Ogólny")
+    ;
 
     private String name;
 
