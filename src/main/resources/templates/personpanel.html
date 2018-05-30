@@ -9,14 +9,18 @@
         <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" />
         <!-- CSS Files -->
-        <link href="/assets/css/bootstrap.min.css" rel="stylesheet" />
+<!--        <link href="/assets/css/bootstrap.min.css" rel="stylesheet" />
         <link href="/assets/css/now-ui-kit.css?v=1.2.0" rel="stylesheet" />
         <script src="/js/app.js"></script>
-        <link href="/css/styles.css" rel="stylesheet" />
+        <link href="/css/styles.css" rel="stylesheet" />-->
+
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" />
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     </head>
     <body>
         <div class="container">
-
             <div class="row">
                 <p>Panel osoby:</p>
             </div>            
@@ -40,11 +44,10 @@
                                     <td th:text="${c.phone}"/>
                                     <td th:text="${c.mobilePhone}"/>
                                     <td th:text="${c.mail}"/>
-                                    <!--<td><button type="button" class="btn btn-danger btn-icon btn-sm " th:onclick="'location.href = \'' + @{/deleteadress(addressId=${a.id})} + '\''">x</button></td>-->
                                 </tr>  
                             </table>
                             <div class="card-footer text-center">
-                                <button type="button" class="btn btn-success btn-sm " th:onclick="'location.href = \'' + @{/addcontact(personId=${person.id})} + '\''">Dodaj kontakt</button>    
+                                <button type="button" class="btn btn-primary btn-block" th:onclick="'location.href = \'' + @{/addcontact(personId=${person.id})} + '\''">Dodaj kontakt</button>    
                             </div>
                         </div>
                     </div>
@@ -73,11 +76,11 @@
                                     <td th:text="${a.postalCode}"/>
                                     <!--<td th:text="${a.country}"/>-->
                                     <td th:text="${a.addressType}"/>
-                                    <td><button type="button" class="btn btn-danger btn-icon btn-sm" th:onclick="'location.href = \'' + @{/deleteadress(addressId=${a.id})} + '\''">x</button></td>
+                                    <td><button type="button" class="btn btn-primary btn-block" th:onclick="'location.href = \'' + @{/deleteadress(addressId=${a.id})} + '\''">x</button></td>
                                 </tr>  
                             </table>
                             <div class="card-footer text-center">
-                                <button type="button" class="btn btn-success btn-sm" th:onclick="'location.href = \'' + @{/addaddress(personId=${person.id})} + '\''">Dodaj adres</button>
+                                <button type="button" class="btn btn-primary btn-block" th:onclick="'location.href = \'' + @{/addaddress(personId=${person.id})} + '\''">Dodaj adres</button>
                             </div>
                         </div>
                     </div>
@@ -85,7 +88,7 @@
             </div>
 
             <div class="row">
-                <button type="button" class="btn btn-primary btn-sm"  onclick="location.href = '/userpanel';">Powrót</button>
+                <button type="button" class="btn btn-primary btn-block"  th:onclick="'location.href = \'' + @{/lawsuitpanel(lawsuitId=${lawsuitId})} + '\''">Powrót</button>
             </div>
         </div>
     </body>

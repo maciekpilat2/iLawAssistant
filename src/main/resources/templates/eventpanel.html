@@ -3,36 +3,95 @@
         <title>TODO supply a title</title>
         <meta charset="UTF-8"/>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+        <link href="/assets/css/bootstrap.min.css" rel="stylesheet" />
+        <link href="/assets/css/now-ui-kit.css?v=1.2.0" rel="stylesheet" />
+        <link href="/css/styles.css" rel="stylesheet" />
+
+        <!--modal-->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     </head>
     <body>
-        Wydarzenie w sprawie: <a th:text="${event.lawsuit.courtFileReference}"></a>
-        <p>Opis wydarzenia: <a th:text="${event.note}"></a></p>
-        <div>
-            <div>
-                <div>Dodaj skan</div>
-                <form th:object="${scan}" method="post" enctype="multipart/form-data">       
-                    <input type="file" name="scanMultipart" accept="image/*"></input>
-                    <input type="text" th:field="*{scanName}" placeholder="Nazwa skanu"></input>        
-                    <button type="submit">Dodaj</button>
-                </form>
+        <div class="container">
+            <div class="row">
+                <h2><a>WYDARZENIE W SPRAWIE:</a><a th:text="${event.lawsuit.courtFileReference}"></a></h2>
+            </div>
+            <div class="row">
+                <h2>OPIS WYDARZENIA:</h2>
+            </div>
+            <div class="row">
+                <div th:text="${event.note}"></div>
             </div>
             <div>
-                <p>SKANY PRZYPISANE</p>
-                <tr>
-                    <td>Nazwa skanu</td>
-                    <td>Opis wydarzenia</td>
-                </tr>                  
-                <tr>
-<!--                    <th:block th:each:= "s : ${scanList}">
-                        <td th:text="${s.id}"></td>
-                        <td th:text="${s.scanName}"></td>
-                        <td th:text="${s.event.note}"></td>
-                    </th:block>-->
-                </tr>
+                <div class="row">
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <h2>DODAJ SKAN</h2>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <form class="form" th:object="${scan}" method="post" enctype="multipart/form-data">       
+                                <div class="col-lg-5">
+                                    <input type="file" name="scanMultipart" accept="image/*"></input>
+                                </div>
+                                <div class="col-lg-3">                                
+                                    <input type="text" th:field="*{scanName}" placeholder="Nazwa skanu"></input>
+                                </div>
+                                <div class="col-lg-4">
+                                    <button type="submit">Dodaj</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <h2>SKANY PRZYPISANE</h2>
+                    <table class="table">
+                        <tr>
+                            <td>Nazwa skanu</td>
+                            <td>Opis wydarzenia</td>
+                        </tr>
+                        <tr th:each="s : ${scanList}">
+                            <td th:text="${s.id}"></td>
+                            <td th:text="${s.scanName}"></td>
+                            <td th:text="${s.event.note}"></td>
+                            <td><button type="button" class="btn btn-primary btn-block" data-toggle="modal" data-target="#mymodal">Zobacz</button></td>
+                            <td><button type="submit" class="btn btn-primary btn-block" th:onclick="'location.href = \'' + @{/editevent(eventId=${event.id})} + '\''">Edytuj</button></td>
+                            <td><button type="submit" class="btn btn-primary btn-block" th:onclick="'location.href = \'' + @{/delete/event(eventId=${event.id})} + '\''">Kasuj</button></td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <!--modal-->
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-6">
+                        <button type="button" class="btn btn-primary btn-block" data-toggle="modal" data-target="#mymodal">Modal</button>
+                        <div class="modal fade" id="mymodal">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h2>Modal tytul</h2>
+                                    </div>
+                                    <div class="modal-body">
+                                        <h2>Modal cialo</h2>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-primary btn-block" data-toggle="model" data-target="#mymodal">Zamknij</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="row">
+                <button type="button" class="btn btn-primary btn-block" onclick="location.href = '/userpanel';">Powrót</button>
             </div>
         </div>
-        <button type="submit" th:onclick="'location.href = \'' + @{/editevent(eventId=${event.id})} + '\''">Edytuj</button>
-        <button type="submit" th:onclick="'location.href = \'' + @{/delete/event(eventId=${event.id})} + '\''">Kasuj</button>
-        <button type="button" onclick="location.href = '/userpanel';">Powrót</button>
-    </body>
+        </body>
 </html>

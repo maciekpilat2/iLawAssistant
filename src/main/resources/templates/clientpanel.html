@@ -4,34 +4,79 @@
         <meta charset="UTF-8"/>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
-        <link href="/assets/css/bootstrap.min.css" rel="stylesheet" />
-        <link href="/assets/css/now-ui-kit.css?v=1.2.0" rel="stylesheet" />
-        <script src="/js/app.js"></script>
-        <link href="/css/styles.css" rel="stylesheet" />
+        <!--        <link href="/assets/css/bootstrap.min.css" rel="stylesheet" />
+                <link href="/assets/css/now-ui-kit.css?v=1.2.0" rel="stylesheet" />
+                <script src="/js/app.js"></script>
+                <link href="/css/styles.css" rel="stylesheet" />-->
+
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" />
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
     </head>
     <body>
         <div class="container">
             <div class="row">
-                <h1>Panel kilenta: <a th:text="${person.personFirstName}"></a> <a th:text="${person.personLastName}"></a></h1>
+                <h2>Panel kilenta: <a th:text="${person.personFirstName}"></a> <a th:text="${person.personLastName}"></a></h2>
             </div>
             <div class="row">
-                <table class="table">
-                    <tr>
-                        <td>Tytul"</td>
-                        <td>Krotki opis</td>
-                        <td>Opis zasadniczy</td>
-                        <td>Data</td>
-                    </tr>
-                    <tr th:each="s : ${person.subject}">
-                        <td th:text="${s.title}"></td>
-                        <td th:text="${s.shortNote}"></td>
-                        <td th:text="${s.longNote}"></td>
-                        <td th:text="${s.startDate}"></td>
-                        <td><button type="button" class="btn btn-primary btn-block" th:onclick="'location.href = \'' + @{/subjectpanel(subjectId=${s.id})} + '\''">Szczególy</button></td>
-                    </tr>
-                </table>
+                <div class="col-lg-12">
+                    <h2>Sprawy klienta</h2>
+                </div>
+                <div class="col-lg-12">
+                    <table class="table">
+                        <tr>
+                            <td>Tytul</td>
+                            <td>Krotki opis</td>
+                            <td>Opis zasadniczy</td>
+                            <td>Data</td>
+                        </tr>
+                        <tr th:each="s : ${person.subject}">
+                            <td th:text="${s.title}"></td>
+                            <td th:text="${s.shortNote}"></td>
+                            <td th:text="${s.longNote}"></td>
+                            <td th:text="${s.startDate}"></td>
+                            <td><button type="button" class="btn btn-primary btn-block" th:onclick="'location.href = \'' + @{/subjectpanel(subjectId=${s.id})} + '\''">Szczególy</button></td>
+                        </tr>
+                    </table>
+                    <div class="col-md-12 ml-auto mr-auto">
+                        <button type="button" class="btn btn-primary btn-block" th:onclick="'location.href = \'' + @{/addsubject/client(clientId=${person.id})} + '\''">Dodaj sprawę</button>
+                    </div>
+                </div>
             </div>
-            <button type="button" class="btn btn-primary btn-sm"  onclick="location.href = '/userpanel';">Powrót</button>
+            <div class="row">
+                <div class="col-lg-12">
+                    <h2>Adres</h2>
+                </div>
+                <div class="col-lg-12">
+                    <table class="table">
+                        <tr>
+                            <td>Ulica</td>
+                            <td>Nr</td>
+                            <td>Kod</td>
+                            <td>Miasto</td>
+                            <td>Typ</td>
+                        </tr>
+                        <tr th:each="a : ${person.address}">
+                            <td th:text="${a.streetName}"></td>
+                            <td th:text="${a.streetNumber}"></td>
+                            <td th:text="${a.postalCode}"></td>
+                            <td th:text="${a.city}"></td>
+                            <td th:text="${a.addressType}"></td>
+                        </tr>
+                    </table>
+                    <div class="col-md-12 ml-auto mr-auto">
+                        <button type="button" class="btn btn-primary btn-block" th:onclick="'location.href = \'' + @{/addaddress/client(personId=${person.id})} + '\''">Dodaj adres</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-12 ml-auto mr-auto">
+                <button type="button" class="btn btn-primary btn-block"  onclick="location.href = '/userpanel';">Powrót</button>
+            </div>
+            </div>
         </div>
     </body>
 </html>

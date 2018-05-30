@@ -17,12 +17,16 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import app.models.Person;
+import org.springframework.web.bind.annotation.SessionAttribute;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
 /**
  *
  * @author Pilat
  */
 @Controller
+@SessionAttributes("client")
 public class SubjectController {
 @Autowired
 UserService userService;
@@ -44,6 +48,24 @@ PersonRepository personRepository;
         subjectRepository.save(subject);
         return "redirect:userpanel";
     }
+    
+        @GetMapping("/addsubject/client")
+    public String getAddClientSubject(Model model, @RequestParam("clientId") Long clientId){
+        Subject subject = new Subject();
+        model.addAttribute("subject", subject);
+        Person client = personRepository.findOne(clientId);
+        model.addAttribute("client", client);
+        return "addclientsubject";
+    }
+    @PostMapping("/addsubject/client")
+    public String postAddClientSubject(@ModelAttribute Subject subject, @SessionAttribute("client") Person client, RedirectAttributes redirectAttributes){
+        redirectAttributes.addAttribute("clientId",client.getId());
+        subject.setPerson(personRepository.findOne(userService.loggedUserId()));
+        subject.setPerson(client);
+        subjectRepository.save(subject);
+        return "redirect:/clientpanel";
+    }
+    
     @GetMapping("/subjectpanel")
     public String getSubjectPanel(Model model, @RequestParam("subjectId") Long subjectId){
         model.addAttribute("subject", subjectRepository.findOne(subjectId));

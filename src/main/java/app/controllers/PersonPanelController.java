@@ -24,9 +24,8 @@ public class PersonPanelController {
     PersonRepository personRepository;
 
     @GetMapping("/personpanel")
-    public String getPersonPalnel(Model model, @RequestParam("personId") Long personId) {
+    public String getPersonPalnel(Model model, @RequestParam("personId") Long personId,  @RequestParam("lawsuitId") Long lawsuitId) {
         model.addAttribute("person", personRepository.findOne(personId));
-
         for(Address a : personRepository.findOne(personId).getAddress()){
         System.out.println("Dane adresowe: " + a.getStreetName());
          System.out.println("Dane adresowe: " + a.getAddressType());

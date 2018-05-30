@@ -54,6 +54,27 @@ public class AddressController {
         addressRepository.save(address);
         return "redirect:personpanel";
     }
+    
+    @GetMapping("/addaddress/client")
+    public String getAddClientAddress(Model model, @RequestParam("personId") Long persinId){    
+        Address address = new Address();
+        model.addAttribute("address", address);
+        model.addAttribute("addressTypeList", AddressTypeEnum.values());
+        Person person = new Person();
+        person.setId(persinId);
+        model.addAttribute("person", person);   
+        return "addclientaddress";
+    }
+    
+    @PostMapping("/addaddress/client")
+    public String postAddClientAddress(@ModelAttribute Address address, @SessionAttribute("person") Person person, RedirectAttributes redirectAttributes){
+        redirectAttributes.addAttribute("clientId", person.getId());
+        address.setPerson(personRepository.findOne(person.getId()));
+        addressRepository.save(address);
+        return "redirect:/clientpanel";
+    }
+    
+   
     @RequestMapping("/deleteadress")
     public String deleteAddress(@RequestParam("addressId") Long addressId, RedirectAttributes redirectAttributes){
         redirectAttributes.addAttribute("personId", addressRepository.findOne(addressId).getPerson().getId());

@@ -5,17 +5,22 @@
         <title>TODO supply a title</title>
         <meta charset="UTF-8"/>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+        <link href="/assets/css/bootstrap.min.css" rel="stylesheet" />
+        <link href="/assets/css/now-ui-kit.css?v=1.2.0" rel="stylesheet" />
+        <script src="/js/app.js"></script>
+        <link href="/css/styles.css" rel="stylesheet" />
     </head>
     <body>
         <div>Dodaj podmiot do postepowania:</div>
         <form th:object="${person}" th:action="@{/addperson}" method="post">
-<!--            <select th:field="*{lawsuit.id}">
-                <table>
-                    <tr th:each="l : ${lawsuitList}">
-                        <option th:value="${l.id}" th:text="${l.courtFileReference}" th:field="*{lawsuit.id}"></option>
-                    </tr>
-                </table>
-            </select>-->
+            <!--            <select th:field="*{lawsuit.id}">
+                            <table>
+                                <tr th:each="l : ${lawsuitList}">
+                                    <option th:value="${l.id}" th:text="${l.courtFileReference}" th:field="*{lawsuit.id}"></option>
+                                </tr>
+                            </table>
+                        </select>-->
             <select th:field="*{partyType}">
                 <table>
                     <tr th:each="t : ${partyTypeList}">

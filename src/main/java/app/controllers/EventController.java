@@ -101,7 +101,15 @@ public class EventController {
         redirectAttributes.addAttribute("subjectId", subjectId);
         return "redirect:/subjectpanel";
     }
-
+    
+        @RequestMapping("/delete/lawsuitEvent")
+    public String deleteLawsuitEvent(@RequestParam("eventId") Long eventId, RedirectAttributes redirectAttributes) {
+        Long lawsuitId = eventRepository.findOne(eventId).getLawsuit().getId();
+        eventRepository.delete(eventId);
+        redirectAttributes.addAttribute("lawsuitId", lawsuitId);
+        return "redirect:/lawsuitpanel";
+    }
+        
     @GetMapping("/addnonlawsuitevent")
     public String getAddNonLawsuitEvent(Model model, @RequestParam("subjectId") Long subjectId) {
         Event event = new Event();
