@@ -63,15 +63,26 @@
                     </div>
                 </div>
                 <div class="col-md-6">
-                    <h3 class="text-center">Nadchodzące wydarzenia</h3>
+                    <h3 class="text-center">Nadchodzące wydarzenia sadowe</h3>
                     <table class="table">
-                        <tr th:each="e : ${listAllUserEventToRemind}">
+                        <tr th:each="e : ${listAllUserNonLawsuitEventToRemind}">
                             <td th:text="${e.eventDate}"></td>
-                            <td th:text="${e.eventTypeEnum}"></td>
+                            <td th:text="${e.eventTypeEnum.name}"></td>
                             <td th:text="${e.note}"></td>                           
                             <td><button type="submit" class="btn btn-primary" th:onclick="'location.href = \'' + @{/eventpanel(eventId=${e.id})} + '\''">Panel wydarzenia</button> </td>
                         </tr>
                     </table>
+                    
+                    <h3 class="text-center">Nadchodzące wydarzenia niesadowe</h3>
+                    <table class="table">
+                        <tr th:each="e : ${listAllUserLawsuitEventToRemind}">
+                            <td th:text="${e.eventDate}"></td>
+                            <td th:text="${e.eventTypeEnum.name}"></td>
+                            <td th:text="${e.note}"></td>                           
+                            <td><button type="submit" class="btn btn-primary" th:onclick="'location.href = \'' + @{/eventpanel(eventId=${e.id})} + '\''">Panel wydarzenia</button> </td>
+                        </tr>
+                    </table>
+                    
                     <div class="col-md-6 ml-auto mr-auto">
                         <button type="button" class="btn btn-primary btn-block" onclick="location.href = '/userpaneladdnonlawsuitevent'">Dodaj wydarzenie do sprawy</button>
                     </div>

@@ -5,6 +5,7 @@
  */
 package app.controllers;
 
+import app.models.Event;
 import app.repositories.LawsuitRepository;
 import app.services.UserService;
 import java.util.List;
@@ -39,9 +40,12 @@ PersonRepository personRepository;
     public String getUserPanel(Model model) {
         List<Lawsuit> userLawsuitList = lawsuitRepository.findAllLawsuitsByUserId(userService.loggedUserId());
         model.addAttribute("userLawsuitList", userLawsuitList);
-        model.addAttribute("listAllUserEventToRemind", eventRepository.getAllUserEventToRemind(userService.loggedUserId(), true));
+        model.addAttribute("listAllUserNonLawsuitEventToRemind", eventRepository.getAllUserLawsuitEventToRemind(userService.loggedUserId(), true));
         model.addAttribute("subjectList", subjectRepository.allUserSubjects(userService.loggedUserId()));
         model.addAttribute("clientList", personRepository.allUserClient(userService.loggedUserId()));
+        model.addAttribute("listAllUserLawsuitEventToRemind", eventRepository.getAllUserNonLawsuitEventToRemind(userService.loggedUserId(), true));
+        
+
         return "userpanel";
     }
 
