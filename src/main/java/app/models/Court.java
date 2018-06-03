@@ -7,6 +7,7 @@ package app.models;
 
 import java.util.List;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -20,7 +21,7 @@ public class Court extends Model{
 
     private String courtName;
     
-    @OneToMany(mappedBy = "court")
+    @OneToMany(mappedBy = "court", fetch = FetchType.EAGER)
     private List<CourtDepartment> courtDepartment;
 
     /**

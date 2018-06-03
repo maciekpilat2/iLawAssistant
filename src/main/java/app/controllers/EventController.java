@@ -25,6 +25,10 @@ import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import app.models.Subject;
+import app.repositories.CourtDepartmentRepository;
+import app.repositories.CourtRepository;
+import app.repositories.PersonRepository;
+import app.services.UserService;
 
 /**
  *
@@ -42,6 +46,14 @@ public class EventController {
     EventTypeRepository eventTypeRepository;
     @Autowired
     SubjectRepository subjectRepository;
+    @Autowired
+    PersonRepository personRepository;
+    @Autowired
+    UserService userService;
+//    @Autowired
+//    CourtRepository courtRepository;
+//    @Autowired
+//    CourtDepartmentRepository courtDepartmentRepository;
 
     @GetMapping("/addevent")
     public String getAddEvent(@RequestParam("lawsuitId") Long lawsuitId, Model model) {
@@ -101,15 +113,15 @@ public class EventController {
         redirectAttributes.addAttribute("subjectId", subjectId);
         return "redirect:/subjectpanel";
     }
-    
-        @RequestMapping("/delete/lawsuitEvent")
+
+    @RequestMapping("/delete/lawsuitEvent")
     public String deleteLawsuitEvent(@RequestParam("eventId") Long eventId, RedirectAttributes redirectAttributes) {
         Long lawsuitId = eventRepository.findOne(eventId).getLawsuit().getId();
         eventRepository.delete(eventId);
         redirectAttributes.addAttribute("lawsuitId", lawsuitId);
         return "redirect:/lawsuitpanel";
     }
-        
+
     @GetMapping("/addnonlawsuitevent")
     public String getAddNonLawsuitEvent(Model model, @RequestParam("subjectId") Long subjectId) {
         Event event = new Event();
@@ -126,4 +138,45 @@ public class EventController {
         return "redirect:subjectpanel";
     }
 
+    @GetMapping("/userpaneladdnonlawsuitevent")
+    public String getAddNonLawsuitEventUserpanel(Model model) {
+        Event event = new Event();
+        model.addAttribute("event", event);
+        model.addAttribute("clientList", personRepository.allUserClient(userService.loggedUserId()));
+        model.addAttribute("subjectList", subjectRepository.allUserSubjects(userService.loggedUserId()));
+        return "userpaneladdnonlawsuitevent";
+    }
+
+    @PostMapping("/userpaneladdnonlawsuitevent")
+    public String postAddNonLawsuitEventUserpanel(@ModelAttribute Event event, RedirectAttributes redirectAttributes) {
+        event.setSubject(subjectRepository.findOne(event.getSubject().getId()));
+        eventRepository.save(event);
+        redirectAttributes.addAttribute("userId", userService.loggedUserId());
+        return "redirect:userpanel";
+    }
+
+    
+    
+    
+    
+    
+    
+    @GetMapping("/userpaneladdlawsuitevent")
+    public String getAddLawsuitEventUserpanel(Model model) {
+        Event event = new Event();
+        model.addAttribute("event", event);
+        model.addAttribute("eventTypeEnum", EventTypeEnum.values());
+        model.addAttribute("lawsuitList", lawsuitRepository.findAllLawsuitsByUserId(userService.loggedUserId()));
+        model.addAttribute("clientList", personRepository.allUserClient(userService.loggedUserId()));
+        model.addAttribute("subjectList", subjectRepository.allUserSubjects(userService.loggedUserId()));
+        return "userpaneladdlawsuitevent";
+    }
+
+    @PostMapping("/userpaneladdlawsuitevent")
+    public String postAddLawsuitEventUserpanel(@ModelAttribute Event event, RedirectAttributes redirectAttributes) {
+        event.setLawsuit(lawsuitRepository.findOne(event.getLawsuit().getId()));
+        eventRepository.save(event);
+        redirectAttributes.addAttribute("userId", userService.loggedUserId());
+        return "redirect:userpanel";
+    }
 }

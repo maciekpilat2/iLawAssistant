@@ -39,12 +39,14 @@ PersonRepository personRepository;
     public String getAddSubject(Model model){
         Subject subject = new Subject();
         model.addAttribute("subject", subject);
+        model.addAttribute("clientList", personRepository.allUserClient(userService.loggedUserId()));
         return "addsubject";
     }
     @PostMapping("/addsubject")
     public String postAddSubject(@ModelAttribute Subject subject, RedirectAttributes redirectAttributes){
         redirectAttributes.addAttribute("userId",userService.loggedUserId());
-        subject.setPerson(personRepository.findOne(userService.loggedUserId()));
+        //subject.setPerson(personRepository.findOne(userService.loggedUserId()));
+        subject.setPerson(personRepository.findOne(subject.getPerson().getId()));
         subjectRepository.save(subject);
         return "redirect:userpanel";
     }

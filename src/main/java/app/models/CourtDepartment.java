@@ -11,6 +11,7 @@ import app.models.Model;
 import app.models.Address;
 import java.util.List;
 import javax.persistence.CascadeType;
+import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
@@ -27,7 +28,7 @@ public class CourtDepartment extends Model{
     @OneToMany(mappedBy = "courtDepartment")
     private List<Address> address;
     
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Court court;
     
     @OneToMany(mappedBy = "courtDepartment")

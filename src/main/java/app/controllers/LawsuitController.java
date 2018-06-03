@@ -22,6 +22,7 @@ import app.repositories.SubjectRepository;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttribute;
 import app.models.Subject;
+import app.repositories.PersonRepository;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
@@ -38,6 +39,8 @@ public class LawsuitController {
     CourtDepartmentRepository courtDepartmentRepository;
     @Autowired
     SubjectRepository subjectRepository;
+    @Autowired
+    PersonRepository personRepository;
 
     @GetMapping("/addlawsuit")
     public String getAddLawsuit(Model model, @RequestParam("subjectId") Long subjectId) {
@@ -61,4 +64,24 @@ public class LawsuitController {
         return "redirect:subjectpanel";
     }
 
+    @GetMapping("/addlawsuituesrpanel")
+    public String getAddLawsuitUserpanel(Model model) {
+        model.addAttribute("clientList", personRepository.allUserClient(userService.loggedUserId()));
+        model.addAttribute("subjectList", subjectRepository.allUserSubjects(userService.loggedUserId()));
+        model.addAttribute("courtList", courtRepository.findAll());
+        model.addAttribute("courtDepartmentList", courtDepartmentRepository.findAll());
+        Lawsuit lawsuit = new Lawsuit();
+        model.addAttribute("lawsuit", lawsuit);
+        return "userpaneladdlawsuit";
+    }
+
+    @PostMapping("/addlawsuituesrpanel")
+    public String postAddLawsuitUserpanel(Model model, @ModelAttribute Lawsuit lawsuit, RedirectAttributes redirectAttributes) {
+        lawsuit.setCourtDepartment(courtDepartmentRepository.findOne(lawsuit.getCourtDepartment().getId()));
+        lawsuit.setUser(userService.getLoggedInUser());
+        lawsuit.setSubject(subjectRepository.findOne(lawsuit.getSubject().getId()));
+        lawsuitRepository.save(lawsuit);
+        redirectAttributes.addAttribute("userId", userService.loggedUserId());
+        return "redirect:userpanel";
+    }
 }

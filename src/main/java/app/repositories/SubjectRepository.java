@@ -18,10 +18,7 @@ import org.springframework.stereotype.Repository;
  */
 @Repository
 public interface SubjectRepository extends JpaRepository<Subject, Long>{
-
-    @Query("select s from Subject s where s.person.id=?1")
-    List<Subject> allUserSubjects(Long userId);
     
-//    @Query("select s from Subject s where s.person.id=?1 and")
-//    List<Subject> allUserClientSubjects(Long userId, Long clientId);
+    @Query("select s from Subject s join s.person p where p.user.id=?1")
+    List<Subject> allUserSubjects(Long userId);
 }

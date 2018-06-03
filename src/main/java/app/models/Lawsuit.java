@@ -34,7 +34,7 @@ public class Lawsuit extends Model {
     @OneToMany(mappedBy = "lawsuit", cascade = CascadeType.MERGE)
     private List<Event> event;
 
-    @ManyToOne(cascade = CascadeType.MERGE)
+    @ManyToOne(cascade = CascadeType.ALL)
     private CourtDepartment courtDepartment;
  
     @OneToMany(mappedBy = "lawsuit", cascade = CascadeType.MERGE)
