@@ -149,6 +149,7 @@ public class EventController {
 
     @PostMapping("/userpaneladdnonlawsuitevent")
     public String postAddNonLawsuitEventUserpanel(@ModelAttribute Event event, RedirectAttributes redirectAttributes) {
+        event.setEventTypeEnum(EventTypeEnum.NEUTRAL);
         event.setSubject(subjectRepository.findOne(event.getSubject().getId()));
         eventRepository.save(event);
         redirectAttributes.addAttribute("userId", userService.loggedUserId());
