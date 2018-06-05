@@ -19,27 +19,21 @@
     </head>
     <body>
         <div class="container">
-            <div class="row">
-                <h2>Dodaj podmiot do postepowania:</h2>
-            </div>
-            <div class="row">
-                <form class="form" th:object="${person}" th:action="@{/addclient}" method="post">
-                    <input type="text" placeholder="Tytuł" th:field="*{personTitle}"></input>
-                    <input type="text" placeholder="Imię" th:field="*{personFirstName}"></input>
-                    <input type="text" placeholder="Nazwisko" th:field="*{personLastName}"></input>
-                    <input type="text" placeholder="Firma" th:field="*{personCompanyName}"></input>
-                    <input type="text" placeholder="Nazwa potoczna" th:field="*{nickname}"></input>
-                    <div class="row">
-                        <div class="col-lg-2">
-                            <input class="btn btn-primary btn-block" type="submit" value="Zarwierdź"></input>
-                        </div>
-                    </div>
-                </form>
-            </div>
-            <div class="row">
-
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h3 class="text-center">Dodaj klienta:</h3>
+                </div>
+                <div class="panel-body">
+                    <form class="form" th:object="${person}" th:action="@{/addclient}" method="post">
+                        <input type="text" class="form-control" placeholder="Tytuł" th:field="*{personTitle}"></input>
+                        <input type="text" class="form-control" placeholder="Imię" th:field="*{personFirstName}"></input>
+                        <input type="text" class="form-control" placeholder="Nazwisko" th:field="*{personLastName}"></input>
+                        <input type="text" class="form-control" placeholder="Firma" th:field="*{personCompanyName}"></input>
+                        <input type="text" class="form-control" placeholder="Nazwa potoczna" th:field="*{nickname}"></input>
+                        <input class="btn btn-primary btn-block" type="submit" value="Zarwierdź"></input>
+                    </form>
                     <button type="button" class="btn btn-primary btn-block" onclick="location.href = '/userpanel';">Powrót</button>
-
+                </div>
             </div>
         </div>
     </body>

@@ -5,46 +5,60 @@
         <meta charset="UTF-8"/>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
-        <link href="/assets/css/bootstrap.min.css" rel="stylesheet" />
-        <link href="/assets/css/now-ui-kit.css?v=1.2.0" rel="stylesheet" />
-        <script src="/js/app.js"></script>
-        <link href="/css/styles.css" rel="stylesheet" />
+        <!--        <link href="/assets/css/bootstrap.min.css" rel="stylesheet" />
+                <link href="/assets/css/now-ui-kit.css?v=1.2.0" rel="stylesheet" />
+                <script src="/js/app.js"></script>
+                <link href="/css/styles.css" rel="stylesheet" />-->
+
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" />
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
     </head>
     <body>
-        <div>Doda postępowanie</div>
+        <div class="container">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <div class="text-center">
+                        <h3>Doda postępowanie sądowe</h3>
+                    </div>
+                </div>
+                <div class="panel-body">
+                    <form th:action="@{/addlawsuit}" th:object="${addLawsuitWrapper}" method="post">
+                        <select id="court" th:field="*{court.id}" class="form-control">
+                            <tr th:each="c : ${courtList}">
+                                <option  th:value="${c.id}" th:text="${c.courtName}" th:field="*{court.id}"></option>
+                            </tr>
+                        </select>
+                        <select id="courtDepartment" class="form-control" th:field="*{courtDepartment.id}">
+                            <tr th:each="cd : ${courtDepartmentList}">
+                                <option  th:value="${cd.id}" th:attr="data-chained=${cd.id}" th:text="${cd.courtDepartmentName}" th:field="*{courtDepartment.id}"></option>
+                            </tr>
+                        </select>
+                        <input type="text" class="form-control" placeholder="Sygnatura" th:field="*{lawsuit.courtFileReference}"></input>
+                        <input type="text" class="form-control" placeholder="Opis" th:field="*{lawsuit.description}"></input>
+                        <input type="submit" class="btn btn-primary btn-block" value="Zapisz"></input>
+                    </form>
+                    <button type="button" class="btn btn-primary btn-block" onclick="location.href = '/userpanel';">Powrót</button>
+                </div>
 
-        <form th:action="@{/addlawsuit}" th:object="${addLawsuitWrapper}" method="post">
-            <select id="court" th:field="*{court.id}">
-                <tr th:each="c : ${courtList}">
-                    <option  th:value="${c.id}" th:text="${c.courtName}" th:field="*{court.id}"></option>
-                </tr>
-            </select>
-            <select id="courtDepartment" th:field="*{courtDepartment.id}">
-                <tr th:each="cd : ${courtDepartmentList}">
-                    <option  th:value="${cd.id}" th:attr="data-chained=${cd.id}" th:text="${cd.courtDepartmentName}" th:field="*{courtDepartment.id}"></option>
-                </tr>
-            </select>
-            <input type="text" placeholder="Sygnatura" th:field="*{lawsuit.courtFileReference}"></input>
-            <input type="text" placeholder="Opis" th:field="*{lawsuit.description}"></input>
-            <input type="submit" value="Zapisz"></input>
-        </form>
-        <button type="button" onclick="location.href = '/userpanel';">Powrót</button>
 
-
-
-        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js" type="text/javascript" charset="utf-8"></script>
-        <script src="/js/jquery.chained.js"></script>
-        <script src="/js/jquery.chained.min.js"></script>
-        <script src="/js/jquery.chained.remote.js"></script>
-        <script src="/js/jquery.chained.remote.min.js"></script>
-        <script src="/js/chainCourttoCourtDepartments.js"></script>
-        <script type="text/javascript" charset="utf-8"></script>
-        <script type="application/javascript">
-            $(function() {
-            console.log( "ready!" );
-            $("#courtDepartment").chained("#court");
-            });
-        </script>
+                <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+                <script src="/js/jquery.chained.js"></script>
+                <script src="/js/jquery.chained.min.js"></script>
+                <script src="/js/jquery.chained.remote.js"></script>
+                <script src="/js/jquery.chained.remote.min.js"></script>
+                <script src="/js/chainCourttoCourtDepartments.js"></script>
+                <script type="text/javascript" charset="utf-8"></script>
+                <script type="application/javascript">
+                    $(function() {
+                    console.log( "ready!" );
+                    $("#courtDepartment").chained("#court");
+                    });
+                </script>
+            </div>
+        </div>
     </body>
 </html>
 

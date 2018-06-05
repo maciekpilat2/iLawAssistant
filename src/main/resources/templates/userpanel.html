@@ -10,90 +10,126 @@
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-
     </head>
     <body>
         <div class="container">
-            <div class="row">
-                <div class="col-md-6">
-                    <div class="table-responsive">
-                        <h3 class="text-center">Wykaz spraw</h3>
-                        <table class="table">
-                            <tr th:each="s : ${subjectList}">
-                                <td th:text="${s.title}"></td>
-                                <td th:text="${s.shortNote}"></td>
-                                <td th:text="${s.startDate}"></td>
-                                <td> <button class="btn btn-primary" type="submit" name="lawsuitEventsButton" value="${u.id}" th:onclick="'location.href = \'' + @{/subjectpanel(subjectId=${s.id})} + '\''">Szczególy</button></td>
-                            </tr>
-                        </table>
-                        <div class="col-md-12 ml-auto mr-auto">
-                            <button type="button" class="btn btn-primary btn-block" onclick="location.href = '/addsubject'">Dodaj sprawę</button>
+            <div class="panel panel-primary">
+                <div class="panel-heading"><h3 class="text-center">PANEL UŻYTKOWNIKA</h3></div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="panel panel-primary">
+                                <div class="panel-heading"><h3 class="text-center">Wykaz spraw</h3></div>
+                                <div class="panel-body">
+                                    <table class="table">
+                                        <tr th:each="s : ${subjectList}">
+                                            <td th:text="${s.title}"></td>
+                                            <td th:text="${s.shortNote}"></td>
+                                            <td th:text="${s.startDate}"></td>
+                                            <td> <button class="btn btn-primary" type="submit" name="lawsuitEventsButton" value="${u.id}" th:onclick="'location.href = \'' + @{/subjectpanel(subjectId=${s.id})} + '\''">Szczególy</button></td>
+                                        </tr>
+                                    </table>
+                                    <div class="col-md-12 ml-auto mr-auto">
+                                        <button type="button" class="btn btn-primary btn-block" onclick="location.href = '/addsubject'">Dodaj sprawę</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="panel panel-primary">
+                                <div class="panel-heading"><h3 class="text-center">Klienci</h3></div>
+                                <div class="panel-body">
+                                    <table class="table">
+                                        <tr th:each="c : ${clientList}">
+                                            <td th:text="${c.nickname}"></td>
+                                            <td th:text="${c.personLastName}"></td>
+                                            <td th:text="${c.personFirstName}"></td>
+                                            <td th:text="${c.personCompanyName}"></td>
+                                            <td><button type="button" class="btn btn-primary btn-block" th:onclick="'location.href = \'' + @{/clientpanel(clientId=${c.id})} + '\''">Panel klienta</button></td>
+                                        </tr>
+                                    </table>
+                                    <div class="col-md-12 ml-auto mr-auto">
+                                        <button type="button" class="btn btn-primary btn-block" onclick="location.href = '/addclient'">Dodaj klienta</button>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="col-md-6">
-                    <h3 class="text-center">Klienci</h3>
-                    <table class="table">
-                        <tr th:each="c : ${clientList}">
-                            <td th:text="${c.nickname}"></td>
-                            <td th:text="${c.personLastName}"></td>
-                            <td th:text="${c.personFirstName}"></td>
-                            <td th:text="${c.personCompanyName}"></td>
-                            <td><button type="button" class="btn btn-primary btn-block" th:onclick="'location.href = \'' + @{/clientpanel(clientId=${c.id})} + '\''">Panel klienta</button></td>
-                        </tr>
-                    </table>
+                    <div class="row">
+                        <div class="col-md-6 ml-auto mr-auto">
+                            <div class="panel panel-primary">
+                                <div class="panel-heading"><h3 class="text-center">Wykaz postępowan</h3></div>
+                                <div class="panel-body">
+                                    <table class="table">
+                                        <tr th:each="u : ${userLawsuitList}">
+                                            <td th:text="${u.id}"></td>
+                                            <td th:text="${u.courtFileReference}"></td>
+                                            <td th:text="${u.description}"></td>
+                                            <td> <button class="btn btn-primary" type="submit" name="lawsuitEventsButton" value="${u.id}" th:onclick="'location.href = \'' + @{/lawsuitpanel(lawsuitId=${u.id})} + '\''">Szczególy</button></td>
+                                        </tr>
+                                    </table>
+                                    <div class="col-md-12 ml-auto mr-auto">
+                                        <button type="button" class="btn btn-primary btn-block" onclick="location.href = '/addlawsuituesrpanel'">Dodaj postępowanie</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="panel panel-primary">
+                                <div class="panel-heading">
+                                    <div class="text-center">
+                                        <h3>Nadchodzące wydarzenia</h3>
+                                    </div>
+                                </div>
+                                <div class="panel-body">
+                                    <div class="panel panel-primary">
+                                        <div class="panel-heading">
+                                            <div class="text-center">
+                                                <h3>Sądowe</h3>
+                                            </div>
+                                        </div>
+                                        <div class="panel-body">
+                                            <table class="table">
+                                                <tr th:each="e : ${listAllUserNonLawsuitEventToRemind}">
+                                                    <td th:text="${e.eventDate}"></td>
+                                                    <td th:text="${e.eventTypeEnum.name}"></td>
+                                                    <td th:text="${e.note}"></td>                           
+                                                    <td><button type="submit" class="btn btn-primary" th:onclick="'location.href = \'' + @{/eventpanel(eventId=${e.id})} + '\''">Panel wydarzenia</button> </td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                    </div>
+                                    <div class="panel panel-primary">
+                                        <div class="panel-heading">
+                                            <div class="text-center">
+                                                <h3>Niesądowe</h3>
+                                            </div>
+                                        </div>
+                                        <div class="panel-body">
+                                            <table class="table">
+                                                <tr th:each="e : ${listAllUserLawsuitEventToRemind}">
+                                                    <td th:text="${e.eventDate}"></td>
+                                                    <td th:text="${e.eventTypeEnum.name}"></td>
+                                                    <td th:text="${e.note}"></td>                           
+                                                    <td><button type="submit" class="btn btn-primary" th:onclick="'location.href = \'' + @{/eventpanel(eventId=${e.id})} + '\''">Panel wydarzenia</button> </td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <button type="button" class="btn btn-primary btn-block" onclick="location.href = '/userpaneladdnonlawsuitevent'">Dodaj wydarzenie do sprawy</button>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <button type="button" class="btn btn-primary btn-block" onclick="location.href = '/userpaneladdlawsuitevent'">Dodaj wydarzenie postępowania</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                     <div class="col-md-12 ml-auto mr-auto">
-                        <button type="button" class="btn btn-primary btn-block" onclick="location.href = '/addclient'">Dodaj klienta</button>
+                        <button type="button" class="btn btn-primary btn-block" onclick="location.href = '/logout';">Wyloguj</button>
                     </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-6 ml-auto mr-auto">
-                    <h3 class="text-center">Wykaz postępowan</h3>
-                    <table class="table">
-                        <tr th:each="u : ${userLawsuitList}">
-                            <td th:text="${u.id}"></td>
-                            <td th:text="${u.courtFileReference}"></td>
-                            <td th:text="${u.description}"></td>
-                            <td> <button class="btn btn-primary" type="submit" name="lawsuitEventsButton" value="${u.id}" th:onclick="'location.href = \'' + @{/lawsuitpanel(lawsuitId=${u.id})} + '\''">Szczególy</button></td>
-                        </tr>
-                    </table>
-                    <div class="col-md-12 ml-auto mr-auto">
-                        <button type="button" class="btn btn-primary btn-block" onclick="location.href = '/addlawsuituesrpanel'">Dodaj postępowanie</button>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <h3 class="text-center">Nadchodzące wydarzenia sadowe</h3>
-                    <table class="table">
-                        <tr th:each="e : ${listAllUserNonLawsuitEventToRemind}">
-                            <td th:text="${e.eventDate}"></td>
-                            <td th:text="${e.eventTypeEnum.name}"></td>
-                            <td th:text="${e.note}"></td>                           
-                            <td><button type="submit" class="btn btn-primary" th:onclick="'location.href = \'' + @{/eventpanel(eventId=${e.id})} + '\''">Panel wydarzenia</button> </td>
-                        </tr>
-                    </table>
-                    
-                    <h3 class="text-center">Nadchodzące wydarzenia niesadowe</h3>
-                    <table class="table">
-                        <tr th:each="e : ${listAllUserLawsuitEventToRemind}">
-                            <td th:text="${e.eventDate}"></td>
-                            <td th:text="${e.eventTypeEnum.name}"></td>
-                            <td th:text="${e.note}"></td>                           
-                            <td><button type="submit" class="btn btn-primary" th:onclick="'location.href = \'' + @{/eventpanel(eventId=${e.id})} + '\''">Panel wydarzenia</button> </td>
-                        </tr>
-                    </table>
-                    
-                    <div class="col-md-6 ml-auto mr-auto">
-                        <button type="button" class="btn btn-primary btn-block" onclick="location.href = '/userpaneladdnonlawsuitevent'">Dodaj wydarzenie do sprawy</button>
-                    </div>
-                                        <div class="col-md-6 ml-auto mr-auto">
-                        <button type="button" class="btn btn-primary btn-block" onclick="location.href = '/userpaneladdlawsuitevent'">Dodaj wydarzenie postępowania</button>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-md-12 ml-auto mr-auto">
-                    <button type="button" class="btn btn-primary btn-block" onclick="location.href = '/logout';">Wyloguj</button>
                 </div>
             </div>
         </div>

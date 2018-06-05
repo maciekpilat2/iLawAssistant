@@ -82,4 +82,63 @@ public class EventPanelController {
         scanRepository.save(scan);
         return "redirect:/eventpanel";
     }
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+        @GetMapping("/nonlawsuiteventpanel")
+    public String getNonLawsuitEventPanel(@RequestParam("eventId") Long eventId, Model model) {
+        Scan scan = new Scan();
+        model.addAttribute("scan", scan);
+        model.addAttribute("event", eventRepository.findOne(eventId));
+        model.addAttribute("scanList", scanRepository.findAllScanToEvent(eventId));
+        System.out.println("To lista skanów: " + scanRepository.findAllScanToEvent(eventId).contains(scan));
+        return "nonlawsuiteventpanel";
+    }
+    @PostMapping("/nonlawsuiteventpanel")
+    public String postNonLawsuitEventPanel(
+            @RequestParam("eventId") Long eventId,
+            Model model,
+            @ModelAttribute Scan scan,
+            @ModelAttribute Event event,
+            @RequestParam("scanMultipart") MultipartFile scanMultipart,
+            RedirectAttributes redirectAttributes
+    ) throws IOException {
+
+        if (scanMultipart.isEmpty()) {
+            redirectAttributes.addFlashAttribute("message", "Wybierz skan dokumentu!");
+            redirectAttributes.addAttribute("eventId", eventId);
+            return "redirect:eventpanel";
+        }
+        try {
+
+        // Tworzy plik i zapisuje tam gdzie wskazuje stala
+            byte[] bytes = scanMultipart.getBytes();
+            redirectAttributes.addFlashAttribute("message", "Zapisałeś plik: '" + scanMultipart.getOriginalFilename() + "'");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        // zapisuje na FTP
+        scanService.uploadFileToFtp(scanMultipart.getBytes(), scan.getScanName() + ".jpg");
+        redirectAttributes.addAttribute("eventId", eventId);
+        // zapisuje dane i url dla MySQL zenbox
+        scan.setScanUrl("http://maciekpilat.pl/iLawAssistantScans/" + scan.getScanName()+".jpg");
+        scan.setEvent(eventRepository.findOne(eventId));
+        // wysylam zapytanie do api o OCR,  i umieszczam w obiekcie SCAN do zpisania w MySQL
+        scan.setScanJSON(scanService.sendOCRRequest(scan.getScanUrl()));
+
+
+        scan.setSignature(documentService.findSignature(scanService.getParsedText(scan.getScanJSON())));
+
+        scanRepository.save(scan);
+        return "redirect:/nonlawsuiteventpanel";
+    }
 }
+
+//nonlawsuiteventpanel

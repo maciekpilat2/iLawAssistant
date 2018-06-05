@@ -24,52 +24,50 @@
     </head>
     <body>
         <div class="container">
-            <div class="row">
-                <h2>Dodaj zagadnienie</h2>
-            </div>
-            <div class="row">
-                <form th:action="@{/addsubject}" th:object="${subject}" method="post">
-                    <div class="col-lg-3">
-                        <select th:field="*{person.id}" class="form-control">
-                            <option th:each="c:${clientList}" th:value="${c.id}" th:text="${c.personFirstName + ' '+ c.personLastName}"></option>
-                        </select>
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <div class="text-center">
+                        <h3>Dodaj zagadnienie</h3>
                     </div>
-                    <div class="col-lg-3">
-                        <input type="text" class="form-control" placeholder="Tytul" th:field="*{title}"></input>
-                    </div>                    
-                    <div class="col-lg-3">
-                        <input type="text" class="form-control" placeholder="Skrót" th:field="*{shortNote}"></input>
-                    </div>                    
-                    <div class="col-lg-3">
-                        <input type="text" class="form-control" placeholder="Pelny opis" th:field="*{longNote}"></input>            
-                    </div>
+                </div>
+                <div class="panel-body">
+                    <form th:action="@{/addsubject}" th:object="${subject}" method="post">
+                        <div class="col-lg-3">
+                            <select th:field="*{person.id}" class="form-control">
+                                <option th:each="c:${clientList}" th:value="${c.id}" th:text="${c.personFirstName + ' '+ c.personLastName}"></option>
+                            </select>
+                        </div>
+                        <div class="col-lg-3">
+                            <input type="text" class="form-control" placeholder="Tytul" th:field="*{title}"></input>
+                        </div>                    
+                        <div class="col-lg-3">
+                            <input type="text" class="form-control" placeholder="Skrót" th:field="*{shortNote}"></input>
+                        </div>                    
+                        <div class="col-lg-3">
+                            <input type="text" class="form-control" placeholder="Pelny opis" th:field="*{longNote}"></input>            
+                        </div>
 
-                    <!--bootstrap datetime picker START-->      
-                    <div class="row">
-                        <div class='col-lg-3'>
-                            <div class="form-group"> <!-- Date input -->
-                                <input class="form-control" id="date" name="startDate" placeholder="MM/DD/YYY" type="text" th:field="*{startDate}"></input>
+                        <!--bootstrap datetime picker START-->      
+                        <div class="row">
+                            <div class='col-lg-3'>
+                                <div class="form-group"> <!-- Date input -->
+                                    <input class="form-control" id="date" name="startDate" placeholder="MM/DD/YYY" type="text" th:field="*{startDate}"></input>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="row">
-                        <div>
-                            <input type="submit" class="btn btn-primary btn-block" value="Zapisz"></input>
+                        <div class="row">
+                            <div>
+                                <input type="submit" class="btn btn-primary btn-block" value="Zapisz"></input>
+                            </div>
                         </div>
-                    </div>
-                </form>
-            </div>
-            <div class="row">
-                <button type="button" class="btn btn-primary btn-block" onclick="location.href = '/userpanel';">Powrót</button>
+                    </form>
+                </div>
+                <div class="row">
+                    <button type="button" class="btn btn-primary btn-block" onclick="location.href = '/userpanel';">Powrót</button>
+                </div>
             </div>
         </div>
     </body>
     <!--KOD DATEPICKER-->
     <script src="/js/datePicker.js"></script>
 </html>
-<!--private String title;
-private String shortNote;
-private String longNote;
-private Timestamp startDate;-->
-<!--btn btn-primary btn-block-->
-<!--clientList-->

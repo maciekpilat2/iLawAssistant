@@ -12,31 +12,33 @@
         <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css"/>
 
-        <link href="/assets/css/bootstrap.min.css" rel="stylesheet" />
-        <link href="/assets/css/now-ui-kit.css?v=1.2.0" rel="stylesheet" />
-        <script src="/js/app.js"></script>
-        <link href="/css/styles.css" rel="stylesheet" />
+
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" />
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+        <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>-->
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     </head>
     <body>
-        <div>Dodaj zagadnienie</div>
-
-        <form th:action="@{/addsubject/client}" th:object="${subject}" method="post">
-            <input type="text" placeholder="Tytul" th:field="*{title}"></input>
-            <input type="text" placeholder="Skrót" th:field="*{shortNote}"></input>
-            <input type="text" placeholder="Pelny opis" th:field="*{longNote}"></input>            
-            <!--bootstrap datetime picker START-->      
-            <div class='col-lg-2'>
-                <div class="form-group"> <!-- Date input -->
-                    <input class="form-control" id="date" name="startDate" placeholder="MM/DD/YYY" type="text" th:field="*{startDate}"></input>
+        <div class="container">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <div class="text-center">
+                        <h3>Dodaj zagadnienie</h3>
+                    </div>
+                </div>
+                <div class="panel-body">
+                    <form th:action="@{/addsubject/client}" th:object="${subject}" method="post">
+                        <input type="text" class="form-control" placeholder="Tytul" th:field="*{title}"></input>
+                        <input type="text" class="form-control" placeholder="Skrót" th:field="*{shortNote}"></input>
+                        <input type="text" class="form-control" placeholder="Pelny opis" th:field="*{longNote}"></input>            
+                        <!--bootstrap datetime picker START-->      
+                        <input class="form-control" id="date" name="startDate" placeholder="MM/DD/YYY" type="text" th:field="*{startDate}"></input>
+                        <input class="btn btn-primary btn-block" type="submit" value="Zapisz"></input>
+                    </form>
+                    <button type="button" class="btn btn-primary btn-block" onclick="location.href = '/userpanel';">Powrót</button>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-lg-2">
-                    <input type="submit" value="Zapisz"></input>
-                </div>
-            </div>
-        </form>
-        <button type="button" onclick="location.href = '/userpanel';">Powrót</button>
+        </div>
     </body>
     <!--KOD DATEPICKER-->
     <script src="/js/datePicker.js"></script>

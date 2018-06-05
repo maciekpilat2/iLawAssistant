@@ -23,88 +23,118 @@
     </head>
     <body>
         <div class="container">
-            <div class="row">
-                <h2>PANEL POSTĘPOWANIA</h2>
-            </div>
-            <div class="col-lg-6">
-                <div class="container-fluid">
-                    <div class="row">
-                        <ul class="timeline">
-                            <li th:each="l, iterStat : ${lawsuit.event}">
-                                <div class="timeline-badge">
-                                    <a><i class="fa fa-circle" id=""></i></a>
-                                </div>
-                                <div class="timeline-panel">
-                                    <div class="timeline-heading">
-                                        <h4 th:text="${l.eventTypeEnum.name}"></h4>
-                                    </div>
-                                    <div class="timeline-body">
-                                        <p th:text="${l.note}"></p>
-                                    </div>
-                                    <div class="timeline-footer">
-                                        <p class="text-right" th:text="${l.eventDate}"></p>
-                                    </div>
-                                    <button type="submit" class="btn btn-primary btn-block" th:onclick="'location.href = \'' + @{/editevent(eventId=${l.id})} + '\''">Edytuj</button>
-                                    <button type="button" class="btn btn-primary btn-block" data-toggle="modal" th:attr="data-target='#mymodal' + ${iterStat.index}">Kasuj</button>
-                                    <button type="submit" class="btn btn-primary btn-block" th:onclick="'location.href = \'' + @{/eventpanel(eventId=${l.id})} + '\''">Panel wydarzenia</button>
-                                </div>
-
-                                <!--modal-->
-                                <div class="modal fade" th:id="${'mymodal'+iterStat.index}">
-                                    <div class="modal-dialog">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h2>Czy na pewno usunąć?</h2>
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h3 class="text-center">PANEL POSTĘPOWANIA</h3>
+                </div>
+                <div class="panel-body">
+                    <div class="col-lg-6">
+                        <div class="container-fluid">
+                            <div class="row">
+                                <ul class="timeline">
+                                    <li th:each="l, iterStat : ${lawsuit.event}">
+                                        <div class="timeline-badge">
+                                            <a><i class="fa fa-circle" id=""></i></a>
+                                        </div>
+                                        <div class="timeline-panel">
+                                            <div class="timeline-heading">
+                                                <h4 th:text="${l.eventTypeEnum.name}"></h4>
                                             </div>
-                                            <div class="modal-body">
-                                                <button type="submit" class="btn btn-primary btn-block" th:onclick="'location.href = \'' + @{/delete/lawsuitEvent(eventId=${l.id})} + '\''">Kasuj</button>
+                                            <div class="timeline-body">
+                                                <p th:text="${l.note}"></p>
                                             </div>
-                                            <div class="modal-footer">
+                                            <div class="timeline-footer">
+                                                <p class="text-right" th:text="${l.eventDate}"></p>
+                                            </div>
+                                            <button type="submit" class="btn btn-primary btn-block" th:onclick="'location.href = \'' + @{/editevent(eventId=${l.id})} + '\''">Edytuj</button>
+                                            <button type="button" class="btn btn-primary btn-block" data-toggle="modal" th:attr="data-target='#mymodal' + ${iterStat.index}">Kasuj</button>
+                                            <button type="submit" class="btn btn-primary btn-block" th:onclick="'location.href = \'' + @{/eventpanel(eventId=${l.id})} + '\''">Panel wydarzenia</button>
+                                        </div>
+                                        <!--modal-->
+                                        <div class="modal fade" th:id="${'mymodal'+iterStat.index}">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h2>Czy na pewno usunąć?</h2>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <button type="submit" class="btn btn-primary btn-block" th:onclick="'location.href = \'' + @{/delete/lawsuitEvent(eventId=${l.id})} + '\''">Kasuj</button>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
+                                        <!--modal koniec--> 
+                                    </li>
+                                    <li class="clearfix no-float"></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <button type="submit" class="btn btn-primary btn-block" name="lawsuitEventsButton" value="${lawsuit.id}" th:onclick="'location.href = \'' + @{/addevent(lawsuitId=${lawsuit.id})} + '\''">Dodaj wydarzenie</button>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="panel panel-primary">
+                                <div class="panel-heading">
+                                    <div class="text-center">
+                                        <h3>STRONY</h3>
                                     </div>
                                 </div>
-                                <!--modal koniec--> 
-
-                            </li>
-                            <li class="clearfix no-float"></li>
-                        </ul>
+                                <div class="panel-body">
+                                    <div class="panel panel-primary">
+                                        <div class="panel-heading">
+                                            <h3>Powodowie:</h3>
+                                        </div>
+                                        <div class="panel-body">
+                                            <table class="table">
+                                                <tr th:each="p : ${personPlaintiffList}">
+                                                    <td th:text="${p.personFirstName}"/>
+                                                    <td th:text="${p.personLastName}"/>
+                                                    <td><button type="submit" class="btn btn-primary btn-block" name="lawsuitEventsButton" value="${lawsuit.id}" th:onclick="'location.href = \'' + @{/personpanel(personId=${p.id},lawsuitId=${lawsuit.id})} + '\''">Panel osoby</button></td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                    </div>
+                                    <div class="panel panel-primary">
+                                        <div class="panel-heading">
+                                            <h3>Pozwani:</h3>
+                                        </div>
+                                        <div class="panel-body">
+                                            <table class="table">
+                                                <tr th:each="p : ${personDefendantList}">
+                                                    <td th:text="${p.personFirstName}"/>
+                                                    <td th:text="${p.personLastName}"/>
+                                                    <td><button type="submit" class="btn btn-primary btn-block" name="lawsuitEventsButton" value="${lawsuit.id}" th:onclick="'location.href = \'' + @{/personpanel(personId=${p.id})} + '\''">Panel osoby</button></td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary btn-block" name="lawsuitEventsButton" value="${lawsuit.id}" th:onclick="'location.href = \'' + @{/addperson(lawsuitId=${lawsuit.id})} + '\''">Dodaj strone</button>
+                                </div>
+                            </div>
+                        </div>
                     </div>
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            <div class="text-center">
+                                <h3>Nadchodzace wydarzenia</h3>
+                            </div>
+                        </div>
+                        <div class="panel-body">
+                            <table class="table">
+                                <tr th:each="e : ${eventToRemindList}">
+                                    <td th:text="${e.eventDate}"/>
+                                    <td th:text="${e.eventType}"/>
+                                    <td th:text="${e.note}"/>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                    <button class="btn btn-primary btn-block" type="button" onclick="location.href = '/userpanel';">Powrót</button>
                 </div>
-                <div class="row">
-                    <button type="submit" class="btn btn-primary btn-block" name="lawsuitEventsButton" value="${lawsuit.id}" th:onclick="'location.href = \'' + @{/addevent(lawsuitId=${lawsuit.id})} + '\''">Dodaj wydarzenie</button>
-                </div>
-            </div>
-            <div class="col-lg-6">
-                <h2>Powodowie:</h2>
-                <table class="table">
-                    <tr th:each="p : ${personPlaintiffList}">
-                        <td th:text="${p.personFirstName}"/>
-                        <td th:text="${p.personLastName}"/>
-                        <td><button type="submit" class="btn btn-primary btn-block" name="lawsuitEventsButton" value="${lawsuit.id}" th:onclick="'location.href = \'' + @{/personpanel(personId=${p.id},lawsuitId=${lawsuit.id})} + '\''">Panel osoby</button></td>
-                    </tr>
-                </table>
-                <h2>Pozwani:</h2>
-                <table class="table">
-                    <tr th:each="p : ${personDefendantList}">
-                        <td th:text="${p.personFirstName}"/>
-                        <td th:text="${p.personLastName}"/>
-                        <td><button type="submit" name="lawsuitEventsButton" value="${lawsuit.id}" th:onclick="'location.href = \'' + @{/personpanel(personId=${p.id})} + '\''">Panel osoby</button></td>
-                    </tr>
-                </table>
-                <button type="submit" class="btn btn-primary btn-block" name="lawsuitEventsButton" value="${lawsuit.id}" th:onclick="'location.href = \'' + @{/addperson(lawsuitId=${lawsuit.id})} + '\''">Dodaj strone</button>
-                <h2>Nadchodzace wydarzenia</h2>
-                <table class="table">
-                    <tr th:each="e : ${eventToRemindList}">
-                        <td th:text="${e.eventDate}"/>
-                        <td th:text="${e.eventType}"/>
-                        <td th:text="${e.note}"/>
-                    </tr>
-                </table>
-            </div>
-            <!--powrót-->
-            <div class="row">
-                <button class="btn btn-primary btn-block" type="button" onclick="location.href = '/userpanel';">Powrót</button>
             </div>
         </div>
     </body>

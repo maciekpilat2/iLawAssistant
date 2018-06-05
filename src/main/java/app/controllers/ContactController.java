@@ -49,6 +49,6 @@ public class ContactController {
         contact.setPerson(personRepository.findOne(person.getId()));
         contatctRepository.save(contact);
         redirectAttributes.addAttribute("personId", person.getId());
-        return "redirect:addcontact";
+        return "redirect:personpanel";
     }
 }

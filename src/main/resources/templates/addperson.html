@@ -6,35 +6,44 @@
         <meta charset="UTF-8"/>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
-        <link href="/assets/css/bootstrap.min.css" rel="stylesheet" />
-        <link href="/assets/css/now-ui-kit.css?v=1.2.0" rel="stylesheet" />
-        <script src="/js/app.js"></script>
-        <link href="/css/styles.css" rel="stylesheet" />
+        <!--        <link href="/assets/css/bootstrap.min.css" rel="stylesheet" />
+                <link href="/assets/css/now-ui-kit.css?v=1.2.0" rel="stylesheet" />
+                <script src="/js/app.js"></script>
+                <link href="/css/styles.css" rel="stylesheet" />-->
+
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" />
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
     </head>
     <body>
-        <div>Dodaj podmiot do postepowania:</div>
-        <form th:object="${person}" th:action="@{/addperson}" method="post">
-            <!--            <select th:field="*{lawsuit.id}">
+        <div class="container">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <div class="text-center">
+                        <h3>Dodaj stronę do postepowania:</h3>
+                    </div>
+                </div>
+                <div class="panel-body">
+                    <form th:object="${person}" th:action="@{/addperson}" method="post">
+                        <select th:field="*{partyType}" class="form-control">
                             <table>
-                                <tr th:each="l : ${lawsuitList}">
-                                    <option th:value="${l.id}" th:text="${l.courtFileReference}" th:field="*{lawsuit.id}"></option>
+                                <tr th:each="t : ${partyTypeList}">
+                                    <option th:value="${t.id}" class="form-control" th:text="${t.name}" th:field="*{partyType}"></option>
                                 </tr>
                             </table>
-                        </select>-->
-            <select th:field="*{partyType}">
-                <table>
-                    <tr th:each="t : ${partyTypeList}">
-                        <option th:value="${t.id}" th:text="${t.name}" th:field="*{partyType}"></option>
-                    </tr>
-                </table>
-            </select>
-            <input type="text" placeholder="Tytuł" th:field="*{personTitle}"></input>
-            <input type="text" placeholder="Imię" th:field="*{personFirstName}"></input>
-            <input type="text" placeholder="Nazwisko" th:field="*{personLastName}"></input>
-            <input type="text" placeholder="Firma" th:field="*{personCompanyName}"></input>
-            <input type="text" placeholder="Nazwa potoczna" th:field="*{nickname}"></input>
-            <input type="submit" value="Zarwierdź"></input>
-        </form>
-        <button type="button" class="btn btn-primary" onclick="location.href = '/userpanel';">Powrót</button>
+                        </select>
+                        <input type="text" class="form-control" placeholder="Tytuł" th:field="*{personTitle}"></input>
+                        <input type="text" class="form-control" placeholder="Imię" th:field="*{personFirstName}"></input>
+                        <input type="text" class="form-control" placeholder="Nazwisko" th:field="*{personLastName}"></input>
+                        <input type="text" class="form-control" placeholder="Firma" th:field="*{personCompanyName}"></input>
+                        <input type="text" class="form-control" placeholder="Nazwa potoczna" th:field="*{nickname}"></input>
+                        <input type="submit" class="btn btn-primary btn-block" value="Zarwierdź"></input>
+                    </form>
+                    <button type="button" class="btn btn-primary btn-block" onclick="location.href = '/userpanel';">Powrót</button>
+                </div>
+            </div>
+        </div>
     </body>
 </html>

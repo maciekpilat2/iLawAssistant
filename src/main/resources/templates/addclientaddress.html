@@ -11,43 +11,60 @@
         <link href="/assets/css/now-ui-kit.css?v=1.2.0" rel="stylesheet" />
         <script src="/js/app.js"></script>
         <link href="/css/styles.css" rel="stylesheet" />
+
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" />
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+        <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>-->
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
     </head>
     <body>
-        <div id="locationField">
-            <input id="autocomplete" placeholder="Enter your address" onFocus="geolocate()" type="text"></input>
+        <div class="container">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <div class="text-center"> 
+                        <h3>DODAJ ADRES KLIENTA</h3>
+                    </div>
+                </div>
+                <div class="panel-body">
+                    <div id="locationField">
+                        <input id="autocomplete" class="form-control" placeholder="Enter your address" onFocus="geolocate()" type="text"></input>
+                    </div>
+                    <form th:action="@{/addaddress/client}" th:object="${address}" method="post">  
+                        <table id="address">
+                            <tr>
+                                <td class="slimField.form"><input placeholder ="Street number" class="form-control" id="street_number" disabled="true" th:field="*{streetNumber}"></input></td>
+                            </tr>
+                            <tr>
+                                <td class="wideField" colspan="2"><input placeholder="Street name" class="form-control" id="route" disabled="true" th:field="*{streetName}"></input></td>
+                            </tr>
+                            <tr>
+                                <td class="wideField" colspan="3"><input class="form-control" placeholder="City" id="locality" disabled="true" th:field="*{city}"></input></td>
+                            </tr>
+                            <tr>
+                                <td class="slimField"><input class="form-control" placeholder="State" id="administrative_area_level_1" disabled="true" th:field="*{administrativeArea}"></input></td>
+                            </tr>
+                            <tr>
+                                <td class="wideField"><input class="form-control" placeholder="Zip code" id="postal_code" disabled="true" th:field="*{postalCode}"></input></td>
+                            </tr>
+                            <tr>
+                                <td class="wideField" colspan="3"><input class="form-control" placeholder="Country" id="country" disabled="true" th:field="*{country}"></input></td>
+                            </tr>
+                        </table>
+                        <select th:field="*{addressType}" class="form-control">
+                            <option th:Each = "e : ${addressTypeList}"  th:value="${e}" th:text="${e}" th:field="*{addressType}"></option>
+                        </select>
+                        <input type="submit" class="btn btn-primary btn-block" value="Zatwierdź"></input>
+                    </form>
+                    <button type="button" class="btn btn-primary btn-block" onclick="location.href = '/userpanel';">Powrót</button>
+
+                    <script type="text/javascript"  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAKquDS_WCnGAUZWXhzbNzky2P6q3GtW88&amp;libraries=places&amp;callback=initAutocomplete" async="async" defer="defer">
+                    </script>
+
+                    <script src="/js/addressAutocomplete.js"></script>
+                    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+                </div>
+            </div>
         </div>
-        <form th:action="@{/addaddress/client}" th:object="${address}" method="post">  
-            <table id="address">
-                <tr>
-                    <td class="slimField"><input placeholder ="Street number" class="field" id="street_number" disabled="true" th:field="*{streetNumber}"></input></td>
-                </tr>
-                <tr>
-                    <td class="wideField" colspan="2"><input placeholder="Street name" class="field" id="route" disabled="true" th:field="*{streetName}"></input></td>
-                </tr>
-                <tr>
-                    <td class="wideField" colspan="3"><input class="field" placeholder="City" id="locality" disabled="true" th:field="*{city}"></input></td>
-                </tr>
-                <tr>
-                    <td class="slimField"><input class="field" placeholder="State" id="administrative_area_level_1" disabled="true" th:field="*{administrativeArea}"></input></td>
-                </tr>
-                <tr>
-                    <td class="wideField"><input class="field" placeholder="Zip code" id="postal_code" disabled="true" th:field="*{postalCode}"></input></td>
-                </tr>
-                <tr>
-                    <td class="wideField" colspan="3"><input class="field" placeholder="Country" id="country" disabled="true" th:field="*{country}"></input></td>
-                </tr>
-            </table>
-            <select th:field="*{addressType}">
-                <option th:Each = "e : ${addressTypeList}"  th:value="${e}" th:text="${e}" th:field="*{addressType}"></option>
-            </select>
-            <input type="submit" value="Zatwierdź"></input>
-        </form>
-        <button type="button" onclick="location.href = '/userpanel';">Powrót</button>
-
-        <script type="text/javascript"  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAKquDS_WCnGAUZWXhzbNzky2P6q3GtW88&amp;libraries=places&amp;callback=initAutocomplete" async="async" defer="defer">
-        </script>
-
-        <script src="/js/addressAutocomplete.js"></script>
-        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     </body>
 </html>
