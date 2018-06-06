@@ -13,8 +13,10 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import java.util.List;
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.Lob;
 import javax.persistence.OneToMany;
 
 /**
@@ -26,6 +28,7 @@ import javax.persistence.OneToMany;
 public class Event extends Model {
 
     private String eventTitle;
+    @Lob
     private String note;
     private Timestamp eventDate;
     private Long eventType;

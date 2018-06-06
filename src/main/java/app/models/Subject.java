@@ -9,6 +9,7 @@ import java.sql.Timestamp;
 import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
@@ -28,6 +29,7 @@ public class Subject extends Model {
 
     private String title;
     private String shortNote;
+    @Lob
     private String longNote;
     private Timestamp startDate;
 

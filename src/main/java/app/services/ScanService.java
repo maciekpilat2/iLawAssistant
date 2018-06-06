@@ -115,7 +115,7 @@ public class ScanService {
         return wordsList;
     }
 
-    public String getParsedText(String json){
+    public String getParsedText(String json) {
 
         //1. zamieniam string na Object
         JSONObject jo1 = new JSONObject(json);
@@ -123,18 +123,13 @@ public class ScanService {
         org.json.JSONArray ja1 = jo1.getJSONArray("ParsedResults");
 //3. Zeby czesc ktora chce wziac pakuje jako kolejny obiekt
         JSONObject jo2 = ja1.getJSONObject(0);
-      //  JSONObject parsedText = jo2.getJSONObject("ParsedText");
-       String parsedText = jo2.getString("ParsedText");
+        //  JSONObject parsedText = jo2.getJSONObject("ParsedText");
+        String parsedText = jo2.getString("ParsedText");
         System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
         System.out.println("Parsed document text: " + parsedText);
 
-
         return parsedText;
     }
-
-
-
-
 
     public void courtNameFinder(List wordList) {
 
@@ -142,6 +137,5 @@ public class ScanService {
 //        Stream<Word> courtNameStream = wordList.stream();
 //        courtNameStream.filter(g -> g.Word = "Sąd"))
     }
-
 
 }

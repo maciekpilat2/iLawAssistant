@@ -15,6 +15,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import app.models.CourtDepartment;
 import javax.persistence.FetchType;
+import javax.persistence.Lob;
 import javax.persistence.OneToOne;
 
 /**
@@ -26,6 +27,7 @@ import javax.persistence.OneToOne;
 public class Lawsuit extends Model {
 
     private String courtFileReference;
+    @Lob
     private String description;
 
     @ManyToOne
