@@ -75,7 +75,8 @@
                                     <td th:text="${s.id}"></td>
                                     <td th:text="${s.scanName}"></td>
                                     <td th:text="${s.event.note}"></td>
-                                    <td><button type="button" class="btn btn-primary btn-block" data-toggle="modal" data-target="#mymodal">Zobacz</button></td>
+                                    <td><a type="button" class="btn btn-primary btn-block" target="_blank" th:href = "'https://panel-s26.zenbox.pl/CMD_FILE_MANAGER/domains/maciekpilat.pl/public_html/iLawAssistantScans/' + ${s.scanName} + '.jpg'">Zobacz</a></td>
+                                    <!--<td><button type="button" class="btn btn-primary btn-block" data-toggle="modal" data-target="#mymodal">Zobacz</button></td>-->
                                     <td><button type="submit" class="btn btn-primary btn-block" th:onclick="'location.href = \'' + @{/editevent(eventId=${event.id})} + '\''">Edytuj</button></td>
                                     <td><button type="submit" class="btn btn-primary btn-block" th:onclick="'location.href = \'' + @{/delete/event(eventId=${event.id})} + '\''">Kasuj</button></td>
                                 </tr>
