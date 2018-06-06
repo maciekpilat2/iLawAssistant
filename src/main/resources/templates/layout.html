@@ -14,7 +14,7 @@
  <link href="/css/styles.css" rel="stylesheet" />
     <style>
         .content-fragment{
-            margin-top: -50px;
+            margin-top: 120px;
         }
 
     </style>
@@ -80,13 +80,13 @@
                         </p>
                     </a>
                 </li>
-                <li><a th:href="@{/user/reset-password}" href="reset">Reset Password</a></li>
-                <li><a th:href="@{/user/register}" href="register">Register</a></li>
-                <li><a th:href="@{/login}" href="login">Login</a></li>
+                <!--<li><a th:href="@{/user/reset-password}" href="reset">Reset Password</a></li>-->
+                <!--<li><a th:href="@{/user/register}" href="register">Register</a></li>-->
+                <!--<li><a th:href="@{/login}" href="login">Login</a></li>-->
                 <li><a th:href="@{/logout}" href="logout"><i class="icon-chevron-left"></i>Logout</a></li>
-                <li th:class="${#httpServletRequest.requestURI=='/'}? active"><a th:href="@{/}" href="/">Home</a></li>
-                <li th:class="${#httpServletRequest.requestURI=='/user/list'}? active"><a th:href="@{/user/list}" href="user/list">User List</a></li>
-                <li th:class="${#strings.startsWith(#httpServletRequest.requestURI,'/user/edit')}  ? active"><a th:href="@{/user/edit/0}" href="user/list">Edit user</a></li>
+                <!--<li th:class="${#httpServletRequest.requestURI=='/'}? active"><a th:href="@{/}" href="/">Home</a></li>-->
+                <!--<li th:class="${#httpServletRequest.requestURI=='/user/list'}? active"><a th:href="@{/user/list}" href="user/list">User List</a></li>-->
+                <!--<li th:class="${#strings.startsWith(#httpServletRequest.requestURI,'/user/edit')}  ? active"><a th:href="@{/user/edit/0}" href="user/list">Edit user</a></li>-->
 
 
             </ul>
