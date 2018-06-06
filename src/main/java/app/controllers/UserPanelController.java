@@ -44,7 +44,6 @@ PersonRepository personRepository;
         model.addAttribute("subjectList", subjectRepository.allUserSubjects(userService.loggedUserId()));
         model.addAttribute("clientList", personRepository.allUserClient(userService.loggedUserId()));
         model.addAttribute("listAllUserLawsuitEventToRemind", eventRepository.getAllUserNonLawsuitEventToRemind(userService.loggedUserId(), true));
-        
 
         return "userpanel";
     }

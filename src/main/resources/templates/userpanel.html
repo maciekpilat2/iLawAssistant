@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<!--<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">-->
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout" layout:decorator="layout">
+
     <head>
         <title>Panel uzytkownika</title>
         <meta name="viewport" content="initial-scale=1.0, user-scalable=no"/>
@@ -12,6 +14,7 @@
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     </head>
     <body>
+    <div layout:fragment="content">
         <div class="container">
             <div class="panel panel-primary">
                 <div class="panel-heading"><h3 class="text-center">PANEL UŻYTKOWNIKA</h3></div>
@@ -109,7 +112,7 @@
                                             <table class="table">
                                                 <tr th:each="e : ${listAllUserLawsuitEventToRemind}">
                                                     <td th:text="${e.eventDate}"></td>
-                                                    <td th:text="${e.eventTypeEnum.name}"></td>
+                                                    <!--<td th:text="${e.eventTypeEnum.name}"></td>-->
                                                     <td th:text="${e.note}"></td>                           
                                                     <td><button type="submit" class="btn btn-primary" th:onclick="'location.href = \'' + @{/eventpanel(eventId=${e.id})} + '\''">Panel wydarzenia</button> </td>
                                                 </tr>
@@ -133,5 +136,6 @@
                 </div>
             </div>
         </div>
+    </div>
     </body>
 </html>
