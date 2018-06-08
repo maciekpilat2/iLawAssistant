@@ -17,7 +17,7 @@
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-
+        <link href="/css/app.css" rel="stylesheet"/>
 
 
     </head>
@@ -46,7 +46,8 @@
                                             <div class="timeline-footer">
                                                 <p class="text-right" th:text="${l.eventDate}"></p>
                                             </div>
-                                            <button type="submit" class="btn btn-primary btn-block" th:onclick="'location.href = \'' + @{/editevent(eventId=${l.id})} + '\''">Edytuj</button>
+                                            <!--<button type="submit" class="btn btn-primary btn-block" th:onclick="'location.href = \'' + @{/editlawsuitevent(eventId=${l.id}, subjectId=${l.subject.id})} + '\''">Edytuj</button>-->
+                                            <button type="submit" class="btn btn-primary btn-block" th:onclick="'location.href = \'' + @{/editlawsuitevent(eventId=${l.id})} + '\''">Edytuj</button>
                                             <button type="button" class="btn btn-primary btn-block" data-toggle="modal" th:attr="data-target='#mymodal' + ${iterStat.index}">Kasuj</button>
                                             <button type="submit" class="btn btn-primary btn-block" th:onclick="'location.href = \'' + @{/eventpanel(eventId=${l.id})} + '\''">Panel wydarzenia</button>
                                         </div>

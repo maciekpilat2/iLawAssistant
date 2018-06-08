@@ -24,7 +24,7 @@
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
         <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>-->
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-
+        <link href="/css/app.css" rel="stylesheet"/>
     </head>
     <body>
         <div class="container">
@@ -35,15 +35,15 @@
                     </div>
                 </div>
                 <div class="panel-body">
-                    <form th:action="@{/editevent}" th:object="${editEvent}" method="post">
+                    <form th:action="@{/editnonlawsuitevent}" th:object="${editEvent}" method="post">
                         <input type="text" class="form-control" placeholder="Opis" th:field="*{note}"></input>
                         <!--bootstrap datetime picker START-->      
                         <input class="form-control" id="date" name="eventDate" placeholder="MM/DD/YYY" type="text" th:field="*{eventDate}"></input>
                         <input type="checkbox" class="form-control" name="reminder" th:field="*{reminder}">Przypomnienie</input> 
                         <input type="submit" class="btn btn-primary btn-block" value="Zapisz"></input>
-                        <!--<button type="submit" class="btn btn-primary btn-block" th:onclick="'location.href = \'' + @{/subjectpanel(subjectId=${subject.id})} + '\''">ZAPISZ2</button>-->
+                      
                     </form>
-                    <button type="submit" class="btn btn-primary btn-block" th:onclick="'location.href = \'' + @{/subjectpanel(subjectId=${subject.id})} + '\''">Powrót</button>
+                    <button type="submit" class="btn btn-primary btn-block" th:onclick="'location.href = \'' + @{/subjectpanel(subjectId=${editEvent.subject.id})} + '\''">Powrót</button>
                 </div>
             </div>
         </div>

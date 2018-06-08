@@ -24,17 +24,17 @@
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
         <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>-->
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-
+        <link href="/css/app.css" rel="stylesheet"/>
     </head>
     <body>
         <div class="container">
             <div class="panel panel-primary">
                 <div class="panel-heading"><h3 class="text-center">Dodaj wydarzenie do sprawy</h3></div>
                 <div class="panel-body">
-                    <form th:action="@{/userpaneladdnonlawsuitevent}" th:object="${event}" method="post">
+                    <form th:action="@{/userpaneladdlawsuitevent}" th:object="${event}" method="post">
                         <div class="col-lg-4">
-                            <select class="form-control">
-                                <option th:each="l : ${lawsuitList}" th:text="${l.description}" th:value="${l.id}" th:field="*{id}"></option>
+                            <select class="form-control" th:field="*{lawsuit.id}">
+                                <option th:each="l : ${lawsuitList}" th:text="${l.description}" th:value="${l.id}"></option>
                             </select>
                         </div>
                         <div class="col-lg-4">
@@ -59,8 +59,8 @@
                         </div>
                         <input type="submit" class="btn btn-primary btn-block" value="Zapisz"></input>
                     </form>
+                                <button type="button" class="btn btn-primary btn-block" onclick="location.href = '/userpanel';">Powrót</button>
                 </div>
-                <button type="button" class="btn btn-primary btn-block" onclick="location.href = '/userpanel';">Powrót</button>
             </div>
         </div>
     </body>

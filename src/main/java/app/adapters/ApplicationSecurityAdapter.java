@@ -44,6 +44,8 @@ public class ApplicationSecurityAdapter extends WebSecurityConfigurerAdapter {
                 .and()
                 .formLogin().loginPage("/login").failureUrl("/login?error").permitAll()
                 .and()
+                .formLogin().defaultSuccessUrl("/userpanel")
+                .and()
                 .logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout")).logoutSuccessUrl("/login")
                 .and()
                 .rememberMe().key(applicationSecret)

@@ -81,32 +81,6 @@ public class EventController {
         return "redirect:lawsuitpanel";
     }
 
-    @GetMapping("/editevent")
-    public String getEditEvent(@RequestParam("eventId") Long eventId, @RequestParam("subjectId") Long subjectId, Model model) {
-        Event editEvent = eventRepository.findOne(eventId);
-        model.addAttribute("editEvent", editEvent);
-        model.addAttribute("subject", subjectRepository.findOne(subjectId));
-        return "editevent";
-    }
-
-    @PostMapping("/editevent")
-    public String postEditEvent(
-            @SessionAttribute("editEvent") Event sessionEditEvent,
-            @SessionAttribute("subject") Subject subject,
-            @ModelAttribute Event editEvent,
-            @RequestParam("eventDate") Timestamp eventDate,
-            RedirectAttributes redirectAttributes
-    ) {
-        eventRepository.delete(sessionEditEvent.getId());
-        editEvent.setEventDate(eventDate);
-        editEvent.setLawsuit(sessionEditEvent.getLawsuit());
-        editEvent.setId(sessionEditEvent.getId());
-        editEvent.setSubject(subject);
-        eventRepository.save(editEvent);
-        redirectAttributes.addAttribute("subjectId", subject.getId());
-        return "redirect:subjectpanel";
-    }
-
     @RequestMapping("/delete/event")
     public String deleteEvent(@RequestParam("eventId") Long eventId, @RequestParam("subjectId") Long subjectId, RedirectAttributes redirectAttributes) {
         //Long lawsuitId = lawsuitRepository.findOne(eventRepository.findOne(eventId).getLawsuit().getId()).getId();
@@ -134,9 +108,7 @@ public class EventController {
     @PostMapping("/addnonlawsuitevent")
     public String postAddNonLawsuitEvent(@ModelAttribute Event event, RedirectAttributes redirectAttributes, @SessionAttribute("subject") Subject subject) {
         event.setSubject(subject);
-        
         event.setEventTypeEnum(EventTypeEnum.NEUTRAL);
-        
         eventRepository.save(event);
         redirectAttributes.addAttribute("subjectId", subject.getId());
         return "redirect:subjectpanel";
@@ -178,21 +150,42 @@ public class EventController {
         redirectAttributes.addAttribute("userId", userService.loggedUserId());
         return "redirect:userpanel";
     }
-    
-    
-    
-    
+
     // dopracować by działała edycja eventu z postępowania
        @GetMapping("/editlawsuitevent")
-    public String getEditLawsuitEvent(@RequestParam("eventId") Long eventId, @RequestParam("subjectId") Long subjectId, Model model) {
+    public String getEditLawsuitEvent(@RequestParam("eventId") Long eventId, Model model) {
         Event editEvent = eventRepository.findOne(eventId);
         model.addAttribute("editEvent", editEvent);
-        model.addAttribute("subject", subjectRepository.findOne(subjectId));
-        return "editevent";
+        return "editlawsuitevent";
     }
 
     @PostMapping("/editlawsuitevent")
     public String postEditLawsuitEvent(
+            @SessionAttribute("editEvent") Event sessionEditEvent,
+            @ModelAttribute Event editEvent,
+            @RequestParam("eventDate") Timestamp eventDate,
+            RedirectAttributes redirectAttributes
+    ) {
+        editEvent.setEventTypeEnum(sessionEditEvent.getEventTypeEnum());
+        eventRepository.delete(sessionEditEvent.getId());
+        editEvent.setEventDate(eventDate);
+        editEvent.setLawsuit(sessionEditEvent.getLawsuit());
+        editEvent.setId(sessionEditEvent.getId());
+        eventRepository.save(editEvent);
+        redirectAttributes.addAttribute("lawsuitId", editEvent.getLawsuit().getId());
+        return "redirect:lawsuitpanel";
+    }
+    
+     @GetMapping("/editnonlawsuitevent")
+    public String getEditNonLawsuitEvent(@RequestParam("eventId") Long eventId, @RequestParam("subjectId") Long subjectId, Model model) {
+        Event editEvent = eventRepository.findOne(eventId);
+        model.addAttribute("editEvent", editEvent);
+        model.addAttribute("subject", subjectRepository.findOne(subjectId));
+        return "editnonlawsuitevent";
+    }
+
+    @PostMapping("/editnonlawsuitevent")
+    public String postEditNonLawsuitEvent(
             @SessionAttribute("editEvent") Event sessionEditEvent,
             @SessionAttribute("subject") Subject subject,
             @ModelAttribute Event editEvent,
@@ -208,4 +201,5 @@ public class EventController {
         redirectAttributes.addAttribute("subjectId", subject.getId());
         return "redirect:subjectpanel";
     }
+    
 }

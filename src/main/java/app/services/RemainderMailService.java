@@ -11,7 +11,7 @@ import java.util.List;
 public class RemainderMailService {
 
     private static final long ONE_HOUR = 3600000;
-    // TODO dodac crona zeby robil to codziennie rano
+    private final String EVERYDAY_AT_6AM = "0 0 6 1 * *";
 
     @Autowired
     EventService eventService;
@@ -19,7 +19,7 @@ public class RemainderMailService {
     @Autowired
     MailService mailService;
 
-    @Scheduled(fixedDelay = ONE_HOUR)
+    @Scheduled(cron = EVERYDAY_AT_6AM)
     public void sendEventReminders(){
 
         List<Event> allEventsForRemind = eventService.getAllEventsForRemind();
@@ -30,14 +30,10 @@ public class RemainderMailService {
             mailService.sendMail(
                     event.getLawsuit().getUser().getEmail(),
                     "Przypomnienie o nadchodzącym wydarzeniu " + event.getEventType(),
-                    "Nasz schowany w szafie mudżin przypomina o nadchodzącym zdarzeniu \n" +
+                    "Przypominamy o nadchodzącym zdarzeniu \n" +
                             " " + event.getEventType() + ": " +event.getEventDate() + ", uwagi: " +event.getNote()
             );
-
-
         }
-
-
     }
 
 

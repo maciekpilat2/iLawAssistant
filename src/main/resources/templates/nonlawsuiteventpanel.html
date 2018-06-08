@@ -17,6 +17,7 @@
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+                <link href="/css/app.css" rel="stylesheet"/>
     </head>
     <body>
         <div class="container">
@@ -59,7 +60,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="panel-primary">
+                    <div class="panel panel-primary">
                         <div class="panel-heading">
                             <div class="text-center">
                                 <h3>SKANY PRZYPISANE</h3>
@@ -75,7 +76,8 @@
                                     <td th:text="${s.id}"></td>
                                     <td th:text="${s.scanName}"></td>
                                     <td th:text="${s.event.note}"></td>
-                                    <td><a type="button" class="btn btn-primary btn-block" target="_blank" th:href = "'https://panel-s26.zenbox.pl/CMD_FILE_MANAGER/domains/maciekpilat.pl/public_html/iLawAssistantScans/' + ${s.scanName} + '.jpg'">Zobacz</a></td>         
+                                    <td><a type="button" class="btn btn-primary btn-block" target="_blank" th:href = "'https://panel-s26.zenbox.pl/CMD_FILE_MANAGER/domains/maciekpilat.pl/public_html/iLawAssistantScans/' + ${s.scanName} + '.jpg'">Zobacz</a></td>
+                                    <!--<td><button type="button" class="btn btn-primary btn-block" data-toggle="modal" data-target="#mymodal">Zobacz</button></td>-->
                                     <td><button type="submit" class="btn btn-primary btn-block" th:onclick="'location.href = \'' + @{/editevent(eventId=${event.id})} + '\''">Edytuj</button></td>
                                     <td><button type="submit" class="btn btn-primary btn-block" th:onclick="'location.href = \'' + @{/delete/event(eventId=${event.id})} + '\''">Kasuj</button></td>
                                 </tr>

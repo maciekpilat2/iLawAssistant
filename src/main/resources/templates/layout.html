@@ -11,10 +11,10 @@
     <link href="/assets/css/bootstrap.min.css" rel="stylesheet" />
     <link href="/assets/css/now-ui-kit.css?v=1.2.0" rel="stylesheet" />
     <script src="/js/app.js"></script>
-    <link href="/css/styles.css" rel="stylesheet" />
+ <link href="/css/styles.css" rel="stylesheet" />
     <style>
         .content-fragment{
-            margin-top: -50px;
+            margin-top: 120px;
         }
 
     </style>
@@ -39,15 +39,15 @@
         <div class="collapse navbar-collapse" data-nav-image="../assets/img/blurred-image-1.jpg" data-color="orange">
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item">
-                    <a class="nav-link" href="/jobOffer/alloffers">
+                    <a class="nav-link" href="/userpanel">
                         <i class="now-ui-icons design_app"></i>
-                        <p>Oferty</p>
+                        <p>Panel sterowania</p>
                     </a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="/employers.html">
                         <i class="now-ui-icons business_bank"></i>
-                        <p>Dla pracodawców</p>
+                        <p>Zdarzenia</p>
                     </a>
                 </li>
                 <li class="nav-item">
@@ -66,7 +66,7 @@
 
                     <a class="nav-link" href="/profile">
                         <i class="now-ui-icons users_single-02"></i>
-                        <p>Profil
+                        <p>Moje konto
 
                             <!--<sec:authorize access="isAuthenticated()">-->
                                 <!--<sec:authentication var="principal" property="principal.username" />-->
@@ -80,13 +80,13 @@
                         </p>
                     </a>
                 </li>
-                <li><a th:href="@{/user/reset-password}" href="reset">Reset Password</a></li>
-                <li><a th:href="@{/user/register}" href="register">Register</a></li>
-                <li><a th:href="@{/login}" href="login">Login</a></li>
+                <!--<li><a th:href="@{/user/reset-password}" href="reset">Reset Password</a></li>-->
+                <!--<li><a th:href="@{/user/register}" href="register">Register</a></li>-->
+                <!--<li><a th:href="@{/login}" href="login">Login</a></li>-->
                 <li><a th:href="@{/logout}" href="logout"><i class="icon-chevron-left"></i>Logout</a></li>
-                <li th:class="${#httpServletRequest.requestURI=='/'}? active"><a th:href="@{/}" href="/">Home</a></li>
-                <li th:class="${#httpServletRequest.requestURI=='/user/list'}? active"><a th:href="@{/user/list}" href="user/list">User List</a></li>
-                <li th:class="${#strings.startsWith(#httpServletRequest.requestURI,'/user/edit')}  ? active"><a th:href="@{/user/edit/0}" href="user/list">Edit user</a></li>
+                <!--<li th:class="${#httpServletRequest.requestURI=='/'}? active"><a th:href="@{/}" href="/">Home</a></li>-->
+                <!--<li th:class="${#httpServletRequest.requestURI=='/user/list'}? active"><a th:href="@{/user/list}" href="user/list">User List</a></li>-->
+                <!--<li th:class="${#strings.startsWith(#httpServletRequest.requestURI,'/user/edit')}  ? active"><a th:href="@{/user/edit/0}" href="user/list">Edit user</a></li>-->
 
 
             </ul>
