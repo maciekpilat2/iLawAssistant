@@ -11,7 +11,9 @@ import javax.persistence.Table;
 import app.models.User;
 import javax.persistence.ManyToOne;
 import app.models.CourtDepartment;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import javax.persistence.FetchType;
+
 
 /**
  *
@@ -35,8 +37,11 @@ public class Address extends Model{
     @ManyToOne
     private CourtDepartment courtDepartment;
 
+    //@JsonManagedReference
     @ManyToOne
+    @JsonIgnore
     private Person person;
+    
     
     /**
      * @return the streetNumber

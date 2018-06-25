@@ -5,6 +5,8 @@
  */
 package app.models;
 
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -31,6 +33,7 @@ public class Person extends Model {
     private String nickname;
     private Long partyType;
     
+    @JsonIgnore
     @OneToMany(mappedBy = "person", cascade = CascadeType.MERGE)
     private List<Address> address;
     
