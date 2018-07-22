@@ -97,9 +97,9 @@
                                                         <i class="now-ui-icons ui-2_settings-90"></i>
                                                     </button>
                                                 </td>
-                                            <div id="addressText"></div>
                                             </tr>
                                         </table>
+                                        <table class="table" id="addressText"></table>
                                         <div class="col-md-12 ml-auto mr-auto">
                                             <button type="button" class="btn btn-info btn-block"
                                                     onclick="location.href = '/addclient'">Dodaj klienta
@@ -221,21 +221,16 @@
                     </div>
                 </div>
             </div>
-            
-            <a id="aa"></a>
-            <table id="bb" class="table"></table>
-            
-            
-            
-          <button id="ss">Try it</button>
-            
             <script>
-                $(document).ready(function(){
-                $('#ss').on("click", function () {
+                                $(document).ready(function(){
+                $('#ajaxAddress').on("click", function () {
   
-                        $('#bb').DataTable({
+                        $('#addressText').slideToggle("slow").DataTable({
+                            paging: false,
+                            ordering: false,
+                            info: false,
                             "ajax":{
-                                "url" : "http://localhost:8200/userpanel/ajax/clientaddress?clientId=1",
+                                "url" : "http://localhost:8200/userpanel/ajax/clientaddress?clientId=2", th:onclick="'location.href = \'' + @{/eventpanel(eventId=${e.id})} + '\''"
                                 "dataSrc" : ""
                             },
                             'columns' : [
@@ -248,15 +243,17 @@
                             ]
                         })
      })});
+                
+             
             </script>
         </div>
 
     </body>
 </html>
-  private String streetNumber;
+<!--  private String streetNumber;
     private String streetName;
     private String city;
     private String administrativeArea;
     private String postalCode;
     private String country;
-    private String addressType;
+    private String addressType;-->

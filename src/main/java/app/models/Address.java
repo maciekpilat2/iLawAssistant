@@ -41,6 +41,13 @@ public class Address extends Model{
     @ManyToOne
     @JsonIgnore
     private Person person;
+
+    @Override
+    public String toString() {
+        return "Address{" + "streetNumber=" + streetNumber + ", streetName=" + streetName + ", city=" + city + ", administrativeArea=" + administrativeArea + ", postalCode=" + postalCode + ", country=" + country + ", addressType=" + addressType + ", user=" + user + ", courtDepartment=" + courtDepartment + ", person=" + person + '}';
+    }
+    
+    
     
     
     /**
