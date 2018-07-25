@@ -6,13 +6,11 @@
 package app.services;
 
 import app.models.Address;
-import app.models.Court;
 import app.models.KrsDataModel;
 import java.util.ArrayList;
 import java.util.List;
 import org.json.JSONArray;
 import org.json.JSONObject;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import java.util.regex.*;
@@ -21,6 +19,8 @@ import java.util.regex.*;
  *
  * @author Pilat
  */
+import org.apache.commons.lang3.text.WordUtils;
+
 @Service
 public class KrsService {
 
@@ -38,30 +38,53 @@ public class KrsService {
     }
 
     public String krsQueryName(String subjectName) {
+
+        System.out.println("Tu powinny być dane z COUNT");
+
         RestTemplate rest = new RestTemplate();
-        String url = "https://api-v3.mojepanstwo.pl/dane/krs_podmioty.json?conditions[q]=" + subjectName;
-        String restResult = rest.getForObject(url, String.class);
+        String url = "https://api-v3.mojepanstwo.pl/dane/krs_podmioty.json?conditions[q]=";
+        String properSubjectName = null;
+        List<String> listOfKrsNames = krsNameVariantCreator(subjectName);
+
+        for (String k : listOfKrsNames) {
+
+            String restResult = rest.getForObject(url + k, String.class);
+            JSONObject jSONObject = new JSONObject(restResult);
+            System.out.println("DANE: " + restResult.toString());
+            Long hitCount = jSONObject.getLong("Count");
+
+            if (!"0".equals(hitCount)) {
+                properSubjectName = k;
+                System.out.println("subjectName value = " + subjectName.toString());
+                break;
+            }
+        }
+        String restResult = rest.getForObject("https://api-v3.mojepanstwo.pl/dane/krs_podmioty.json?conditions[q]=" + properSubjectName, String.class);
         return restResult;
+
     }
 
     public String krsQueryNip(String subjectNip) {
         RestTemplate rest = new RestTemplate();
         String url = "https://api-v3.mojepanstwo.pl/dane/krs_podmioty.json?conditions[krs_podmioty.nip]=" + subjectNip;
-        String restResult = rest.getForObject(url, String.class);
+        String restResult = rest.getForObject(url, String.class
+        );
         return restResult;
     }
 
     public String krsQueryKrs(String subjectKrs) {
         RestTemplate rest = new RestTemplate();
         String url = "https://api-v3.mojepanstwo.pl/dane/krs_podmioty.json?conditions[krs_podmioty.krs]=" + subjectKrs;
-        String restResult = rest.getForObject(url, String.class);
+        String restResult = rest.getForObject(url, String.class
+        );
         return restResult;
     }
 
     public String krsQueryRegon(String subjectRegon) {
         RestTemplate rest = new RestTemplate();
         String url = "https://api-v3.mojepanstwo.pl/dane/krs_podmioty.json?conditions[krs_podmioty.regon]=" + subjectRegon;
-        String restResult = rest.getForObject(url, String.class);
+        String restResult = rest.getForObject(url, String.class
+        );
         return restResult;
     }
 
@@ -135,16 +158,27 @@ public class KrsService {
         krsDataModel.setLiczbaReprezentantow(data2.getLong("krs_podmioty.liczba_reprezentantow"));
         krsDataModel.setAdres(adres);
 
-//                regexPatterns.add("(?<=ul. )[^,]*"); // ulica
-//        regexPatterns.add("(?<=nr )[^,]*"); //nr
-//        regexPatterns.add("(?<=lok. )[^,]*"); //lok
-//        regexPatterns.add("(?<=miejsc. )[^,]*"); // miasto
-//        regexPatterns.add("(?<=kod )[^,]*"); //kod
-//        regexPatterns.add("(?<=poczta )[^,]*"); //poczta
-//        regexPatterns.add("(?<=kraj )[^,]*"); //kraj
         System.out.println("Dane z KRS: " + krsDataModel.toString());
         return krsDataModel;
     }
+// klasa tworzy rozne warianty literowe stringa na potrzeby wyszukiwania słowengo w krs
+
+    public List<String> krsNameVariantCreator(String serchedName) {
+
+        List<String> krsNameVariants = new ArrayList();
+        krsNameVariants.add(serchedName);
+        krsNameVariants.add(serchedName.toLowerCase());
+        krsNameVariants.add(serchedName.toUpperCase());
+        krsNameVariants.add(WordUtils.capitalize(krsNameVariants.get(1).toString()));
+        System.out.println("GENERATOR NAZW DO KRS API");
+        System.out.println("Liczba pozycji w liście: " + krsNameVariants.size());
+        for (Object k : krsNameVariants) {
+            System.out.println("Nazwy w generatorze różnych zapisów nazw: " + k.toString());
+        }
+        return krsNameVariants;
+
+    }
+
 }
 
 //private String siedziba; // trzeba strworzyć obiekt "kraj POLSKA, woj. MAZOWIECKIE, powiat WARSZAWA, gmina WARSZAWA, miejsc. WARSZAWA",

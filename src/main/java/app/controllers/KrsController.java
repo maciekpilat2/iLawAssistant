@@ -15,9 +15,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import app.models.KrsDataModel;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.SessionAttribute;
-import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 /**
@@ -47,9 +44,6 @@ public class KrsController {
 
         }
 
-//        KrsDataModel krsDataModel = new KrsDataModel();
-//        model.addAttribute("krsNumberTypeEnum", KrsNumberTypeEnum.values());
-//        model.addAttribute("krsDataModel", krsDataModel);
         return "krs";
     }
 
