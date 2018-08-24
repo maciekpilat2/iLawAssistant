@@ -18,7 +18,7 @@ public class KrsDataModel extends Model{
 private String dataWykreslenieRejestrPrzedsiebiorcow;
 private String dataWykreslenieRejestrStowarzyszen;
 private String dataSprawdzeniaDanych;
-private Long adresLokal;
+private String adresLokal;
 private String adresMiejscowosc;
 private String liczbaCzlonkowKomitetuZal;
 private String regon;
@@ -97,14 +97,14 @@ private Boolean umowaSpolkiCywilnej;
     /**
      * @return the adresLokal
      */
-    public Long getAdresLokal() {
+    public String getAdresLokal() {
         return adresLokal;
     }
 
     /**
      * @param adresLokal the adresLokal to set
      */
-    public void setAdresLokal(Long adresLokal) {
+    public void setAdresLokal(String adresLokal) {
         this.adresLokal = adresLokal;
     }
 

@@ -1,5 +1,6 @@
 package app.services;
 
+import app.models.DocumentKeyWord;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
@@ -69,5 +70,34 @@ public class DocumentService {
         return "brak";
     }
 
+    public static List<String> DocumentKeyWordToListOfStrings(List<DocumentKeyWord> listOfKeyWordsFromRepository) {
+
+        for (DocumentKeyWord d : listOfKeyWordsFromRepository) {
+
+        }
+
+        return null;
+    }
+
+    // znajduje wyszukiwane slowa w tekscie z OCR. Wzory szukanych słów biorę z bazy danych
+    public static List<String> findDBKeywordsInDocument(String document, List<DocumentKeyWord> keyWords) {
+
+        List<String> foundWords = new ArrayList<>();
+
+        for (DocumentKeyWord d : keyWords) {
+            String[] keywordsLowered = d.getKeyWords().toLowerCase().split("\\s+");
+            String patternString = "\\b(" + StringUtils.join(keywordsLowered, "|") + ")\\b";
+            Pattern pattern = Pattern.compile(patternString);
+            Matcher matcher = pattern.matcher(document.toLowerCase());
+            while (matcher.find()) {
+                foundWords.add(matcher.group(1));
+            }
+            System.out.println("removeDuplicates(foundWords).size(): " + removeDuplicates(foundWords).size() + " ,a " + keywordsLowered.length);
+                    if(removeDuplicates(foundWords).size() == keywordsLowered.length){
+                        System.out.println("Znalazłem: " + d.getDocumentType().toString());
+                    }
+        }
+        return removeDuplicates(foundWords);
+    }
 
 }

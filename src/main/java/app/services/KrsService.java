@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package app.services;
 
 import app.models.Address;
@@ -20,9 +15,13 @@ import java.util.regex.*;
  * @author Pilat
  */
 import org.apache.commons.lang3.text.WordUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 
 @Service
 public class KrsService {
+
+// na potrzeby krsQuery... Zapytanie do API
+    RestTemplate rest = new RestTemplate();
 
     public String krsSearch(String serchData, String numberType) {
 
@@ -38,34 +37,24 @@ public class KrsService {
     }
 
     public String krsQueryName(String subjectName) {
-
-        System.out.println("Tu powinny być dane z COUNT");
-
-        RestTemplate rest = new RestTemplate();
         String url = "https://api-v3.mojepanstwo.pl/dane/krs_podmioty.json?conditions[q]=";
         String properSubjectName = null;
         List<String> listOfKrsNames = krsNameVariantCreator(subjectName);
 
         for (String k : listOfKrsNames) {
-
             String restResult = rest.getForObject(url + k, String.class);
             JSONObject jSONObject = new JSONObject(restResult);
-            System.out.println("DANE: " + restResult.toString());
             Long hitCount = jSONObject.getLong("Count");
-
             if (!"0".equals(hitCount)) {
                 properSubjectName = k;
-                System.out.println("subjectName value = " + subjectName.toString());
                 break;
             }
         }
         String restResult = rest.getForObject("https://api-v3.mojepanstwo.pl/dane/krs_podmioty.json?conditions[q]=" + properSubjectName, String.class);
         return restResult;
-
     }
 
     public String krsQueryNip(String subjectNip) {
-        RestTemplate rest = new RestTemplate();
         String url = "https://api-v3.mojepanstwo.pl/dane/krs_podmioty.json?conditions[krs_podmioty.nip]=" + subjectNip;
         String restResult = rest.getForObject(url, String.class
         );
@@ -73,7 +62,6 @@ public class KrsService {
     }
 
     public String krsQueryKrs(String subjectKrs) {
-        RestTemplate rest = new RestTemplate();
         String url = "https://api-v3.mojepanstwo.pl/dane/krs_podmioty.json?conditions[krs_podmioty.krs]=" + subjectKrs;
         String restResult = rest.getForObject(url, String.class
         );
@@ -81,7 +69,6 @@ public class KrsService {
     }
 
     public String krsQueryRegon(String subjectRegon) {
-        RestTemplate rest = new RestTemplate();
         String url = "https://api-v3.mojepanstwo.pl/dane/krs_podmioty.json?conditions[krs_podmioty.regon]=" + subjectRegon;
         String restResult = rest.getForObject(url, String.class
         );
@@ -127,14 +114,14 @@ public class KrsService {
         krsDataModel.setDataWykreslenieRejestrPrzedsiebiorcow(data2.get("krs_podmioty.data_wyrejestrowania_przedsiebiorcy").toString());
         krsDataModel.setDataWykreslenieRejestrStowarzyszen(data2.get("krs_podmioty.data_wykreslenia_stowarzyszenia").toString());
         krsDataModel.setDataSprawdzeniaDanych(data2.getString("krs_podmioty.data_sprawdzenia"));
-        krsDataModel.setAdresLokal(data2.getLong("krs_podmioty.adres_lokal"));
+        krsDataModel.setAdresLokal(data2.getString("krs_podmioty.adres_lokal"));
         krsDataModel.setAdresMiejscowosc(data2.getString("krs_podmioty.adres_miejscowosc"));
         krsDataModel.setLiczbaCzlonkowKomitetuZal(data2.getString("krs_podmioty.liczba_czlonkow_komitetu_zal"));
         krsDataModel.setRegon(data2.getString("krs_podmioty.regon"));
         krsDataModel.setFormaPrawnaId(data2.getLong("krs_podmioty.forma_prawna_typ_id"));
         krsDataModel.setLiczbaZmianUmow(data2.getLong("krs_podmioty.liczba_zmian_umow"));
         krsDataModel.setWartoscKapitalZakladowy(data2.getLong("krs_podmioty.wartosc_kapital_zakladowy"));
-        krsDataModel.setDataWpisRejestrStowarzyszen(data2.getString("krs_podmioty.rejestr_stowarzyszen"));
+        krsDataModel.setDataWpisRejestrStowarzyszen(data2.getString("krs_podmioty.rejestr_stowarzyszen").toString());
         krsDataModel.setNip(data2.getString("krs_podmioty.nip"));
         krsDataModel.setLiczbaProkurentow(data2.getLong("krs_podmioty.liczba_prokurentow"));
         krsDataModel.setWww(data2.getString("krs_podmioty.www"));
@@ -148,7 +135,7 @@ public class KrsService {
         krsDataModel.setWartoscNominalnaPodwyzszeniaKapitalu(data2.getLong("krs_podmioty.wartosc_nominalna_podwyzszenia_kapitalu"));
         krsDataModel.setFirma(data2.getString("krs_podmioty.firma"));
         krsDataModel.setLiczbaJedynychAkcjonariuszy(data2.getLong("krs_podmioty.opp"));
-        krsDataModel.setDataRejestracjiStowarzyszenia(data2.getString("krs_podmioty.data_rejestracji_stowarzyszenia"));
+        krsDataModel.setDataRejestracjiStowarzyszenia(data2.get("krs_podmioty.data_rejestracji_stowarzyszenia").toString());
         krsDataModel.setLiczbaNadzorcow(data2.getLong("krs_podmioty.liczba_nadzorcow"));
         krsDataModel.setSposobReprezentacji(data2.getString("krs_podmioty.sposob_reprezentacji"));
         krsDataModel.setLiczbaZmian(data2.getLong("krs_podmioty.liczba_zmian"));
@@ -170,11 +157,6 @@ public class KrsService {
         krsNameVariants.add(serchedName.toLowerCase());
         krsNameVariants.add(serchedName.toUpperCase());
         krsNameVariants.add(WordUtils.capitalize(krsNameVariants.get(1).toString()));
-        System.out.println("GENERATOR NAZW DO KRS API");
-        System.out.println("Liczba pozycji w liście: " + krsNameVariants.size());
-        for (Object k : krsNameVariants) {
-            System.out.println("Nazwy w generatorze różnych zapisów nazw: " + k.toString());
-        }
         return krsNameVariants;
 
     }

@@ -123,18 +123,24 @@
             <artifactId>jaxws-api</artifactId>
             <version>2.3.0</version>
         </dependency>
-<dependency>
-    <groupId>org.apache.commons</groupId>
-    <artifactId>commons-text</artifactId>
-    <version>1.4</version>
-</dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-mock</artifactId>
+            <version>2.0.8</version>
+            <type>jar</type>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-text</artifactId>
+            <version>1.4</version>
+        </dependency>
 
 
         
         
         
     </dependencies>
-    <build>
+    <!--    <build>
         <resources>
             <resource>
                 <targetPath>META-INF</targetPath>
@@ -193,7 +199,7 @@
                 </configuration>
             </plugin>
         </plugins>
-    </build>
+    </build>-->
 
 </project>
 

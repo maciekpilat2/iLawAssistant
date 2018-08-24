@@ -136,6 +136,27 @@
                                         </div>
                                     </div>
                                 </div>
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h3 class="category text-danger">
+                                            <i class="now-ui-icons media-2_sound-wave"></i> Wyszukiwanie w KRS
+                                        </h3>
+                                    </div>
+                                    <div class="card-body">
+                                        <form id="krsForm" method="post">  
+                                            <select name="krsDataType">
+                                                <option th:Each = "k : ${krsNumberTypeEnum}"  th:value="${k}" th:text="${k}" ></option>
+                                            </select>
+                                            <input name="krsData" type="text" class="form-control"></input>
+                                            <input type="submit" value="Zatwierdź"></input>
+                                        </form>
+
+                                        <div th:text="${krsDataModel?.adres?.streetName}"></div>
+                                        <div th:text="${krsDataModel?.adres?.streetNumber}"></div>
+                                        <div th:text="${krsDataModel?.adres?.city}"></div>
+                                        <div th:text="${krsDataModel?.adres?.postalCode}"></div>
+                                    </div>
+                                </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="card">
@@ -222,29 +243,30 @@
                 </div>
             </div>
             <script>
-                                $(document).ready(function(){
-                $('#ajaxAddress').on("click", function () {
-  
+                $(document).ready(function () {
+                    $('#ajaxAddress').on("click", function () {
+
                         $('#addressText').slideToggle("slow").DataTable({
                             paging: false,
                             ordering: false,
                             info: false,
-                            "ajax":{
-                                "url" : "http://localhost:8200/userpanel/ajax/clientaddress?clientId=2", th:onclick="'location.href = \'' + @{/eventpanel(eventId=${e.id})} + '\''"
-                                "dataSrc" : ""
+                            "ajax": {
+                                "url": "http://localhost:8200/userpanel/ajax/clientaddress?clientId=2", th: onclick = "'location.href = \'' + @{/eventpanel(eventId=${e.id})} + '\''"
+                                        "dataSrc" : ""
                             },
-                            'columns' : [
-                                {"data" : "streetNumber"},
-                                {"data" : "streetName"},
-                                {"data" : "city"},
-                                {"data" : "administrativeArea"},
-                                {"data" : "postalCode"},
-                                {"data" : "country"}   
+                            'columns': [
+                                {"data": "streetNumber"},
+                                {"data": "streetName"},
+                                {"data": "city"},
+                                {"data": "administrativeArea"},
+                                {"data": "postalCode"},
+                                {"data": "country"}
                             ]
                         })
-     })});
-                
-             
+                    })
+                });
+
+
             </script>
         </div>
 

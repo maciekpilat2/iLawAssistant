@@ -14,21 +14,11 @@
         <link href="/css/app.css" rel="stylesheet"/>
     </head>
     <body>
-        <form id="krsForm" method="post">  
-            <select name="krsDataType">
-                <option th:Each = "k : ${krsNumberTypeEnum}"  th:value="${k}" th:text="${k}" ></option>
-            </select>
-            <input name="krsData" type="text" class="form-control"></input>
-            <input type="submit" value="Zatwierdź"></input>
-        </form>
 
-        <div th:text="${krsDataModel?.adres?.streetName}"></div>
-        <div th:text="${krsDataModel?.adres?.streetNumber}"></div>
-        <div th:text="${krsDataModel?.adres?.city}"></div>
-        <div th:text="${krsDataModel?.adres?.postalCode}"></div>
 
-        <button type="button" onclick="location.href = '/userpanel';">Powrót</button>
+        <script type="text/javascript"  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAKquDS_WCnGAUZWXhzbNzky2P6q3GtW88&amp;libraries=places&amp;callback=initAutocomplete" async="async" defer="defer">
+        </script>
+        <script src="/js/addressAutocomplete.js"></script>
         <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     </body>
 </html>
-

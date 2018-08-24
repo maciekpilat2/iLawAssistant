@@ -16,6 +16,5 @@ Any value defined here will override the pom.xml file value but is only applicab
         <org-netbeans-modules-css-prep.sass_2e_configured>true</org-netbeans-modules-css-prep.sass_2e_configured>
         <org-netbeans-modules-css-prep.sass_2e_enabled>true</org-netbeans-modules-css-prep.sass_2e_enabled>
         <org-netbeans-modules-css-prep.sass_2e_mappings>/scss:/css</org-netbeans-modules-css-prep.sass_2e_mappings>
-        <org-netbeans-modules-maven-jaxws._5f_C_5f_UslugaBIRzewnPubl_2e_xsd>https://wyszukiwarkaregontest.stat.gov.pl/wsBIR/wsdl/UslugaBIRzewnPubl.xsd</org-netbeans-modules-maven-jaxws._5f_C_5f_UslugaBIRzewnPubl_2e_xsd>
     </properties>
 </project-shared-configuration>
